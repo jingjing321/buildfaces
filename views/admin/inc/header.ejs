@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>筑脸网后台管理系统</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-editable.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="css/light-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="script/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="script/bootstrap.min.js"></script>
+	<script type="text/javascript" src="script/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="script/bootstrap-table.js"></script>
+	<script type="text/javascript" src="script/bootstrap-editable.js"></script>
+	<script type="text/javascript" src="script/bootstrap-table-editable.js"></script>
+	<script type="text/javascript" src="script/bootstrap-table-export.js"></script>
+	<script type="text/javascript" src="script/public-func.js"></script>
+	<script type="text/javascript" src="script/main.js"></script>
+</head>
+<body>
+	<header>
+    <div class='navbar'>
+        <div class='navbar-inner'>
+            <div class='container-fluid'>
+                <a class='brand icon-logo' href='../admin'>
+                  <span class='logo-txt'>筑脸网后台管理系统</span>
+                </a>
+                <ul class='nav pull-right'>
+                    <li class='dropdown dark user-menu'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            <img alt='Mila Kunis' height='23' src='images/avatar.jpg' width='23' />
+                            <span class='user-name hidden-phone'></span>
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='#'>
+                                    <i class='icon-user'></i>
+                                    用户管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#'>
+                                    <i class='icon-cog'></i>
+                                    设置
+                                </a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='#' onclick="exit()">
+                                    <i class='icon-signout'></i>
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div id='wrapper'>
+	<div id='main-nav-bg'></div>
+	<nav class='' id='main-nav'>
+		<div class='navigation'>
+			<div class='search'>
+			    <form accept-charset="UTF-8" action="search_results.html" method="get" /><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+			        <div class='search-wrapper'>
+			            <input autocomplete="off" class="search-query" id="q" name="q" placeholder="Search..." type="text" value="" />
+			            <button class="btn btn-link icon-search" name="button" type="submit"></button>
+			        </div>
+			    </form>
+			</div>
+			<ul class='nav nav-stacked'>
+
+				<li class=''>
+				    <a class='dropdown-collapse' href='#'>
+				        <i class='icon-home'></i>
+				        <span>筑脸头条</span>
+				        <i class='icon-angle-down angle-down'></i>
+				    </a>
+				    <ul class='nav nav-stacked'>
+				        <li class='active'>
+				            <a href='/admin'>
+				                <i class='icon-caret-right'></i>
+				                <span>头条信息管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='column'>
+				                <i class='icon-caret-right'></i>
+				                <span>头条栏目管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='comment'>
+				                <i class='icon-caret-right'></i>
+				                <span>评价管理</span>
+				            </a>
+				        </li>
+				        
+				    </ul>
+				</li>
+				<li>
+				    <a class='dropdown-collapse ' href='#'>
+				        <i class='icon-legal'></i>
+				        <span>政府招标</span>
+				        <i class='icon-angle-down angle-down'></i>
+				    </a>
+				    <ul class='nav nav-stacked'>
+				        <li class=''>
+				            <a href='gov'>
+				                <i class='icon-caret-right'></i>
+				                <span>招标信息管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='gov-column'>
+				                <i class='icon-caret-right'></i>
+				                <span>招标栏目管理</span>
+				            </a>
+				        </li>
+				    </ul>
+				</li>
+
+				<li>
+				    <a class='dropdown-collapse ' href='#'>
+				        <i class='icon-book'></i>
+				        <span>广告管理</span>
+				        <i class='icon-angle-down angle-down'></i>
+				    </a>
+				    <ul class='nav nav-stacked'>
+				        <li class=''>
+				            <a href='ad'>
+				                <i class='icon-caret-right'></i>
+				                <span>广告位管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='ad-default'>
+				                <i class='icon-caret-right'></i>
+				                <span>默认广告设置</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='ad-buy'>
+				                <i class='icon-caret-right'></i>
+				                <span>购买广告</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='ad-sell-report'>
+				                <i class='icon-caret-right'></i>
+				                <span>广告销售报表</span>
+				            </a>
+				        </li>
+				        
+				    </ul>
+				</li>
+
+				<li>
+				    <a class='dropdown-collapse ' href='#'>
+				        <i class='icon-cogs'></i>
+				        <span>系统权限管理</span>
+				        <i class='icon-angle-down angle-down'></i>
+				    </a>
+				    <ul class='nav nav-stacked'>
+				        <li class=''>
+				            <a href='user-manage'>
+				                <i class='icon-caret-right'></i>
+				                <span>账号管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='user-character'>
+				                <i class='icon-caret-right'></i>
+				                <span>角色管理</span>
+				            </a>
+				        </li>
+				        <li class=''>
+				            <a href='user-authority'>
+				                <i class='icon-caret-right'></i>
+				                <span>权限管理</span>
+				            </a>
+				        </li>
+				    </ul>
+				</li>
+			</ul>
+		</div>
+	</nav>

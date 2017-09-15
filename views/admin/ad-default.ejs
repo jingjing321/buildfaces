@@ -1,0 +1,85 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>默认广告设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+				<div class="span12">
+					<span>选择广告位：</span> 
+					<select>
+						<option value="pc">PC端</option>
+						<option value="phone">手机端</option>
+					</select>
+					<select>
+						<option value="浙江省">首页</option>
+						<option value="浙江省">建品会首页</option>
+					</select>
+					<select>
+						<option value="pc">横幅</option>
+						<option value="phone">幻灯片广告位</option>
+					</select>
+					<button class="btn">搜索</button>
+				</div>
+				<br> <br>
+				<div class="span12 table-block">
+					<table id="ad-default-list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="ad-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">编辑</h2>
+      </div>
+      <div class="modal-body">
+        <div class="margin">
+        	<b>您选择的广告位：</b><span>PC端——首页幻灯片广告位1</span>
+        </div>
+        <div class="margin">
+        	<img id="preview" class="img-upload"> 
+	        	<b>请上传广告图片：</b> <a href="#" class="a-upload"> <input type="file" name="" onchange="imgPreview(this)" class="file_input">上传文件 </a><span class="gray">(广告尺寸：800*600)</span>
+        </div>
+        <div class="margin">
+        	<b>广告链接地址：</b> <input type="url" name="">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ad-price-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">修改价格</h2>
+      </div>
+      <div class="modal-body">
+        <div class="margin">
+        	<b>您选择的广告位：</b><span>PC端——首页幻灯片广告位1</span>
+        </div>
+        <div class="margin">
+        	<b>设置价格：</b><input type="number" name=""> /周 &nbsp; <input type="number" name=""> /月 &nbsp; <input type="number" name=""> /年
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="script/ad-default.js"></script>
+<%- include("inc/footer.ejs");%>

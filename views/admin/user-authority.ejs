@@ -1,0 +1,50 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>角色管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+				<div class='span12'>
+		            <a href="#" class="link active">角色成员</a>
+		            <a href="#" class="link">模块权限</a>
+		            <a href="#" class="link">按钮权限</a>
+		            <a href="#" class="link ">数据权限</a>
+		            <a href="#" class="link ">字段权限</a>
+		            <a href="#" class="link">文件权限</a>
+				</div>
+				<br><br>
+				<div class="span2 table-block tree-span">
+					<span class="span-title">组织机构</span> <br> <br>
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+				<div class="span2 table-block tree-span no-margin">
+					<span class="span-title">角色列表</span> <br> <br>
+					<ul>
+						<li>系统管理员（444444）</li>
+						<li>系统管理员（444444）</li>
+						<li>系统管理员（444444）</li>
+						<li>系统管理员（444444）</li>
+					</ul>
+				</div>
+				<div class="span8 table-block">
+					<div class='btn-group span12'>
+			            <a href="#" class="btn btn-white">刷新</a>
+			            <a href="#" class="btn btn-white " data-toggle="modal" data-target="#character-add-modal">重置</a>
+			            <a href="#" class="btn btn-white ">授权</a>
+			            <a href="#" class="btn btn-white ">离开</a>
+					</div>
+					<br> <br>
+					<div id="authority-table">
+   						<ul id="dataTree" class="ztree"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="script/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="script/user-authority.js"></script>

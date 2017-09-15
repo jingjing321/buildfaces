@@ -1,0 +1,62 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>广告销售报表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+				<div class="span12">
+					<span>选择时间段：</span>
+					<select>
+						<option value="pc">全部年份</option>
+						<option value="phone">15年</option>
+					</select> &nbsp;&nbsp;
+					<select>
+						<option value="pc">全部月份</option>
+						<option value="phone">1月</option>
+					</select> &nbsp;&nbsp;&nbsp;&nbsp;
+					<span>选择城市：</span>
+					<select>
+						<option value="pc">全部</option>
+						<option value="phone">浙江</option>
+					</select> &nbsp;&nbsp;
+					<span>选择管理员：</span>
+					<select>
+						<option value="pc">全部</option>
+						<option value="phone">admin</option>
+					</select>
+					<button class="btn">查询</button>
+				</div>
+				<br> <br>
+				<table id="sell-report-list"></table>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="sell-detail-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">销售详细记录</h2>
+      </div>
+      <div class="modal-body">
+        <span>已选时间段：2015年1月 &nbsp;&nbsp; 
+        已选城市站点：绍兴站 &nbsp;&nbsp; 
+        已选管理员账号：admin</span>
+        <br> <br>
+        <table id="sell-detail-list"></table>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="script/ad-sell-report.js"></script>
+<%- include("inc/footer.ejs");%>

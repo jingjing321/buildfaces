@@ -1,0 +1,60 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>政府招标信息管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+
+				<div class='span12'>
+				    <a href="#" class="link active">未审核信息</a>
+				    <a href="#" class="link">全部信息</a>
+				    <a href="#" class="link ">推荐信息</a>
+				    <a href="#" class="link ">置顶信息</a>
+				</div>
+				<br><br>
+
+				<div class="span12">
+					<span>站点：</span> 
+					<select>
+						<option value="浙江省">浙江</option>
+						<option value="浙江省">江苏</option>
+						<option value="浙江省">福建</option>
+					</select>
+					<select>
+						<option value="浙江省">杭州</option>
+						<option value="浙江省">嘉兴</option>
+					</select>
+					&nbsp;&nbsp;&nbsp;
+					<span>所属栏目：</span>
+					<select>
+						<option value="浙江省">浙江</option>
+						<option value="浙江省">江苏</option>
+						<option value="浙江省">福建</option>
+					</select>
+					&nbsp;&nbsp;&nbsp;
+					<span>关键字：</span>
+					<input type="text" name="">
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn">搜索</button>
+				</div>
+				<br> <br><br>
+				<div class='btn-group span12'>
+				    <a href="#" class="btn btn-white">审核</a>
+				    <a href="#" class="btn btn-white ">推荐</a>
+				    <a href="#" class="btn btn-white ">置顶</a>
+				    <a href="#" class="btn btn-white ">删除</a>
+				</div>
+				<br> <br>
+				<div class="span12 table-block">
+					<table id="gov-list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="script/gov.js"></script>
+<%- include("inc/footer.ejs");%>

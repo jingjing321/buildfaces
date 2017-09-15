@@ -1,0 +1,113 @@
+<%- include("inc/header.ejs");%>
+<link rel="stylesheet" href="css/user-manage.css">
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>账号管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+				<div class="span12 table-block">
+					<div class='btn-group span12'>
+			            <a href="#" class="btn btn-white" onclick="refresh()">刷新</a>
+			            <a href="#" class="btn btn-white " onclick="add_user()">新增</a>
+			            <a href="#" class="btn btn-white " onclick="edit()">编辑</a>
+			            <a href="#" class="btn btn-white ">删除</a>
+			            <!--<a href="#" class="btn btn-white ">查看详情</a>-->
+			            <a href="#" class="btn btn-white " onclick="reset_password()">重置密码</a>
+			            <a href="#" class="btn btn-white ">分配角色</a>
+			            <a href="#" class="btn btn-white ">引入</a>
+			            <a href="#" class="btn btn-white ">引出</a>
+			            <a href="#" class="btn btn-white ">离开</a>
+					</div>
+					<br> <br>
+					<table id="user-list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="user-add-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;width: 700px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">添加用户</h2>
+      </div>
+		<form id="add-admin" name="add-admin">
+      		<div class="modal-body">
+
+			  <div class="pull-left">
+				  <span>姓名：</span> <input type="text" name="name" id="name" required >
+				  <br> <br>
+				  <span>性别：</span>
+				  <select name="sex" id="sex">
+					  <option value="0">男</option>
+					  <option value="1">女</option>
+				  </select>
+				  <br> <br>
+				  <span>出生日期：</span>
+				  <input type="date" name="birthday" id="birthday">
+				  <br> <br>
+				  <span>职位：</span>
+				  <select name="positionId" id="positionId">
+				  </select>
+				  <br> <br>
+				  <span>职称：</span>
+				  <select name="rankId">
+				  </select>
+				  <br> <br>
+				  <span>公司：</span>
+				  <select name="companyId" id="companyId">
+					  <option>绍兴分公司</option>
+					  <option>jfjjfj</option>
+				  </select>
+				  <br><br>
+				  <span>部门名称：</span>
+				  <select name="departmentId" id="departmentId">
+					  <option>jjjj</option>
+					  <option>ddddd</option>
+				  </select>
+				  <br> <br>
+				  <span>广告折扣：</span>
+				  <input type="number" name="adDiscount" required>%
+			  </div>
+			  <div class="pull-right">
+				  <span>登录账号：</span> <input type="text" name="accountName" id="accountName" required>
+				  <br> <br>
+				  <span>登录密码：</span> <input type="password" name="password" id="password" required>
+				  <br> <br>
+				  <span>手机：</span> <input type="text" name="phone" id="phone" pattern="^1[34578]\d{9}$" title="请填写正确的手机号码！">
+				  <br> <br>
+				  <span>电话：</span> <input type="text" name="telphone" id="telphone">
+				  <br> <br>
+				  <span>QQ：</span> <input type="text" name="">
+				  <br> <br>
+				  <span>电子邮件：</span> <input type="email" name="qq" id="qq">
+				  <br> <br>
+				  <span>默认角色：</span>
+				  <select name="roleId" id="roleId">
+					  <option>doid</option>
+					  <option>fjd</option>
+				  </select>
+			  </div>
+			  <div class="clearfix"></div>
+			  <br> <br>
+			  <span>有效性：</span>
+			  <input type="checkbox" name="valid" id="valid">有效 &nbsp;&nbsp;<span class="warn">注意：禁用该用户后，将不能登录</span>
+			  <br> <br>
+			  <span>说明：</span>
+			  <textarea rows="4" cols="20" name="description"></textarea>
+      	</div>
+		<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<input type="submit" class="btn btn-primary" id="user-modal-submit" onclick="new_user()"></input>
+      	</div>
+	</form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="script/user-manage.js"></script>
+<%- include("inc/footer.ejs");%>

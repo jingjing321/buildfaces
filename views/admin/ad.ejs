@@ -1,0 +1,51 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>广告位管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+					<div class='pull-right'>
+						<a class="btn btn-danger btn-mini" href="#" style="margin-top:8px;">默认广告设置</a>
+					</div>
+				</div>
+
+				<div class="span12">
+					<span>站点：</span> 
+					<select>
+						<option value="浙江省">浙江</option>
+						<option value="浙江省">江苏</option>
+						<option value="浙江省">福建</option>
+					</select>
+					<select>
+						<option value="浙江省">杭州</option>
+						<option value="浙江省">嘉兴</option>
+					</select>
+					&nbsp;&nbsp;&nbsp;
+					<span>选择广告位：</span>
+					<select>
+						<option value="pc">PC端</option>
+						<option value="phone">手机端</option>
+					</select>
+					<select>
+						<option value="pc">首页</option>
+						<option value="phone">建品会首页</option>
+					</select>
+					<select>
+						<option value="pc">横幅</option>
+						<option value="phone">幻灯片广告位</option>
+					</select>
+					<button class="btn">搜索</button>
+				</div>
+				<br> <br>
+				<div class="span12 table-block">
+					<table id="ad-list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="script/ad.js"></script>
+<%- include("inc/footer.ejs");%>

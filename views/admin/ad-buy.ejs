@@ -1,0 +1,55 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>购买广告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+
+				<div class="span12">
+					<span>您选择的广告位：</span><span>绍兴站——PC端——首页幻灯片广告位</span> <br> <br>
+					<span>选择购买时间段：</span>
+					<input type="radio" name="time">1周（￥1000）
+					<input type="radio" name="time">1月（￥3000）
+					<input type="radio" name="time">1年（#30000）
+					<br> <br>
+					<span>请选择开始时间：</span>
+					<input type="date" name="">
+					<br> <br>
+					<img id="preview" class="img-upload">
+					<span >请上传广告图片：</span> <a href="#" class="a-upload"> <input type="file" name="" onchange="imgPreview(this)" class="file_input">上传文件 </a><span class="gray">(广告尺寸：800*600)</span>
+					<br> <br>
+					<span>广告链接地址：</span> <input type="url" name="">
+					<br> <br>
+					<button class="btn"  data-toggle='modal' data-target='#ad-pay-modal'>确认提交，去支付</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="ad-pay-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">购买广告</h2>
+      </div>
+      <div class="modal-body">
+        <b>您选择的广告位:</b> <span>PC——首页幻灯片广告位1</span>
+        <br> <br>
+        <b>您需要支付：</b> <span class="red">￥1000</span>
+        <br> <br>
+        <b>选择支付方式：</b> <input type="radio" name="pay-way"> 支付宝
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">确认支付</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="script/ad.js"></script>
+<%- include("inc/footer.ejs");%>

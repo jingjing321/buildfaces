@@ -1,0 +1,29 @@
+<%- include("inc/header.ejs");%>
+<section id='content'>
+	<div class='container-fluid'>
+		<div class='row-fluid' id='content-wrapper'>
+			<div class='span12'>
+				<div class='page-header'>
+					<h1 class="pull-left">
+						<span>栏目管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</h1>
+				</div>
+					
+				<div class="span12">
+					<span>父 分 类：</span>
+					<select>
+						<option value="顶级分类">顶级分类</option>
+						<option value="土方建设">土方建设</option>
+					</select>
+					<span>栏目名称：</span> 
+					<input type="text" name="">
+					<button class="btn">创建</button>
+				</div>
+				<br> <br>
+				<table id="column-list"></table>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="script/gov-column.js"></script>
+<%- include("inc/footer.ejs");%>

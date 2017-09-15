@@ -1,0 +1,222 @@
+.bar .searchbar{
+	background: rgba(0,0,0,0);
+	width: 80%;
+    display: inline-block;
+}
+.bar{
+	background-color: #f6383a; 
+}
+.title{
+	color: white;
+}
+header a{
+	color: white;
+}
+.button{
+	border-radius: 0px;
+}
+.bar .button-link{
+	color: white;
+}
+.button.button-fill{
+	line-height: 1.65rem;
+	margin: 0px .5rem ;
+}
+.button{
+	height: 1.65rem;
+}
+.bar-tab .tab-item .fa {
+    top: .05rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.bar .fa {
+    position: relative;
+    z-index: 20;
+    padding: .5rem .1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+nav.bar {
+    background-color: #f9f9f9;
+    border-top: 1px solid #ececec;
+}
+.bar-tab .tab-item.active, .bar-tab .tab-item:active {
+    color: #f6383a;
+}
+.bar-tab .tab-item .fa~.tab-label {
+    display: block;
+    font-size: .55rem;
+    position: relative;
+    top: .15rem;
+}
+.tab-link{
+	background-color: white;
+}
+.swiper-container{
+	padding-bottom: 0px;
+}
+.content-block{
+	padding: 0px;
+}
+.list-block{
+	margin-top: 2rem;
+}
+.list-block.media-list .item-media{
+	padding-right: .85rem;
+}
+.list-block .item-link .item-inner{
+	background-image: url("");
+}
+.item-content-row {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: #8c8c8c;
+}
+.types{
+	float: left;
+}
+.time{
+	float: right;
+}
+.more-icon{
+	float: right;
+    width: 10%;
+    text-align: center;
+    line-height: 2rem;
+    background-color: white;
+    color: #8a8a8a;
+}
+.swiper-container{
+	display: inline-block;
+    width: 90%;
+}
+.buttons-tab .button.active {
+    color: #f6383a;
+    border-color: #f6383a;
+}
+.sui-label{
+	display: inline-block;
+    padding: 0.3em 0.35em;
+    font-size: 0.6rem;
+    line-height: 1;
+    color: #616161;
+    background-color: #e0e0e0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.15em;
+}
+.padding{
+	padding:.5rem;
+}
+.detail-title{
+	text-align: center;
+}
+#index-detail .info{
+	font-size: .75rem;
+    color: #909090;
+    text-align: right;
+}
+#index-detail .info span{
+	margin-left: 0.4rem;
+}
+.comment{
+	border-left: solid #f6383a;
+    padding-left: .3rem;
+    margin-top: 1rem;
+
+}
+.comment .like{
+	float: right;
+}
+#comments_list{
+	padding-left: 1.3rem;
+}
+.com_bottom .useful{
+    float: right;
+    font-size: 10px; 
+    padding: 0 15px; 
+    text-align: center;
+    line-height: 20px; 
+    border-radius: 10px;
+    color: #999999;
+    border: 1px solid #999999;
+}
+.com_bottom .useful.usefulClick {
+    color: #F32D27; 
+    border: 1px solid #F32D27;
+}
+.comments {width: 100%;height: auto;overflow: hidden;border-bottom: 1px solid #CCCCCC;padding-bottom: 15px;}
+.com_top{height: 50px;width: 100%;margin-top: 10px;overflow: hidden;line-height: 50px;margin-bottom: 15px;}
+.com_top .photo{float: left;display: inline-block;width: 50px;height: 50px;border-radius: 100%;overflow: hidden;}
+.com_top .photo img{width: 100%;height: auto;}
+.com_top .name{color: #333333;font-size: 14px;padding-left: 15px;}
+
+.com_content{color: #333333;font-size: 12px;line-height: 20px;margin-bottom: 10px;}
+
+.com_bottom{height: 22px;line-height: 22px;overflow: hidden;}
+.com_bottom span{display: inline-block;}
+.com_bottom .time{float: left;font-size: 10px;color: #999999;}
+
+.com_bottom #like{
+	float: right;font-size: 10px; padding: 0 15px;
+	text-align: center;line-height: 20px; border-radius: 10px;
+}
+
+.com_bottom .useful{
+	color: #999999;border: 1px solid #999999;
+
+}
+.detail-bar{
+	background-color: #e6e6e6;
+}
+.detail-bar .searchbar{
+	width: 75%;
+    margin-left: .5rem;
+    display: inline-block;
+}
+.detail-bar i{
+	float: right;
+	margin-right: .7rem;
+}
+.tabs .content-block{
+	margin-top: 0px;
+	margin-bottom: .4rem;
+}
+.list-block{
+	margin-top: 0px;
+}
+.column-block{
+	list-style: none;
+    padding: 0 1rem;
+}
+.column-block li {
+    background-color: white;
+    text-align: center;
+    font-size: .6rem;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    margin: .2rem 0;
+}
+
+/*goverment*/
+#goverment .swiper-container{
+	width: 100%;
+}
+.goverment .item-content-row{
+	margin-top: .4rem;
+}
+.buttons-row .button{
+	line-height: 1.5rem;
+}
+.buttons-row .button.active{
+	background-color: #f6383a;
+}
+.buttons-row .button{
+	border-color: #f6383a;
+	color: #f6383a;
+}

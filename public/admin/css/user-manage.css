@@ -1,0 +1,18 @@
+.modal .pull-left select,#user-add-modal .pull-right select{
+	width: 220px;
+}
+#user-add-modal{
+	width: 675px;
+}
+.modal .modal-body span{
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+}
+.modal .modal-body .warn{
+	width: inherit;
+    color: #ba5063;
+}
+.modal textarea{
+	width: 82%;
+}

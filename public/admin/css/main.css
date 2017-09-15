@@ -1,0 +1,50 @@
+.icon-logo{display:inline-block;padding-left:40px; background:url(../images/logo.png) 15px 8px no-repeat;height:30px;padding-bottom:10px;}
+.logo-txt{margin-left:35px;margin-bottom:20px;}
+.navbar{line-height:40px;}
+.navbar .btn, .navbar .btn-group{margin-top:8px;}
+select{
+	width: 10%;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {margin-bottom: 0px}
+.panel-header, .panel-body {
+    border-color: #ececec;
+}
+.datagrid{
+	margin-top: 2%;
+}
+.table-block{
+	margin-top: 20px
+}
+a.link {
+    color: #0088cc;
+    font-size: 16px;
+    margin-right: 10px;
+}
+a.link.active{
+	color: black;
+}
+.margin{
+	margin-bottom: 13px;
+}
+.modal h2{
+	line-height: 8px;
+}
+.ztree li a{
+	height: 20px;
+}
+.ztree *{
+	font-size: 14px;
+}
+.tree-span{
+	background-color: white;
+    padding: 9px;
+    border: 1px solid #e6e6e6;
+}
+.modal .modal-body span{
+	display: inline-block;
+	width: 70px;
+	text-align: right;
+}
+.modal  select{
+	width: 220px;
+}
