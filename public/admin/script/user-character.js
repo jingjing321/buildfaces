@@ -149,20 +149,68 @@ function new_role(){
     })
 }
 function edit(){
-    $("user-character-list").bootstrapTable('getSelections');
+    var a=$("#user-character-list").bootstrapTable('getSelections');
     if(a.length!=1){
         alert("请选择一个用户！");
         return;
     }
     for(var i=0;i<$("#add-role").find("input").length;i++){
-        if(data.data[$("#add-role").find("input").eq(i)[0].name]){
+        if(a[0][$("#add-role").find("input").eq(i)[0].name]){
             $("#add-role").find("input").eq(i).val(a[0][$("#add-role").find("input").eq(i)[0].name]);
         }
     }
     for(var i=0;i<$("#add-role").find("select").length;i++){
-        if(data.data[$("#add-role").find("select").eq(i)[0].name]){
+        if(a[0][$("#add-role").find("select").eq(i)[0].name]){
             $("#add-role").find("select").eq(i)[0].value=a[0][$("#add-role").find("select").eq(i)[0].name];
         }
     }
+    if(a[0].valid){
+        $("#add-role #valid")[0].checked=true;
+    }
+    if(a[0].modifiable){
+        $("#add-role #modifiable")[0].checked=true;
+    }
+    $("#add-role textarea").val(a[0].description);
+    $("#add-role #role-modal-submit")[0].value="修改信息";
+    $("#role-modal-submit").attr("onclick","edit_role("+a[0].roleId+")");
+    $("#character-add-modal").modal("show");
 
 }
+function edit_role(roleId){
+    var a=$("#add-role").serializeJSON();
+    if(!a.valid){
+        a.valid=false;
+    }
+    if(!a.modifiable){
+        a.modifiable=false;
+    }
+    a.roleId=roleId;
+    for(var i=0;i<$("#add-role").find("input").length;i++){
+        if(!$("#add-role").find("input")[i].validity.valid){
+            return;
+        }
+    }
+    $.ajax({
+        url:baseUrl+"/platform/manager/role/edit",
+        type:"post",
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        data:JSON.stringify(a),
+        dataType:'json',
+        success:function(data){
+            if(data.success){
+                $("#character-add-modal").modal("hide");
+                alert("角色修改成功！");
+                refresh();
+            }
+            else{
+                alert(data.errorMsg);
+            }
+        },
+        error:function(error){
+            alert("角色修改失败，请重试！");
+        }
+    })
+}
+
