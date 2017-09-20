@@ -14,11 +14,11 @@
 				</div>
 				<div class="span9 table-block">
 					<div class='btn-group span12'>
-			            <a href="#" class="btn btn-white" onclick="refresh()">刷新</a>
+			            <a href="#" class="btn btn-white" onclick="ref()">刷新</a>
 			            <a href="#" class="btn btn-white " onclick="add()">新增</a>
 			            <a href="#" class="btn btn-white " onclick="edit()">编辑</a>
-			            <a href="#" class="btn btn-white ">删除</a>
-			            <a href="#" class="btn btn-white ">离开</a>
+			            <a href="#" class="btn btn-white " onclick="del()">删除</a>
+			            <!--<a href="#" class="btn btn-white ">离开</a>-->
 					</div>
 					<br> <br>
 					<table id="user-character-list"></table>
@@ -41,6 +41,9 @@
 				<span>角色分类：</span>
 				<select name="roleTypeId" id="roleType">
 				</select>
+				<br> <br>
+				<span>所属公司：</span>
+				<select name="companyId" id="companyId"></select>
 				<br> <br>
 				<span>选项：</span>
 				<input type="checkbox" name="valid" value="true" id="valid"> 有效 &nbsp;&nbsp;

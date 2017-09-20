@@ -29,8 +29,8 @@ span.span-title {
 
 /*ztree表格*/
 #authority-table .ztree {
-    padding: 0;
-    border: 2px solid #CDD6D5;
+    padding: 10px;
+    border: 1px solid #dddddd;
 }
 
 #authority-table .ztree li a {
@@ -65,8 +65,8 @@ span.span-title {
     height: 100%;
     width: 20%;
     line-height: 30px;
-    border-top: 1px dotted #ccc;
-    border-left: 1px solid #eeeeee;
+    border-top: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
     text-align: center;
     display: inline-block;
     box-sizing: border-box;
@@ -83,15 +83,25 @@ span.span-title {
 }
 
 #authority-table .ztree .head {
-    background: #5787EB;
+    background: #fbfbfb;
 }
 
 #authority-table .ztree .head div.diy {
     border-top: none;
-    border-right: 1px solid #CDD2D4;
-    color: #fff;
+    color: black;
     font-family: "Microsoft YaHei";
     font-size: 14px;
+    font-weight: 600;
 }
 
 /*end--ztree表格*/
+
+#authority-table ul li ul {
+    margin-top: 11px;
+}
+#authority-table ul li {
+    margin-bottom: 11px;
+}
+#authority-table #dataTree span {
+    font-size: 15px;
+}

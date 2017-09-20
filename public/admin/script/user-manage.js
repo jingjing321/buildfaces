@@ -363,3 +363,32 @@ function getData(data){
          }
      })
  }
+function del(){
+    var a=$("#user-list").bootstrapTable("getSelections");
+    if(a.length!=1){
+        alert("请选择一个用户！");
+        return ;
+    }
+    var managerId=a[0].managerId;
+    $.ajax({
+        url: baseUrl + "/platform/manager/delete",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify(managerId),
+        dataType: 'json',
+        success: function (data) {
+            if(data.success){
+                alert("用户删除成功！");
+                refresh();
+            }
+            else{
+                alert(data.errorMsg)
+            }
+        },
+        error:function(error){
+            alert("用户删除失败，请重试！");
+        }
+    })
+}

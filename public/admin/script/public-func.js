@@ -6,6 +6,7 @@ function getlist(url,$el){
     $.ajax({
         url:baseUrl+"/platform/basic/"+url+"/list",
         type:"post",
+        async:false,
         contentType:"application/json;charset=utf-8",
         crossDomain:true,
         headers:{"authorization":sessionStorage.authorization},
