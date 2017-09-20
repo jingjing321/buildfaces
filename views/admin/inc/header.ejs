@@ -4,7 +4,6 @@
     <title>筑脸网后台管理系统</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="css/easyui.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-editable.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
@@ -18,7 +17,7 @@
 	<script type="text/javascript" src="script/bootstrap-table-editable.js"></script>
 	<script type="text/javascript" src="script/bootstrap-table-export.js"></script>
 	<script type="text/javascript" src="script/public-func.js"></script>
-	<script type="text/javascript" src="script/main.js"></script>
+
 </head>
 <body>
 	<header>
@@ -74,28 +73,28 @@
 			        </div>
 			    </form>
 			</div>
-			<ul class='nav nav-stacked'>
+			<ul class='nav nav-stacked menu'>
 
-				<li class=''>
+				<li class='' data-seq="2">
 				    <a class='dropdown-collapse' href='#'>
 				        <i class='icon-home'></i>
 				        <span>筑脸头条</span>
 				        <i class='icon-angle-down angle-down'></i>
 				    </a>
 				    <ul class='nav nav-stacked'>
-				        <li class='active'>
+				        <li class='active' data-seq="2001">
 				            <a href='/admin'>
 				                <i class='icon-caret-right'></i>
 				                <span>头条信息管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="2002">
 				            <a href='column'>
 				                <i class='icon-caret-right'></i>
 				                <span>头条栏目管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="2003">
 				            <a href='comment'>
 				                <i class='icon-caret-right'></i>
 				                <span>评价管理</span>
@@ -104,20 +103,20 @@
 				        
 				    </ul>
 				</li>
-				<li>
+				<li data-seq="3">
 				    <a class='dropdown-collapse ' href='#'>
 				        <i class='icon-legal'></i>
 				        <span>政府招标</span>
 				        <i class='icon-angle-down angle-down'></i>
 				    </a>
 				    <ul class='nav nav-stacked'>
-				        <li class=''>
+				        <li class='' data-seq="3001">
 				            <a href='gov'>
 				                <i class='icon-caret-right'></i>
 				                <span>招标信息管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="3002">
 				            <a href='gov-column'>
 				                <i class='icon-caret-right'></i>
 				                <span>招标栏目管理</span>
@@ -126,32 +125,32 @@
 				    </ul>
 				</li>
 
-				<li>
+				<li data-seq="4">
 				    <a class='dropdown-collapse ' href='#'>
 				        <i class='icon-book'></i>
 				        <span>广告管理</span>
 				        <i class='icon-angle-down angle-down'></i>
 				    </a>
 				    <ul class='nav nav-stacked'>
-				        <li class=''>
+				        <li class='' data-seq="4001">
 				            <a href='ad'>
 				                <i class='icon-caret-right'></i>
 				                <span>广告位管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="4002">
 				            <a href='ad-default'>
 				                <i class='icon-caret-right'></i>
 				                <span>默认广告设置</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="4003">
 				            <a href='ad-buy'>
 				                <i class='icon-caret-right'></i>
 				                <span>购买广告</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="4004">
 				            <a href='ad-sell-report'>
 				                <i class='icon-caret-right'></i>
 				                <span>广告销售报表</span>
@@ -161,26 +160,26 @@
 				    </ul>
 				</li>
 
-				<li>
+				<li data-seq="1">
 				    <a class='dropdown-collapse ' href='#'>
 				        <i class='icon-cogs'></i>
 				        <span>系统权限管理</span>
 				        <i class='icon-angle-down angle-down'></i>
 				    </a>
 				    <ul class='nav nav-stacked'>
-				        <li class=''>
+				        <li class='' data-seq="1001">
 				            <a href='user-manage'>
 				                <i class='icon-caret-right'></i>
 				                <span>账号管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="1002">
 				            <a href='user-character'>
 				                <i class='icon-caret-right'></i>
 				                <span>角色管理</span>
 				            </a>
 				        </li>
-				        <li class=''>
+				        <li class='' data-seq="1003">
 				            <a href='user-authority'>
 				                <i class='icon-caret-right'></i>
 				                <span>权限管理</span>
@@ -191,3 +190,4 @@
 			</ul>
 		</div>
 	</nav>
+	<script type="text/javascript" src="script/main.js"></script>

@@ -14,7 +14,40 @@ function login(){
 			if(data.success){
 				sessionStorage.authorization=request.getResponseHeader("authorization");
 				sessionStorage.managerId=data.data;
-				window.location.href="../admin";
+                $.ajax({
+                    url:baseUrl+"/platform/manager/get",
+                    type:'post',
+                    contentType:"application/json;charset=utf-8",
+                    crossDomain:true,
+                    headers:{"authorization":sessionStorage.authorization},
+                    data:sessionStorage.managerId,
+                    dataType:'json',
+                    success:function(data){
+                        if(data.success){
+                            sessionStorage.accountName=data.data.accountName;
+                            sessionStorage.roleId=data.data.roleId;
+                            $.ajax({
+                                url:baseUrl+"/platform/manager/role/module/get",
+                                type:'post',
+                                contentType:"application/json;charset=utf-8",
+                                crossDomain:true,
+                                headers:{"authorization":sessionStorage.authorization},
+                                data:JSON.stringify(sessionStorage.roleId),
+                                dataType:'json',
+                                success:function(data) {
+                                    if (data.success) {
+                                    	sessionStorage.module=data.data.moduleIds;
+                                        window.location.href="../admin";
+                                    }
+                                }
+                            })
+                        }
+                        else{
+                            sessionStorage.clear();
+                        }
+                    }
+                })
+
 			}
 			else{
 				alert(data.errorMsg);

@@ -1,24 +1,6 @@
 var baseUrl="http://192.168.20.61:8000/manager-service";
-if(sessionStorage.authorization&&sessionStorage.managerId){
-    $.ajax({
-        url:baseUrl+"/platform/manager/get",
-        type:'post',
-        contentType:"application/json;charset=utf-8",
-        crossDomain:true,
-        headers:{"authorization":sessionStorage.authorization},
-        data:sessionStorage.managerId,
-        dataType:'json',
-        success:function(data){
-            if(data.success){
-                $("header .user-name").text(data.data.accountName);
-                sessionStorage.roleId=data.data.roleId;
-            }
-            else{
-                sessionStorage.clear();
-                window.location.href="login";
-            }
-        }
-    })
+if(sessionStorage.accountName){
+    $("header .user-name").text(sessionStorage.accountName)
 }
 else{
     window.location.href="login";
@@ -80,4 +62,29 @@ else{
 function exit(){
     sessionStorage.clear();
     window.location.href="login"
+}
+
+$(".menu li").css("display","none");
+for(var i=0;i<sessionStorage.module.length;i++){
+    for(var i2=0;i2<$(".menu li").length;i++){
+        if($(".menu li").attr("data-seq")==sessionStorage.module[i]){
+            $(".menu li").css("display","");
+            break;
+        }
+    }
+}
+var module_info={"index":2001,"column":2002,"comment":2003,"gov":3001,"gov-column":3002,"ad":4001,"ad-default":4002,"ad-buy":4003,"ad-sell-report":4004,"user-manage":1001,"user-character":1002,"user-authority":1003};
+var moduleIds=sessionStorage.module.split(",");
+var local_url=window.location.pathname.split("/");
+var local_url=local_url[local_url.length-1];
+if(local_url==""){local_url="index"}
+var premission=false;
+for (var i=0;i<moduleIds.length;i++){
+    if(module_info[local_url]==moduleIds[i]){
+        premission=true;break;
+    }
+}
+if(!premission){
+    alert("您没有此页的权限！");
+    history.back();
 }
