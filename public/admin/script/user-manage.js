@@ -15,7 +15,7 @@ function getData(data){
                 idField:'managerId',
                 pagination:true,
                 columns:[[
-                    {field:'password',checkbox:true,align:'center'},
+                    {field:'',checkbox:true,align:'center'},
                     {field:'adDiscount',title:'广告折扣',align:"center",editable:{
                         type:"number",
                         title:"广告折扣"
@@ -151,6 +151,7 @@ function getData(data){
                     {field:'ctime',title:"最后登录时间",align:'center'}
                 ]],
                 onEditableSave:function (field, row, oldValue, $el) {
+                    delete row[""];
                     $.ajax({
                         url:baseUrl+"/platform/manager/edit",
                         type:"post",
@@ -200,7 +201,7 @@ function getData(data){
      getlist("rank","#rankId");
      getlist("company","#companyId");
      getlist("department","#departmentId");
-     getlist("roleType","#roleId","typeName");
+     getRole();
      $("#user-modal-submit").attr("onclick","new_user()");
      $('#user-add-modal').modal("show")
  }
@@ -300,8 +301,8 @@ function getData(data){
                  getlist("position","#positionId");
                  getlist("rank","#rankId");
                  getlist("company","#companyId");
+                 getRole();
                  getlist("department","#departmentId");
-                 getlist("roleType","#roleId","typeName");
                  for(var i=0;i<$("#add-admin").find("input").length;i++){
                      if(data.data[$("#add-admin").find("input").eq(i)[0].name]){
                          $("#add-admin").find("input").eq(i).val(data.data[$("#add-admin").find("input").eq(i)[0].name]);
@@ -389,6 +390,28 @@ function del(){
         },
         error:function(error){
             alert("用户删除失败，请重试！");
+        }
+    })
+}
+function getRole(){
+    var data={'pageName':0,"pageSize":0,"condition":{"companyId":$("#companyId").val()}};
+    $.ajax({
+        url:baseUrl+"/platform/manager/role/page",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success:function(data){
+            if(data.success){
+                $("#roleId option").remove();
+                if(data.data.list.length){
+                    for(var i=0;i<data.data.list.length;i++){
+                        $("#roleId").append(returnOption(data.data.list[i].roleId,data.data.list[i].name))
+                    }
+                }
+            }
         }
     })
 }

@@ -1,6 +1,22 @@
 var baseUrl="http://192.168.20.61:8000/manager-service";
 if(sessionStorage.accountName){
-    $("header .user-name").text(sessionStorage.accountName)
+    $.ajax({
+        url: baseUrl + "/platform/manager/get",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: sessionStorage.managerId,
+        dataType: 'json',
+        success: function (data) {
+            if (data.success) {
+                $("header .user-name").text(sessionStorage.accountName)
+            }
+            else{
+                window.location.href="login";
+            }
+        }
+    });
 }
 else{
     window.location.href="login";

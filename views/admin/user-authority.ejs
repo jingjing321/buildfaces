@@ -19,21 +19,56 @@
 					<ul id="role-list" class="ztree"></ul>
 				</div>
 				<div class="span8 table-block">
-					<div class='btn-group span12'>
+					<div class='btn-group span12 btn1'>
 			            <a href="#" class="btn btn-white" onclick="ref()">刷新</a>
 			            <a href="#" class="btn btn-white " onclick="reset()">重置</a>
 			            <a href="#" class="btn btn-white " onclick="setModule()">授权</a>
 			            <!--<a href="#" class="btn btn-white ">离开</a>-->
 					</div>
+					<div class='btn-group span12 btn2'>
+						<a href="#" class="btn btn-white" onclick="">刷新</a>
+						<a href="#" class="btn btn-white " onclick="">授权</a>
+						<a href="#" class="btn btn-white " onclick="">分配站点</a>
+						<!--<a href="#" class="btn btn-white ">离开</a>-->
+					</div>
 					<br> <br>
 					<div id="authority-table">
                         <span id="roleName"></span> <br>
    						<ul id="dataTree" class="ztree"></ul>
+						<h2>筑脸头条</h2>
+						<table id="sitePermission0"></table>
+						<h2>政府招标</h2>
+						<table id="sitePermission1"></table>
+						<h2>广告管理</h2>
+						<table id="sitePermission2"></table>
+						<h2>系统权限管理</h2>
+						<table id="sitePermission3"></table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<div class="modal fade" id="city-manage-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h2 class="modal-title" id="myModalLabel">分配站点</h2>
+			</div>
+			<div class="modal-body">
+				<ul id="city-list"></ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="sit_city()">设置站点</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript" src="script/jquery.ztree.all.min.js"></script>
 <script type="text/javascript" src="script/user-authority.js"></script>
