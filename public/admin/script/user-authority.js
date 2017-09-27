@@ -54,6 +54,7 @@ var setting3 = {
     callback:{
         onClick:function(event,treeId,treeNode){
             query(treeNode.id,treeNode.name);
+            getData(treeNode.id,"refresh")
         }
     }
 };
@@ -319,7 +320,7 @@ function ref(){
     query();
 }
 
-function getData(roleId){
+function getData(roleId,action){
     $.ajax({
         url:baseUrl+"/platform/basic/permission/struct/get",
         type:'post',
@@ -342,16 +343,20 @@ function getData(roleId){
                         if(data.success){
                             for(var i=0;i<tableData.length;i++){
                                 for(var i1=0;i1<tableData[i].length;i1++){
+                                    tableData[i][i1].permission=false;
+                                    tableData[i][i1].siteCheckYn=false;
+                                    tableData[i][i1].siteIds="";
+                                    tableData[i][i1].siteName="";
                                     for(var i2=0;i2<data.data.rolePermissionViews.length;i2++){
                                         if(tableData[i][i1].permissionId==data.data.rolePermissionViews[i2].permissionId){
-                                            tableData[i][i1].permission="true";
+                                            tableData[i][i1].permission=true;
                                             tableData[i][i1].siteCheckYn=data.data.rolePermissionViews[i2].siteCheckYn;
                                             tableData[i][i1].siteIds="";
                                             tableData[i][i1].siteName="";
                                             if(data.data.rolePermissionViews[i2].siteViews){
-                                                $.each(data.data.rolePermissionViews[i2].siteViews,function(i,value){
-                                                    tableData[i][i1].siteIds+=value.siteIds+",";
-                                                    tableData[i][i1].siteName=value.siteName+",";
+                                                $.each(data.data.rolePermissionViews[i2].siteViews,function(num,value){
+                                                    tableData[i][i1].siteIds+=value.siteId+",";
+                                                    tableData[i][i1].siteName+=value.siteName+",";
                                                 });
 
                                             }
@@ -371,67 +376,100 @@ function getData(roleId){
                         }
                         for(var i=0;i<tableData.length;i++){
                             var id="#sitePermission"+i;
-                            $(id).bootstrapTable({
-                                idField:"permissionId",
-                                data:tableData[i],
-                                columns:[[
-                                    {field:"",checkbox:true,align:'center'},
-                                    {field:"name",title:"权限名称",align:'center'},
-                                    {field:"description",title:"权限描述",align:'center'},
-                                    {field:"permission",title:"功能授权",align:"center",formatter:function(value,row,index){
-                                        if(value){
-                                            return "已授权";
-                                        }
-                                        else{
-                                            return "未授权";
-                                        }
-                                    },editable:{
-                                        type:"select",
-                                        title:"功能授权",
-                                        source:[{value:"true",text:"已授权"},{value:"false",text:"未授权"}],
-                                    }},
-                                    {field:"sitePermissionYn",title:"站点权限",align:"center",formatter:function(value,row,index){
-                                        if(value){
-                                            return "需要";
-                                        }
-                                        else{
-                                            return "不需要";
-                                        }
-                                    }},
-                                    {field:"siteCheckYn",title:"站点权限验证",align:"center",formatter:function(value,row,index){
-                                        if(row.sitePermissionYn){
+                            if(action=="get"){
+                                $(id).bootstrapTable({
+                                    idField:"permissionId",
+                                    data:tableData[i],
+                                    columns:[[
+                                        {field:"",checkbox:true,align:'center'},
+                                        {field:"name",title:"权限名称",align:'center'},
+                                        {field:"description",title:"权限描述",align:'center'},
+                                        {field:"permission",title:"功能授权",align:"center",formatter:function(value,row,index){
+                                            if(value){
+                                                return "已授权";
+                                            }
+                                            else{
+                                                return "未授权";
+                                            }
+                                        },editable:{
+                                            type:"select",
+                                            title:"功能授权",
+                                            source:[{value:"true",text:"已授权"},{value:"false",text:"未授权"}],
+                                        }},
+                                        {field:"sitePermissionYn",title:"站点权限",align:"center",formatter:function(value,row,index){
                                             if(value){
                                                 return "需要";
                                             }
                                             else{
                                                 return "不需要";
                                             }
-                                        }
-                                        else{
-                                            return "/";
-                                        }
-
-                                    },editable:{
-                                        type:"select",
-                                        title:"站点权限验证",
-                                        source:[{value:"true",text:"需要"},{value:"false",text:"不需要"}],
-                                    }},
-                                    {field:"siteIds",title:"站点",align:"center",formatter:function(value,row,index){
-                                        if(row.sitePermissionYn){
-                                            if(row.siteCheckYn){
-                                                return '<a href="#" onclick="getCity(row.permissionId,row.siteIds)">查看站点</a>'
+                                        }},
+                                        {field:"siteCheckYn",title:"站点权限验证",align:"center",formatter:function(value,row,index){
+                                            if(row.sitePermissionYn){
+                                                if(value){
+                                                    return "需要";
+                                                }
+                                                else{
+                                                    return "不需要";
+                                                }
                                             }
                                             else{
                                                 return "/";
                                             }
-                                        }
-                                        else{
-                                            return "/";
-                                        }
+
+                                        },editable:{
+                                            type:"select",
+                                            title:"站点权限验证",
+                                            source:[{value:"true",text:"需要"},{value:"false",text:"不需要"}],
+                                        }},
+                                        {field:"siteName",title:"站点",align:"center",formatter:function(value,row,index){
+                                            if(!row.siteCheckYn){
+                                                return "/";
+                                            }
+                                            else{
+                                                if(value.length<1){
+                                                    return "/"
+                                                }
+                                                else{
+                                                    if(value.length>6){
+                                                        return value.substring(0,6)+"..."
+                                                    }
+                                                    else{
+                                                        return value;
+                                                    }
+                                                }
+                                            }
+                                        }}
+                                    ]],
+                                    onEditableSave:function (field, row, oldValue, $el) {
+                                        var data=getPermissionData();
+                                        $.ajax({
+                                            url:baseUrl+"/platform/manager/role/permission/set",
+                                            type:"post",
+                                            contentType:"application/json;charset=utf-8",
+                                            crossDomain:true,
+                                            headers:{"authorization":sessionStorage.authorization},
+                                            data:JSON.stringify(data),
+                                            dataType:'json',
+                                            success:function(data){
+                                                if(!data.success){
+                                                    alert(data.errorMsg);
+                                                    $el.text(oldValue);
+                                                }
+                                            },
+                                            error:function(error){
+                                                alert("信息修改失败，请重试！");
+                                                $el.text(oldValue);
+
+                                            }
+                                        })
                                     }
-                                    }
-                                ]]
-                            });
+                                });
+                            }
+                            else{
+                                $(id).bootstrapTable("load",tableData[i]);
+                            }
+
                         }
                         $("[data-value='/']").parent().html("/");
                     }
@@ -441,7 +479,7 @@ function getData(roleId){
         }
     })
 }
-getData(sessionStorage.roleId);
+getData(sessionStorage.roleId,"get");
 
 
 var setting_city = {
@@ -461,8 +499,9 @@ var setting_city = {
     expendAll:true
 };
 
-function getCity(permissionId,cityIds){
+function getCity(){
     var cityNodes=[];
+    var dataCity=getSelect();
     $.ajax({
         url: baseUrl + "/platform/basic/province/list",
         type: "post",
@@ -486,34 +525,182 @@ function getCity(permissionId,cityIds){
                         success:function(data){
                             if(data.success){
                                 for(var i2=0;i2<data.data.length;i2++){
-                                    var a={id:data.data[i2].cityId,name:data.data[i2].name,pId:data.data[i2].pid};
+                                    var a={id:data.data[i2].cityId+1000,name:data.data[i2].name,pId:data.data[i2].pid};
                                     cityNodes.push(a);
                                 }
+                                if(dataCity[0].siteIds.length!=0){
+                                    var cityIds=dataCity[0].siteIds.split(",");
+                                    for(var i1=0;i1<cityIds.length-1;i1++){
+                                        for(var i2=0;i2<cityNodes.length;i2++){
+                                            if(cityNodes[i2].id==cityIds[i1]/1+1000){
+                                                cityNodes[i2].checked=true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                $.fn.zTree.init($("#city-list"), setting_city, cityNodes);
+                                $("#sit_city").attr("onclick","sit_city("+dataCity[0].permissionId+")");
+                                $("#city-manage-modal").modal("show");
                             }
                         }
                     })
                 }
-                cityIds=cityIds.split(",");
-                for(var i1=0;i1<cityIds.length-1;i1++){
-                    for(var i2=0;i2<cityNodes.length;i2++){
-                        if(cityNodes[i2].id==cityIds[i1]){
-                            cityNodes[i2].checked=true;
-                            break;
-                        }
-                    }
-                }
-                $.fn.zTree.init($("#company-list"), setting_city, cityNodes);
+
             }
         }
     });
-    $("#city-manage-modal").modal("show");
 
 }
 
-function sit_city(id){
+function sit_city(){
     var treeObj = $.fn.zTree.getZTreeObj("city-list");
     var nodes = treeObj.getCheckedNodes(true);
-    var data=$("#sitePermission0").bootstrapTable("getData");
+    var dataPermission=getPermissionData();
+    var selectNode=getSelect();
+    for(var i=0;i<selectNode.length;i++){
+        for(var i2=0;i2<dataPermission.rolePermissionViews.length;i2++){
+            if(dataPermission.rolePermissionViews[i2].permissionId==selectNode[i].permissionId){
+                dataPermission.rolePermissionViews[i2].siteViews=[];
+                for(var i3=0;i3<nodes.length;i3++){
+                    if(nodes[i3].level==1){
+                        var a={siteId:nodes[i3].id-1000,siteName:nodes[i3].name};
+                        dataPermission.rolePermissionViews[i2].siteViews.push(a);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    $.ajax({
+        url:baseUrl+"/platform/manager/role/permission/set",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data:JSON.stringify(dataPermission),
+        dataType: 'json',
+        success:function(data){
+            if(data.success){
+                alert("站点设置成功！");
+                $("#city-manage-modal").modal("hide");
+                getData($("#roleName").attr("data-role-id"),"refresh")
+            }
+            else{
+                alert(data.errorMsg);
+            }
+        },
+        error:function(error){
+            alert("站点设置失败，请重试！");
+        }
+    })
+}
+
+function sitPermission(){
+    var data=getTableData();
+    if(confirm("选中的权限将被授权，未选中的权限将取消授权！")){
+        var dataPermission={"roleId":$("#roleName").attr("data-role-id"),rolePermissionViews:[]};
+        for(var i=0;i<data.length;i++){
+            if(data[i][""]){
+                var a={"permissionId":data[i].permissionId,"siteCheckYn":data[i].siteCheckYn,siteViews:[]};
+                if(data[i].siteIds==""){
+
+                }
+                else{
+                    var siteIds=data[i].siteIds.split(",");
+                    var siteNames=data[i].siteName.split(",")
+                    for(var i2=0;i2<data[i].siteIds.length-1;i2++){
+                        var siteId={siteId:siteIds[i2],siteName:siteNames[i2]};
+                        a.siteViews.push(siteId);
+                    }
+                }
+                dataPermission.rolePermissionViews.push(a);
+            }
+        }
+        sitPermissionRequest(dataPermission);
+    }
+
+}
+function sitSite(){
+    var data=getTableData();
+    if(confirm("选中的权限将需要站点验证，未选中的权限将取消站点验证！")){
+        var dataPermission={"roleId":$("#roleName").attr("data-role-id"),rolePermissionViews:[]};
+        for(var i=0;i<data.length;i++){
+            if(data[i].permission){
+                if(data[i][""]){
+                    var a={"permissionId":data[i].permissionId,"siteCheckYn":true,siteViews:[]};
+                    if(data[i].siteIds==""){
+
+                    }
+                    else{
+                        var siteIds=data[i].siteIds.split(",");
+                        var siteNames=data[i].siteName.split(",")
+                        for(var i2=0;i2<data[i].siteIds.length-1;i2++){
+                            var siteId={siteId:siteIds[i2],siteName:siteNames[i2]};
+                            a.siteViews.push(siteId);
+                        }
+                    }
+                }
+                else{
+                    var a={"permissionId":data[i].permissionId,"siteCheckYn":false,siteViews:[]};
+                }
+                dataPermission.rolePermissionViews.push(a);
+            }
+        }
+        sitPermissionRequest(dataPermission);
+    }
+}
+function sitPermissionRequest(data){
+    $.ajax({
+        url:baseUrl+"/platform/manager/role/permission/set",
+        type:"post",
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        data:JSON.stringify(data),
+        dataType:'json',
+        success:function(data){
+            if(!data.success){
+                alert(data.errorMsg);
+            }
+            else{
+                alert("修改成功！");
+                getData($("#roleName").attr("data-role-id"),"refresh");
+            }
+        },
+        error:function(error){
+            alert("信息修改失败，请重试！");
+
+        }
+    })
+}
+function getSelect(){
+    var dataCity=[];
+    var dataTable=$("#sitePermission0").bootstrapTable("getAllSelections");
+    for(var i=0;i<dataTable.length;i++){
+        dataCity.push(dataTable[i]);
+    }
+    var dataTable=$("#sitePermission1").bootstrapTable("getAllSelections");
+    for(var i=0;i<dataTable.length;i++){
+        dataCity.push(dataTable[i]);
+    }
+    dataTable=$("#sitePermission2").bootstrapTable("getAllSelections");
+    for(var i=0;i<dataTable.length;i++){
+        dataCity.push(dataTable[i]);
+    }
+    dataTable=$("#sitePermission3").bootstrapTable("getAllSelections");
+    for(var i=0;i<dataTable.length;i++){
+        dataCity.push(dataTable[i]);
+    }
+    return dataCity;
+}
+function getTableData(){
+    var data=[];
+    var dataTable=$("#sitePermission0").bootstrapTable("getData");
+    for(var i=0;i<dataTable.length;i++){
+        data.push(dataTable[i]);
+    }
     var dataTable=$("#sitePermission1").bootstrapTable("getData");
     for(var i=0;i<dataTable.length;i++){
         data.push(dataTable[i]);
@@ -526,14 +713,34 @@ function sit_city(id){
     for(var i=0;i<dataTable.length;i++){
         data.push(dataTable[i]);
     }
+    return data;
+}
+function getPermissionData(){
+    var data=getTableData();
     var dataPermission={"roleId":$("#roleName").attr("data-role-id"),rolePermissionViews:[]};
     for(var i=0;i<data.length;i++){
         if(data[i].permission){
-            var a={"permissionId":data[i].permissionId,"siteCheckYn":data[i].siteCheckYn};
-            if(siteIds!=""){
+            var a={"permissionId":data[i].permissionId,"siteCheckYn":data[i].siteCheckYn,siteViews:[]};
+            if(data[i].siteIds==""){
 
             }
-
+            else{
+                var siteIds=data[i].siteIds.split(",");
+                var siteNames=data[i].siteName.split(",")
+                for(var i2=0;i2<data[i].siteIds.length-1;i2++){
+                    var siteId={siteId:siteIds[i2],siteName:siteNames[i2]};
+                    a.siteViews.push(siteId);
+                }
+            }
+            dataPermission.rolePermissionViews.push(a);
         }
     }
+    return dataPermission;
+}
+
+function go(num){
+    $(".span12 a.link").removeClass("active");
+    $(".span12 a.link").eq(num).addClass("active");
+    $(".block").css("display","none");
+    $(".block"+num).css("display","");
 }

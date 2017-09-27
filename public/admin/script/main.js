@@ -75,16 +75,25 @@ else{
 
 }).call(this);
 
+var url=window.location.pathname.split("/");
+url=url[url.length-1];
+
+$(".in").removeClass("in");
+$(".active").removeClass("active");
+$("a[href="+url+"]").parent().addClass("active");
+$("a[href="+url+"]").parent().parent().addClass("in");
+
 function exit(){
     sessionStorage.clear();
     window.location.href="login"
 }
 
 $(".menu li").css("display","none");
-for(var i=0;i<sessionStorage.module.length;i++){
-    for(var i2=0;i2<$(".menu li").length;i++){
-        if($(".menu li").attr("data-seq")==sessionStorage.module[i]){
-            $(".menu li").css("display","");
+var userModule=sessionStorage.module.split(",");
+for(var i=0;i<userModule.length;i++){
+    for(var i2=0;i2<$(".menu li").length;i2++){
+        if($(".menu li").eq(i2).attr("data-seq")==userModule[i]){
+            $(".menu li").eq(i2).css("display","");
             break;
         }
     }
@@ -101,6 +110,31 @@ for (var i=0;i<moduleIds.length;i++){
     }
 }
 if(!premission){
-    alert("您没有此页的权限！");
-    history.back();
+    var url="";
+    if(local_url=="index"){
+        $.each(module_info,function(name,value){
+            for(var i=0;i<moduleIds.length;i++){
+                if(moduleIds[i]/1>1000){
+                    if(value==moduleIds[i]){
+                        url="../admin/"+name;
+                    }
+                    break;
+                }
+            }
+            if(url!=""){
+                return false;
+            }
+        });
+        if(url!=""){
+            window.location.href=url;
+        }
+        else{
+            history.back();
+        }
+    }
+    else{
+        alert("您没有此页的权限！");
+        history.back();
+    }
+
 }
