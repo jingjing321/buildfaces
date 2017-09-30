@@ -40,7 +40,7 @@ a.link.active{
     padding: 9px;
     border: 1px solid #e6e6e6;
 }
-.modal .modal-body span{
+.modal .modal-body>span{
 	display: inline-block;
 	width: 70px;
 	text-align: right;

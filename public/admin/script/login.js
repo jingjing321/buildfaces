@@ -37,7 +37,7 @@ function login(){
                                 success:function(data) {
                                     if (data.success) {
                                     	sessionStorage.module=data.data.moduleIds;
-                                        window.location.href="../admin";
+                                        window.location.href="../admin/index";
                                     }
                                 }
                             })

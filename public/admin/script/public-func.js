@@ -1,5 +1,11 @@
-function returnOption(value,text){
-    return "<option value='"+value+"'>"+text+"</option>"
+function returnOption(value,text,pid){
+    if(!pid){
+        return "<option value='"+value+"'>"+text+"</option>"
+    }
+    else{
+        return "<option value='"+value+"' data-pid='"+pid+"'>"+text+"</option>"
+    }
+
 }
 function getlist(url,$el){
     $($el).find("option").remove();

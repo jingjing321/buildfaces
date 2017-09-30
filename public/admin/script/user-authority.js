@@ -502,6 +502,10 @@ var setting_city = {
 function getCity(){
     var cityNodes=[];
     var dataCity=getSelect();
+    if(dataCity.length<1){
+        alert("请至少选择一项权限！");
+        return;
+    }
     $.ajax({
         url: baseUrl + "/platform/basic/province/list",
         type: "post",
