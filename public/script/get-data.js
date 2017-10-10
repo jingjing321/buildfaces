@@ -227,22 +227,27 @@ function getChannel(){
     })
 }
 getChannel();
-
+getNews();
 function getNews(){
+	var a={condition:{"channelType":"RECOMMEND"},pageNum:0,pageSize:0};
 	$.ajax({
-        url: newsBaseUrl + "/user/news/channel/list",
+        url: newsBaseUrl + "/user/news/channel/page",
         type: 'post',
         contentType: "application/json;charset=utf-8",
         crossDomain: true,
         headers:{"authorization":sessionStorage.authorization},
-        data: JSON.stringify(),
+        data: JSON.stringify(a),
         dataType: 'json',
 		success:function(data){
 			if(data.success){
 				$(".page").eq(0).find(".tabs").find("ul").find("li").remove();
 				for(var i=0;i<data.data.list.length;i++){
                     $(".page").eq(0).find(".tabs").find("ul").append("<li></li>");
-                    $
+                    $(".page").eq(0).find(".tabs").find("ul").find("li").last().append('<a class="item-link item-content" href="#index-detail"></a>');
+                    $(".page").eq(0).find(".tabs").find('ul').find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
+					$(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+					$(".page").eq(0).find(".tabs").find("ul").find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
+
 				}
 			}
 		},
