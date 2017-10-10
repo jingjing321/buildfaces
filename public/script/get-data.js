@@ -1,3 +1,10 @@
+if(sessionStorage.authorization){
+	sessionStorage.authorization="";
+}
+if(sessionStorage.userId){
+	sessionStorage.userId=0;
+}
+var newsBaseUrl="http://192.168.20.61:8000/news-service";
 // var a={"phone":"18705837429","vercodeOperation":"REGISTER"}
 // $.ajax({
 // 	url:'http://192.168.20.61:8000/user-service/user/vercode/send',
@@ -186,4 +193,61 @@ function login(){
 	})
 			
 					
+}
+
+
+//获取频道
+function getChannel(){
+    $.ajax({
+        url: newsBaseUrl + "/user/news/channel/list",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers:{"authorization":sessionStorage.authorization},
+        data: JSON.stringify("userId",sessionStorage.userId),
+        dataType: 'json',
+        success: function (data) {
+			if(data.success){
+				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").remove();
+				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="#recommend" class="tab-link button swiper-slide active">推荐</a>');
+                $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="#local" class="tab-link button swiper-slide">本地</a>');
+
+				for(var i=0;i<data.data.length;i++){
+					if(data.data[i].channelType=="SUBJECT"){
+                        $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide"></a>');
+                        $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().text(data.data[i].channelName);
+                        $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last()[0].href="#tab"+data.data[i].channelId;
+					}
+				}
+			}
+        },
+        error: function (error) {
+
+        }
+    })
+}
+getChannel();
+
+function getNews(){
+	$.ajax({
+        url: newsBaseUrl + "/user/news/channel/list",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers:{"authorization":sessionStorage.authorization},
+        data: JSON.stringify(),
+        dataType: 'json',
+		success:function(data){
+			if(data.success){
+				$(".page").eq(0).find(".tabs").find("ul").find("li").remove();
+				for(var i=0;i<data.data.list.length;i++){
+                    $(".page").eq(0).find(".tabs").find("ul").append("<li></li>");
+                    $
+				}
+			}
+		},
+		error:function(error){
+
+		}
+	})
 }

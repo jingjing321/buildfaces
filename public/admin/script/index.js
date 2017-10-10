@@ -718,8 +718,8 @@ function getSubjectIndex(){
     })
 }
 
-function turn_type(thiz){
+function type(thiz){
     $(".link").removeClass("active");
     $(thiz).addClass("active");
-    getData("refresh")
+    getData()
 }

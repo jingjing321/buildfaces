@@ -61,5 +61,10 @@ Sortable.create(byId('bar'), {
 // 政府招标栏目滑动
 var mySwiper2=new Swiper("#swiper-gov",{
 	slidesPerView: 5,
-	freeMode : true,
-})
+	freeMode : true
+});
+
+//地理位置获取
+$.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
+	$(".page").eq(0).find("header").find("button").text(remote_ip_info.city);
+});

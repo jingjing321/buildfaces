@@ -220,3 +220,6 @@ nav.bar {
 	border-color: #f6383a;
 	color: #f6383a;
 }
+.buttons-tab .button{
+    width:20%;
+}
