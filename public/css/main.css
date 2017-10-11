@@ -223,3 +223,9 @@ nav.bar {
 .buttons-tab .button{
     width:20%;
 }
+
+.popup-comment p{
+    width: 23%;
+    float: right;
+    margin-right: 7.5%;
+}

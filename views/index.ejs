@@ -91,7 +91,7 @@
 				<h1 class="title">标题标题标题标题标题标题</h1>
 			</header>
 			<nav class="bar bar-tab detail-bar">
-				<div class="searchbar">
+				<div class="searchbar" onclick="checkUser()">
 				    <div class="search-input">
 				      <input type="search" placeholder='写评论...'/>
 				    </div>
@@ -106,11 +106,14 @@
 					<span >1小时前发布</span>
 					<span >400人浏览</span>
 				</div>
-				<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
-				<img src="img/11.jpg" width="100%">
-				<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
-				<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
-				<div class="sui-label">标签</div>&nbsp;&nbsp;<div class="sui-label">标签</div>&nbsp;&nbsp;<div class="sui-label">标签</div>
+				<div class="detail-content">
+					<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
+					<img src="img/11.jpg" width="100%">
+					<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
+					<p>内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容内容内容内容内容呢哦荣内容</p>
+				</div>
+
+				<!--<div class="sui-label">标签</div>&nbsp;&nbsp;<div class="sui-label">标签</div>&nbsp;&nbsp;<div class="sui-label">标签</div>-->
 				<br>
 				<div class="comment">
 					<span>评论(120)</span>
@@ -137,6 +140,14 @@
     					</div>
     				</li>
  				</ul>
+			</div>
+		</div>
+		<div class="popup popup-comment">
+			<div class="content-block">
+				<textarea name="" id="comment-text" rows="5" style="width:85%;display:block;margin:auto"></textarea>
+
+				<p class="col-30 right"><a href="#" class="button" onclick="sit_comment()">发表</a></p>
+
 			</div>
 		</div>
 		<div class="page" id="register">
@@ -455,12 +466,16 @@
      </div>
 
     <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-	<script type="text/javascript" src="script/jquery-3.1.1.min.js"></script>
-    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<!--<script type="text/javascript" src="script/jquery-3.1.1.min.js"></script>-->
+	<script>
+        $.config = {
+            autoInit: true
+        }
+	</script>
     <script type="text/javascript" src="script/swiper-3.4.2.jquery.min.js"></script>
-	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=898a72a9d54ba2b43c161bc3fc9c8bc0"></script>
     <script type="text/javascript" src="script/Sortable.min.js"></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.js' charset='utf-8'></script>
+	<script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 	<script type="text/javascript" src="script/get-data.js"></script>
     <script type="text/javascript" src="script/index.js"></script>
 
