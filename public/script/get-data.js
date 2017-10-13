@@ -1,5 +1,5 @@
 //地理位置获取
-$(".page").eq(0).find("header").find("button").text(remote_ip_info.city);
+$(".page").eq(0).find("header").find("button").eq(0).html("<a href='#selectCity' onclick='getCity()'>"+remote_ip_info.city+"</a>");
 
 $.ajax({
     url:"http://192.168.20.61:8000/manager-service/user/basic/city/list",
@@ -243,7 +243,7 @@ function login(){
 			if(info.success){
 				$.alert("登录成功！");
 				sessionStorage.userName=$("#login .content input").eq(0).val();
-				$(".page").eq(0).find("header a").text($("#login .content input").eq(0).val()).addClass("userAction")[0].href="#"
+				$(".page").eq(0).find("header>a").text($("#login .content input").eq(0).val()).addClass("userAction")[0].href="#"
 				sessionStorage.authorization=request.getResponseHeader("authorization");
 				$.router.back();
 
@@ -624,3 +624,117 @@ $(document).on('click','.userAction', function () {
     var groups = [buttons1, buttons2];
     $.actions(groups);
 });
+
+function getCity(){
+	$.ajax({
+		url:"http://192.168.20.61:8000/manager-service/user/basic/city/list",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        dataType: 'json',
+        success: function (data) {
+			if(data.success){
+				$("#selectCity .content .list-block").find(".list-group").remove();
+				$("#selectCity .content .list-block").append("<div class='list-group'><ul><li class='list-group-title'>您当前可能在</li></ul></div>");
+				$("#selectCity .content .list-block .list-group ul").append('<li><div class="item-content"><div class="item-inner"><div class="item-title back">'+remote_ip_info.city+' </div></div></div></li>');
+				var cityList=["A","B","C","D","E","F","G","H","E","J","K","L","M","N","O","P","Q","R","S","T","W","V","U","X","Y","Z"];
+				for(var i=0;i<cityList.length;i++){
+					$("#selectCity .content .list-block").append('<div class="list-group"><ul><li class="list-group-title">'+cityList[i]+'</li></ul></div>');
+				}
+				for (var i=0;i<data.data.length;i++){
+					if(data.data[i].name==$.trim($("#selectCity .content .list-block .list-group").eq(0).find("li").eq(1).text())){
+                        $("#selectCity .content .list-block .list-group").eq(0).find("li").eq(1).find(".item-title").attr("onclick","sitCity('"+data.data[i].name+"',"+data.data[i].cityId+")");
+					}
+					for(var i2=0;i2<cityList.length;i2++){
+						if(cityList[i2]==data.data[i].spell.substring(0,1).toLocaleUpperCase()){
+							$("#selectCity .content .list-block .list-group ul").eq(i2+1).append('<li><div class="item-content"><div class="item-inner"><div class="item-title" onclick="sitCity(\''+data.data[i].name+'\','+data.data[i].cityId+')">'+data.data[i].name+'</div></div></div></li>');
+							break;
+						}
+					}
+				}
+				for(var i=$("#selectCity .content .list-block .list-group").length-1;i>=0;i--){
+					if($("#selectCity .content .list-block .list-group").eq(i).find("li").length<2){
+						$("#selectCity .content .list-block .list-group").eq(i).remove();
+					}
+				}
+			}
+		},
+		error:function(error){
+
+		}
+	})
+}
+
+function sitCity(name,id){
+	$.router.back();
+	$("#index header .pull-left").html("<a href='#selectCity' onclick='getCity()'>"+name+"</a>");
+	$("#index header .pull-left").attr("data-cityId",id);
+}
+
+function sort(){
+    if(sessionStorage.authorization){
+        $.router.load("#column");
+        $.ajax({
+            url:newsBaseUrl+"/user/news/channel/list",
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            crossDomain: true,
+            headers: {"authorization": sessionStorage.authorization},
+            dataType: 'json',
+            success:function(data){
+                if(data.success){
+                    $("#column .content ul").find("li").remove();
+                    for(var i=0;i<data.data.length;i++){
+                        if(data.data[i].channelType=="SUBJECT"){
+                            $("#column .content ul").append("<li class='col-25' data-channelId='"+data.data[i].channelId+"' data-channelType='"+data.data[i].channelType+"'>"+data.data[i].channelName+"</li>")
+                        }
+                    }
+                }
+            },
+            error:function (error) {
+
+            }
+        })
+    }
+    else{
+        if(confirm("还未登录，是否立即登录？")){
+            $.router.load("#login");
+
+        }
+    }
+}
+
+function sorting(){
+	var ele=$("#column .content ul li");
+	var data=[];
+	for(var i=0;i<ele.length;i++){
+		var a={};
+		a.channelType=ele.eq(i).attr("data-channelType");
+		a.channelId=ele.eq(i).attr("data-channelId");
+		a.channelName=ele.eq(i).text();
+		data.push(a);
+	}
+	$.ajax({
+        url:newsBaseUrl+"/user/news/channel/sort",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data:JSON.stringify(data),
+        dataType: 'json',
+        success:function(data){
+        	if(data.success){
+        		$.alert("排序成功");
+        		$.router.back();
+        		getChannel();
+			}
+			else{
+        		$.alert(data.errorMsg);
+			}
+		},
+		error:function(error){
+        	$.alert("排序失败，请重试！");
+		}
+	})
+}

@@ -18,7 +18,7 @@
     <div class="page-group">
         <div class="page page-current" id="index">
 			<header class="bar bar-nav">
-				<button class="button button-link button-nav pull-left">嘉兴</button>
+				<button class="button button-link button-nav pull-left"><a href="#selectCity">嘉兴</a></button>
 				<div class="searchbar">
     				<div class="search-input">
       					<label class="icon icon-search" for="search"></label>
@@ -49,7 +49,7 @@
 						<a class="tab-link button swiper-slide" href="#">333</a>
 					</div>
 				</div>
-				<a class="more-icon" href="#column">
+				<a class="more-icon" href="#" onclick="sort()">
 					<span class="fa fa-plus"></span>
 				</a>
 				<div class="">
@@ -86,7 +86,39 @@
 			</div>
 		</div>
 		<div class="page" id="selectCity">
-
+			<header class="bar bar-nav">
+				<a class="icon icon-left pull-left back"></a>
+				<h1 class="title">联系人列表</h1>
+			</header>
+			<div class="content">
+				<div class="list-block contacts-block">
+					<div class="list-group">
+						<ul>
+							<li class="list-group-title">
+								A
+							</li>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title">
+											标题一
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title">
+											标题一
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="page" id="index-detail">
 			<header class="bar bar-nav">
@@ -287,19 +319,11 @@
 			<header class="bar bar-nav">
 				<a class="icon icon-left pull-left back"></a>
 				<h1 class="title">全部频道</h1>
-				<a class="button button-link button-nav pull-right">排序</a>
+				<a class="button button-link button-nav pull-right" onclick="sorting()">排序</a>
 			</header>
 			<div class="content">
 				<ul id="bar" class="column-block row">
 					<li class="col-25" data-id="1">本地</li>
-					<li class="col-25" data-id="2">筑脸号</li>
-					<li class="col-25" data-id="3">政策法规</li>
-					<li class="col-25" data-id="4">施工</li>
-					<li class="col-25" data-id="5">装饰</li>
-					<li class="col-25" data-id="6">设计</li>
-					<li class="col-25" data-id="7">绿化</li>
-					<li class="col-25" data-id="8">市政路桥</li>
-					<li class="col-25" data-id="9">装配式建筑</li>
 				</ul>
 			</div>
 		</div>

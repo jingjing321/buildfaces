@@ -7,7 +7,6 @@
     <list default="true" id="3214c933-7703-4e5f-a042-5db476d40368" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/script/get-data.js" afterPath="$PROJECT_DIR$/public/script/get-data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/script/index.js" afterPath="$PROJECT_DIR$/public/script/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -22,14 +21,14 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.57012194">
+    <splitter split-orientation="horizontal" split-proportion="0.36542055">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file leaf-file-name="index.ejs" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/views/index.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="171">
-                  <caret line="88" column="12" lean-forward="true" selection-start-line="88" selection-start-column="12" selection-end-line="88" selection-end-column="12" />
+                <state relative-caret-position="858">
+                  <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
                   <folding />
                 </state>
               </provider>
@@ -62,13 +61,13 @@
           <file leaf-file-name="get-data.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="297">
-                  <caret line="625" column="3" lean-forward="true" selection-start-line="625" selection-start-column="3" selection-end-line="625" selection-end-column="3" />
+                <state relative-caret-position="748">
+                  <caret line="700" column="31" lean-forward="false" selection-start-line="700" selection-start-column="31" selection-end-line="700" selection-end-column="31" />
                   <folding>
-                    <marker date="1507798403020" expanded="true" signature="9963:9975" ph="..." />
-                    <marker date="1507798403020" expanded="true" signature="11049:11055" ph=" " />
-                    <marker date="1507798403020" expanded="true" signature="16351:16357" ph=" " />
-                    <marker date="1507798403020" expanded="true" signature="19092:19104" ph="..." />
+                    <marker date="1507884852111" expanded="true" signature="10021:10033" ph="..." />
+                    <marker date="1507884852111" expanded="true" signature="11107:11113" ph=" " />
+                    <marker date="1507884852111" expanded="true" signature="16409:16415" ph=" " />
+                    <marker date="1507884852111" expanded="true" signature="19150:19162" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -157,8 +156,8 @@
         <option value="$PROJECT_DIR$/public/css/main.css" />
         <option value="$PROJECT_DIR$/public/admin/script/login.js" />
         <option value="$PROJECT_DIR$/public/script/index.js" />
-        <option value="$PROJECT_DIR$/public/script/get-data.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
+        <option value="$PROJECT_DIR$/public/script/get-data.js" />
       </list>
     </option>
   </component>
@@ -174,9 +173,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="79" />
-    <option name="y" value="24" />
-    <option name="width" value="1358" />
+    <option name="x" value="220" />
+    <option name="y" value="10" />
+    <option name="width" value="1116" />
     <option name="height" value="852" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -405,7 +404,7 @@
       <workItem from="1506317876296" duration="107455000" />
       <workItem from="1507510076680" duration="33129000" />
       <workItem from="1507622637436" duration="25231000" />
-      <workItem from="1507769786353" duration="15342000" />
+      <workItem from="1507769786353" duration="35684000" />
     </task>
     <task id="LOCAL-00001" summary="角色管理添加function">
       <created>1505465567244</created>
@@ -491,14 +490,21 @@
       <option name="project" value="LOCAL" />
       <updated>1507712876752</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="index 修改">
+      <created>1507799516228</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1507799516238</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="328205000" />
+    <option name="totallyTimeSpent" value="348547000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="79" y="24" width="1358" height="852" extended-state="0" />
+    <frame x="220" y="10" width="1116" height="852" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -508,7 +514,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18722786" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19303338" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -535,7 +541,8 @@
     <MESSAGE value="去掉多余代码" />
     <MESSAGE value="头条信息管理 完善" />
     <MESSAGE value="栏目管理功能添加 修改index 的 bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="栏目管理功能添加 修改index 的 bug" />
+    <MESSAGE value="index 修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="index 修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -735,6 +742,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="45" column="22" lean-forward="true" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -918,24 +926,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="625" column="3" lean-forward="true" selection-start-line="625" selection-start-column="3" selection-end-line="625" selection-end-column="3" />
-          <folding>
-            <marker date="1507798403020" expanded="true" signature="9963:9975" ph="..." />
-            <marker date="1507798403020" expanded="true" signature="11049:11055" ph=" " />
-            <marker date="1507798403020" expanded="true" signature="16351:16357" ph=" " />
-            <marker date="1507798403020" expanded="true" signature="19092:19104" ph="..." />
-          </folding>
+        <state relative-caret-position="858">
+          <caret line="54" column="30" lean-forward="true" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="88" column="12" lean-forward="true" selection-start-line="88" selection-start-column="12" selection-end-line="88" selection-end-column="12" />
-          <folding />
+        <state relative-caret-position="748">
+          <caret line="700" column="31" lean-forward="false" selection-start-line="700" selection-start-column="31" selection-end-line="700" selection-end-column="31" />
+          <folding>
+            <marker date="1507884852111" expanded="true" signature="10021:10033" ph="..." />
+            <marker date="1507884852111" expanded="true" signature="11107:11113" ph=" " />
+            <marker date="1507884852111" expanded="true" signature="16409:16415" ph=" " />
+            <marker date="1507884852111" expanded="true" signature="19150:19162" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
