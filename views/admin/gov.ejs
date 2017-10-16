@@ -1,4 +1,7 @@
 <%- include("inc/header.ejs");%>
+
+<script src="script/ckeditor.js"></script>
+<script src="script/sample.js"></script>
 <section id='content'>
 	<div class='container-fluid'>
 		<div class='row-fluid' id='content-wrapper'>
@@ -19,34 +22,31 @@
 
 				<div class="span12">
 					<span>站点：</span> 
-					<select>
+					<select id="province" onclick="getCityList()">
 						<option value="浙江省">浙江</option>
 						<option value="浙江省">江苏</option>
 						<option value="浙江省">福建</option>
 					</select>
-					<select>
-						<option value="浙江省">杭州</option>
-						<option value="浙江省">嘉兴</option>
+					<select id="city">
+						<option value="">全部</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;
 					<span>所属栏目：</span>
-					<select>
-						<option value="浙江省">浙江</option>
-						<option value="浙江省">江苏</option>
-						<option value="浙江省">福建</option>
+					<select id="subject">
+						<option value="" >全部</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;
 					<span>关键字：</span>
-					<input type="text" name="">
+					<input type="text" name="" id="keywords">
 					&nbsp;&nbsp;&nbsp;
-					<button class="btn">搜索</button>
+					<button class="btn" onclick="search()">搜索</button>
 				</div>
 				<br> <br><br>
 				<div class='btn-group span12'>
-				    <a href="#" class="btn btn-white">审核</a>
-				    <a href="#" class="btn btn-white ">推荐</a>
-				    <a href="#" class="btn btn-white ">置顶</a>
-				    <a href="#" class="btn btn-white ">删除</a>
+				    <a href="#" class="btn btn-white" onclick="verify()">审核</a>
+				    <a href="#" class="btn btn-white " onclick="recommend()">推荐</a>
+				    <a href="#" class="btn btn-white " onclick="toTop()">置顶</a>
+				    <a href="#" class="btn btn-white " onclick="del()">删除</a>
 				</div>
 				<br> <br>
 				<div class="span12 table-block">
@@ -56,5 +56,62 @@
 		</div>
 	</div>
 </section>
+<div class="modal fade" id="time-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  style="display: none;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h2 class="modal-title" id="myModalLabel">信息置顶</h2>
+			</div>
+			<div class="modal-body" style="text-align: center">
+				截止日期： <input type="datetime-local" name="time" >
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  style="display: none;width: 850px;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h2 class="modal-title" id="myModalLabel">新闻编辑</h2>
+			</div>
+			<div class="modal-body">
+
+				<span>选择栏目: </span><select name="" id="edit-subject" onselect="getSubjectModal()"></select> &nbsp;&nbsp; <select name="" id="edit-subject2"></select> <br> <br>
+				<span>所属站点：</span><select name="" id="edit-province" onselect="getCityList()"></select> &nbsp;&nbsp; <select name="" id="edit-city"></select> <br> <br>
+				<span>标题：</span> <input type="text" id="edit-title"> <br> <br>
+				<span>内容：</span><div id="editor" style="display: inline-block"></div>
+				<br> <br>
+				<span>来源：</span> <input type="text" id="edit-sourceSite"> <br> <br>
+				<span>关键字：</span><input type="text" id="edit-keywords">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onclick="edit_sit()">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    //    var $modalElement = this.$element;
+    //    $(document).on('focusin.modal', function (e) {
+    //        var $parent = $(e.target.parentNode);
+    //        if ($modalElement[0] !== e.target && !$modalElement.has(e.target).length
+    //            // add whatever conditions you need here:
+    //            &&
+    //            !$parent.hasClass('cke_dialog_ui_input_select') && !$parent.hasClass('cke_dialog_ui_input_text')) {
+    //            $modalElement.focus()
+    //        }
+    //    })
+    initSample();
+
+</script>
+
 <script type="text/javascript" src="script/gov.js"></script>
 <%- include("inc/footer.ejs");%>

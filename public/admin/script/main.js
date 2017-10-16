@@ -1,5 +1,6 @@
 var baseUrl="http://192.168.20.61:8000/manager-service";
 var newsBaseUrl="http://192.168.20.61:8000/news-service";
+var bidBaseUrl="http://192.168.20.61:8000/bid-service";
 if(sessionStorage.accountName){
     $.ajax({
         url: baseUrl + "/platform/manager/get",

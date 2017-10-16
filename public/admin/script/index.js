@@ -1,72 +1,73 @@
 getlist("province","#province");
 $("#province").append("<option value='' selected='true'>全部</option>");
-function getCityIndex(num){
-
-    if(!num){
-        $("#city").find("option").remove();
-        $("#city").append("<option value='' selected='true'>全部</option>");
-        var province=$("#province").val();
-    }
-    else{
-        $("#edit-city").find("option").remove();
-        var province=$("#edit-province").val();
-    }
-
-        $.ajax({
-            url:baseUrl+"/platform/basic/city/list",
-            type:"post",
-            async:false,
-            contentType:"application/json;charset=utf-8",
-            crossDomain:true,
-            headers:{"authorization":sessionStorage.authorization},
-            data:JSON.stringify(province),
-            dataType:'json',
-            success:function(data){
-                if(data.success){
-                    for(var i=0;i<data.data.length;i++){
-                        if(num){
-                            $("#edit-city").append(returnOption(data.data[i].cityId,data.data[i].name,data.data[i].pid));
-                        }
-                        else{
-                            $("#city").append(returnOption(data.data[i].cityId,data.data[i].name));
-                        }
-
-                    }
-                }
-            },
-            error:function(error){
-
-            }
-        })
-
-
-}
-$.ajax({
-    url:newsBaseUrl+"/platform/subject/list",
-    type:"post",
-    async:false,
-    contentType:"application/json;charset=utf-8",
-    crossDomain:true,
-    headers:{"authorization":sessionStorage.authorization},
-    dataType:'json',
-    success:function(data){
-        if(data.success){
-            $("#subject").find("option").remove();
-            $("#subject").append('<option value="" selected="true">全部</option>');
-            for(var i=0;i<data.data.length;i++){
-                $("#subject").append(returnOption(data.data[i].newsSubjectId,data.data[i].name));
-                if(data.data[i].newsSubjectView){
-                    for(var i2=0;i2<data.data[i].newsSubjectViews[i2].length;i2++){
-                        $("#subject").append(returnOption(data.data[i].newsSubjectViews[i2].newsSubjectId,data.data[i].newsSubjectViews[i2].name));
-                    }
-                }
-            }
-        }
-    },
-    error:function(error){
-
-    }
-});
+// function getCityIndex(num){
+//
+//     if(!num){
+//         $("#city").find("option").remove();
+//         $("#city").append("<option value='' selected='true'>全部</option>");
+//         var province=$("#province").val();
+//     }
+//     else{
+//         $("#edit-city").find("option").remove();
+//         var province=$("#edit-province").val();
+//     }
+//
+//         $.ajax({
+//             url:baseUrl+"/platform/basic/city/list",
+//             type:"post",
+//             async:false,
+//             contentType:"application/json;charset=utf-8",
+//             crossDomain:true,
+//             headers:{"authorization":sessionStorage.authorization},
+//             data:JSON.stringify(province),
+//             dataType:'json',
+//             success:function(data){
+//                 if(data.success){
+//                     for(var i=0;i<data.data.length;i++){
+//                         if(num){
+//                             $("#edit-city").append(returnOption(data.data[i].cityId,data.data[i].name,data.data[i].pid));
+//                         }
+//                         else{
+//                             $("#city").append(returnOption(data.data[i].cityId,data.data[i].name));
+//                         }
+//
+//                     }
+//                 }
+//             },
+//             error:function(error){
+//
+//             }
+//         })
+//
+//
+// }
+// $.ajax({
+//     url:newsBaseUrl+"/platform/subject/list",
+//     type:"post",
+//     async:false,
+//     contentType:"application/json;charset=utf-8",
+//     crossDomain:true,
+//     headers:{"authorization":sessionStorage.authorization},
+//     dataType:'json',
+//     success:function(data){
+//         if(data.success){
+//             $("#subject").find("option").remove();
+//             $("#subject").append('<option value="" selected="true">全部</option>');
+//             for(var i=0;i<data.data.length;i++){
+//                 $("#subject").append(returnOption(data.data[i].newsSubjectId,data.data[i].name));
+//                 if(data.data[i].newsSubjectView){
+//                     for(var i2=0;i2<data.data[i].newsSubjectViews[i2].length;i2++){
+//                         $("#subject").append(returnOption(data.data[i].newsSubjectViews[i2].newsSubjectId,data.data[i].newsSubjectViews[i2].name));
+//                     }
+//                 }
+//             }
+//         }
+//     },
+//     error:function(error){
+//
+//     }
+// });
+getSubjectList(newsBaseUrl,"news");
 getData("load");
 function getData(type,data){
     if(!data){
@@ -228,7 +229,6 @@ function verify(row){
             alert("修改失败，请重试！");
         }
     })
-
 }
 function recommend(row){
     var ids=[];
@@ -559,7 +559,12 @@ function del(id){
             if(data.success){
                 alert("删除成功！");
                 getData('refresh');
+            }else{
+                alert(data.errorMsg);
             }
+        },
+        error:function (error) {
+            alert("删除失败，请重试！");
         }
     })
 }
@@ -586,7 +591,7 @@ function search(){
 function edit(row){
     $("#edit-modal").find("input").val("");
     getlist("province","#edit-province");
-    getCityIndex(1);
+    getCityList(1);
     $.ajax({
         url:newsBaseUrl+"/platform/subject/list",
         type: "post",

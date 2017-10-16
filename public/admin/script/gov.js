@@ -1,46 +1,446 @@
-$("#gov-list").bootstrapTable({
-    // url:"",
-    idField:'id',
-    pagination:true,
-    data:[
-        {id:1,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:2,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:3,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:4,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:5,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:6,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:7,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:8,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:9,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:10,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-        {id:11,title:'国际自由贸易港城工程（绿地集团重庆置业有限公司）',222:'绿地集团',33:'房产建设',44:'111',5:"2015-3-4",6:'1',7:'1',8:'2',9:'3',10:'1',11:'1'},
-    ],
-    columns:[[
-        {field:'id',checkbox:true,align:'center'},
-        {field:'title',title:'标题',align:"center"},
-        {field:"222",title:"发布者",align:'center'},
-        {field:'44',title:'所属栏目',align:'center'},
-        {field:'5',title:'点击数',align:'center'},
-        {field:'6',title:"发布日期",align:'center'},
-        {field:"7",title:'审核状态',align:'center',formatter:function(value,row,index){
-            if(value){
-                return "已审核"
+getlist("province","#province");
+$("#province").append("<option value='' selected='true'>全部</option>");
+
+getSubjectList(bidBaseUrl,'bid');
+
+getData("load");
+function getData(type,data){
+    if(!data){
+        data={"pageNum":0,"pageSize":0};
+    }
+    if($(".link.active").attr("data-type")=="verify"){
+        if(data.condition){
+            data.condition[$(".link.active").attr("data-type")]=true;
+        }
+        else{
+            data.condition={};
+            data.condition[$(".link.active").attr("data-type")]=true;
+        }
+
+    }
+    else if($(".link.active").attr("data-type")){
+        if(data.condition){
+            data.condition[$(".link.active").attr("data-type")]="";
+        }
+        else{
+            data.condition={};
+            data.condition[$(".link.active").attr("data-type")]="";
+        }
+    }
+
+    $.ajax({
+        url:bidBaseUrl+"/platform/bid/page",
+        type:"post",
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        data:JSON.stringify(data),
+        dataType:"json",
+        success:function(data){
+            if(data.success){
+                var a=[];
+                a=data.data.list;
+                if(type=="load"){
+                    $("#gov-list").bootstrapTable({
+                        idField:'bidId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'',checkbox:true,align:'center'},
+                            {field:'title',title:'标题',align:"center"},
+                            {field:"author",title:"发布者",align:'center'},
+                            {field:'siteName',title:"站点",aign:'center'},
+                            {field:'bidSubjectName',title:'所属栏目',align:'center'},
+                            {field:'clicks',title:'点击数',align:'center'},
+                            {field:'ctime',title:"发布日期",align:'center'},
+                            {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                }
+                                else{
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                }
+                            }},
+                            {field:'bidRecommendSubjectView',title:"推荐",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.bidRecommendSubjectView){
+                                    btn+="<a href='#' onclick='recommend(false,"+row.bidId+")'>推荐</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='recommend(true,"+row.bidId+")'>未推荐</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:'bidTopSubjectView',title:"置顶",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.newsTopSubjectView){
+                                    btn+="<a href='#' onclick='toTop(false,"+row.bidId+")'>栏目置顶</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='toTop(true,"+row.bidId+")'>栏目未置顶</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:'bidId',title:'编辑/删除',align:'center',formatter:function(value,row,index){
+                                return "<a href='#' onclick='edit("+JSON.stringify(row)+")'>编辑</a> &nbsp; <a href='#' onclick='del("+row.bidId+")'>删除</a>"
+                            }}
+                            // {field:'',title:'推送',align:'center',formatter:function(value,row,index){
+                            //     return "推送"
+                            // }}
+                        ]]
+                    })
+                }
+                else{
+                    $("#gov-list").bootstrapTable("load",a);
+                }
+            }
+
+        }
+    })
+}
+
+function verify(row){
+    if(row==undefined){
+        var row=$("#gov-list").bootstrapTable("getSelections");
+        if(row.length!=1){
+            alert("请选择一条招标信息");
+        }
+        else {
+            row=row[0];
+        }
+    }
+    if(row.verify){
+        if(!confirm("招标信息将切换到未审核状态！")){
+            return;
+        }
+        else{
+            row.verify=false
+        }
+    }
+    else{
+        if(!confirm("招标信息将切换到已审核状态！")){
+            return ;
+        }
+        else{
+            row.verify=true;
+        }
+    }
+    $.ajax({
+        url:bidBaseUrl+"/platform/bid/verify",
+        type:"post",
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        data:JSON.stringify({bidId:row.bidId,verify:row.verify}),
+        dataType:'json',
+        success:function(data){
+            if(data.success){
+                alert("修改成功！");
+                getData("refresh");
             }
             else{
-                return "未审核"
+                alert(data.errorMsg);
             }
-        }},
-        {field:'8',title:"推荐",align:'center',formatter:function(value,row,index){
-            return "已推荐"
-        }},
-        {field:'9',title:"置顶",align:'center',formatter:function(value,row,index){
-            return "置顶"
-        }},
-        {field:'10',title:'编辑/删除',align:'center',formatter:function(value,row,index){
-            return '编辑 &nbsp; 删除'
-        }},
-        {field:'11',title:'推送',align:'center',formatter:function(value,row,index){
-            return "推送"
-        }}
-    ]]
-})
+        },
+        error:function(error){
+            alert("修改失败，请重试！");
+        }
+    })
+}
+
+function recommend(action,id){
+    var ids=[];
+    if(!row){
+        var recommendData=$("#gov-list").bootstrapTable("getSelections");
+        if(recommendData.length<1){
+            alert("请选择要进行操作的招标信息！");
+            return;
+        }
+        for(var i=0;i<recommendData.length;i++){
+            ids.push(recommendData[i].bidId);
+        }
+    }
+    else{
+        ids.push(id);
+    }
+    $.ajax({
+        url: bidBaseUrl + "/platform/bid/recommend/subject",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify({"bidIds": ids, recommend: action}),
+        dataType: 'json',
+        success: function (data) {
+            if(data.success){
+                alert("操作成功！");
+                getData("refresh");
+            }
+            else{
+                alert(data.errorMsg);
+            }
+        },
+        error: function (error) {
+            alert("操作失败，请重试！");
+        }
+    })
+
+}
+
+function toTop(action,id){
+    var ids=[];
+    var data=$("#gov-list").bootstrapTable("getSelections");
+    if(!id){
+        if(data.length<1){
+            alert("请选择至少一条招标信息");
+            return;
+        }
+        for(var i=0;i<data.length;i++){
+            ids.push(data[i].bidId);
+        }
+    }
+    else{
+        ids.push(id);
+    }
+    if(action){
+        $("#time-modal").find("button.btn-primary").attr("onclick","top_sit("+ids+")");
+        $("#time-modal").modal("show");
+    }
+    else{
+        $.ajax({
+            url:bidBaseUrl+"/platform/news/top/news",
+            type:'post',
+            contentType:"application/json;charset=utf-8",
+            crossDomain:true,
+            headers:{"authorization":sessionStorage.authorization},
+            data:JSON.stringify({bidIds:ids}),
+            dataType:'json',
+            success:function(data){
+                if(data.success){
+                    alert("取消置顶成功！");
+                    getData("refresh");
+                }
+                else{
+                    alert(data.errorMsg);
+                }
+            },
+            error:function (error) {
+                alert("取消置顶失败，请重试！");
+            }
+        })
+    }
+}
+
+function top_sit(ids){
+    if(!$("#time-modal input").val()){
+        alert("请输入时间！");
+        return;
+    }
+    else{
+        $.ajax({
+            url:bidBaseUrl+"/platform/bid/top/subject",
+            type:'post',
+            contentType:"application/json;charset=utf-8",
+            crossDomain:true,
+            headers:{"authorization":sessionStorage.authorization},
+            data:JSON.stringify({expiry: $("#time-modal input").val()+":01.000Z", newsIds:[ ids]}),
+            dataType:'json',
+            success:function(data){
+                if(data.success){
+                    alert("置顶成功！");
+                    getData("refresh");
+                }
+                else{
+                    alert(data.errorMsg);
+                }
+            },
+            error:function (error) {
+                alert("置顶失败，请重试！");
+            }
+        })
+    }
+}
+
+function del(id){
+    if(!confirm("确定删除该招标信息！")){
+        return;
+    }
+    if(!id){
+        var a=$("#gov-list").bootstrapTable("getSelections");
+        if(a.length!=1){
+            alert("请选择一条招标信息！");
+            return ;
+        }
+        else{
+            id=a[0].bidId;
+        }
+    }
+    $.ajax({
+        url:bidBaseUrl+"/platform/bid/delete",
+        type:'post',
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        data:JSON.stringify(id),
+        dataType:'json',
+        success:function (data) {
+            if(data.success){
+                alert("删除成功！");
+                getData('refresh');
+            }else{
+                alert(data.errorMsg);
+            }
+        },
+        error:function (error) {
+            alert("删除失败，请重试！");
+        }
+    })
+
+
+}
+
+function search(){
+    var a={};
+    // if($("#province").val()){
+    //     a.provinceId=$("#province").val();
+    // }
+    if($("#city").val()){
+        a.siteId=$("#city").val();
+    }
+    if($("#subject").val()){
+        a.bidSubjectId=$("#subject").val();
+    }
+    if($("#keywords").val()){
+        a.keywords=$("#keywords").val();
+    }
+    var a={condition:a,pageNum:0,pageSize:0};
+    getData("refresh",a);
+
+}
+
+function edit(row){
+    $("#edit-modal").find("input").val("");
+    getlist("province","#edit-province");
+    getCityList($("#edit-province").val());
+    $.ajax({
+        url:bidBaseUrl+"/platform/subject/list",
+        type:"post",
+        contentType:"application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        dataType: 'json',
+        success:function(data){
+            if(data.success){
+                $("#edit-subject").find("option").remove();
+                for(var i=0;i<data.data.length;i++) {
+                    $("#edit-subject").append(returnOption(data.data[i].bidSubjectId, data.data[i].name));
+                    if(i==0){
+                        if(data.data[i].bidSubjectViews){
+                            for(var i2=0;i2<data.data[i].bidSubjectViews.length;i2++){
+                                $("#edit-subject2").append(returnOption(data.data[i].bidSubjectViews[i2].bidSubjectId,data.data[i].bidSubjectViews[i2].name,data.data[i].bidSubjectViews[i2].pid));
+                            }
+                        }
+                    }
+                }
+                $("#edit-subject2").val(row.newsSubjectId);
+                for(var i=0;i<$("#edit-subject2").find("option").length;i++){
+                    if($("#edit-subject2").find("option").eq(i).selected){
+                        $("$edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
+                        break;
+                    }
+                }
+                $("#edit-city").val(row.siteId);
+                for(var i=0;i<$("#edit-city").find("option").length;i++){
+                    if($("#edit-city").find("option").selected){
+                        $("#edit-province").val($("#edit-city").find("option").eq(i).attr("data-pid"));
+                    }
+                }
+                $("#edit-title").val(row.title);
+                $("#edit-sourceSite").val(row.sourceSite);
+                $("#edit-keywords").val(row.keywords);
+                CKEDITOR.instances.editor.setData(row.content);
+                $("#edit-modal .btn-primary").attr("onclick","edit_sit("+row.newsId+")");
+                $("#edit-modal").modal("show");
+            }
+        },
+        error:function (error) {
+
+        }
+    })
+}
+
+function edit_sit(id){
+    var a={};
+    a.siteId=$("#edit-city").val();
+    a.newsSubjectId=$("#edit-subject2").val();
+    if($("#edit-title").val()){
+        a.title=$("#edit-title").val();
+    }
+    else{
+        alert("请输入标题！");
+        return;
+    }
+    if($("#edit-sourceSite").val()){
+        a.sourceSite=$("#edit-sourceSite").val();
+    }
+    if($("#edit-keywords").val()){
+        a.keywords=$("#edit-keywords").val();
+    }
+    if(CKEDITOR.instances.editor.getData()){
+        a.content=CKEDITOR.instances.editor.getData();
+    }
+    else{
+        alert("请输入新闻内容！");
+        return ;
+    }
+    if(id){
+        a.newsId=id;
+    }
+    $.ajax({
+        url:newsBaseUrl+"/platform/subject/edit",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data:JSON.stringify(a),
+        dataType: 'json',
+        success:function(data){
+            if(data.success){
+                alert("招标信息修改成功！");
+                $("#edit-modal").modal("hide");
+                getData("refresh");
+            }
+            else{
+                alert(data.errorMsg);
+            }
+        },
+        error:function (error) {
+            alert("信息修改失败，请重试！");
+        }
+    })
+}
+
+function getSubjectModal(){
+    $.ajax({
+        url:bidBaseUrl+"/platform/subject/list",
+        type:"post",
+        async:false,
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        dataType:'json',
+        success:function(data){
+            if(data.success){
+                for(var i=0;i<data.data.length;i++){
+                    if(data.data.bidSubjectId==$("#edit-subject").val()){
+                        if(data.data[i].bidSubjectViews){
+                            for(var i2=0;i2<data.data[i].bidSubjectViews.length;i2++){
+                                $("#edit-subject2").append(returnOption(data.data[i].bidSubjectViews[i2].bidSubjectId,data.data[i].bidSubjectViews[i2].name,data.data[i].bidSubjectViews[i2].pid));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
