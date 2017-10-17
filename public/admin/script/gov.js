@@ -73,7 +73,7 @@ function getData(type,data){
                             }},
                             {field:'bidTopSubjectView',title:"置顶",align:'center',formatter:function(value,row,index){
                                 var btn="";
-                                if(row.newsTopSubjectView){
+                                if(row.bidTopSubjectView){
                                     btn+="<a href='#' onclick='toTop(false,"+row.bidId+")'>栏目置顶</a>"
                                 }
                                 else{
@@ -150,11 +150,17 @@ function verify(row){
 
 function recommend(action,id){
     var ids=[];
-    if(!row){
+    if(!id){
         var recommendData=$("#gov-list").bootstrapTable("getSelections");
         if(recommendData.length<1){
             alert("请选择要进行操作的招标信息！");
             return;
+        }
+        if(!recommendData[0].bidRecommendSubjectView){
+            action=true;
+        }
+        else{
+            action=false;
         }
         for(var i=0;i<recommendData.length;i++){
             ids.push(recommendData[i].bidId);
@@ -195,6 +201,12 @@ function toTop(action,id){
             alert("请选择至少一条招标信息");
             return;
         }
+        if(data[0].bidTopSubjectView){
+            action=false;
+        }
+        else{
+            action=true;
+        }
         for(var i=0;i<data.length;i++){
             ids.push(data[i].bidId);
         }
@@ -208,12 +220,12 @@ function toTop(action,id){
     }
     else{
         $.ajax({
-            url:bidBaseUrl+"/platform/news/top/news",
+            url:bidBaseUrl+"/platform/bid/top/subject/cancel",
             type:'post',
             contentType:"application/json;charset=utf-8",
             crossDomain:true,
             headers:{"authorization":sessionStorage.authorization},
-            data:JSON.stringify({bidIds:ids}),
+            data:JSON.stringify(ids),
             dataType:'json',
             success:function(data){
                 if(data.success){
@@ -243,11 +255,12 @@ function top_sit(ids){
             contentType:"application/json;charset=utf-8",
             crossDomain:true,
             headers:{"authorization":sessionStorage.authorization},
-            data:JSON.stringify({expiry: $("#time-modal input").val()+":01.000Z", newsIds:[ ids]}),
+            data:JSON.stringify({expiry: $("#time-modal input").val()+":01.000Z", bidIds:[ ids]}),
             dataType:'json',
             success:function(data){
                 if(data.success){
                     alert("置顶成功！");
+                    $("#time-modal").modal("hide");
                     getData("refresh");
                 }
                 else{
@@ -295,8 +308,6 @@ function del(id){
             alert("删除失败，请重试！");
         }
     })
-
-
 }
 
 function search(){
@@ -342,7 +353,7 @@ function edit(row){
                         }
                     }
                 }
-                $("#edit-subject2").val(row.newsSubjectId);
+                $("#edit-subject2").val(row.bidSubjectId);
                 for(var i=0;i<$("#edit-subject2").find("option").length;i++){
                     if($("#edit-subject2").find("option").eq(i).selected){
                         $("$edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
@@ -359,7 +370,7 @@ function edit(row){
                 $("#edit-sourceSite").val(row.sourceSite);
                 $("#edit-keywords").val(row.keywords);
                 CKEDITOR.instances.editor.setData(row.content);
-                $("#edit-modal .btn-primary").attr("onclick","edit_sit("+row.newsId+")");
+                $("#edit-modal .btn-primary").attr("onclick","edit_sit("+row.bidId+")");
                 $("#edit-modal").modal("show");
             }
         },
@@ -372,7 +383,7 @@ function edit(row){
 function edit_sit(id){
     var a={};
     a.siteId=$("#edit-city").val();
-    a.newsSubjectId=$("#edit-subject2").val();
+    a.bidSubjectId=$("#edit-subject2").val();
     if($("#edit-title").val()){
         a.title=$("#edit-title").val();
     }
@@ -394,10 +405,10 @@ function edit_sit(id){
         return ;
     }
     if(id){
-        a.newsId=id;
+        a.bidId=id;
     }
     $.ajax({
-        url:newsBaseUrl+"/platform/subject/edit",
+        url:bidBaseUrl+"/platform/bid/edit",
         type: "post",
         contentType: "application/json;charset=utf-8",
         crossDomain: true,
@@ -432,11 +443,13 @@ function getSubjectModal(){
         success:function(data){
             if(data.success){
                 for(var i=0;i<data.data.length;i++){
-                    if(data.data.bidSubjectId==$("#edit-subject").val()){
+                    if(data.data[i].bidSubjectId==$("#edit-subject").val()){
+                        $("#edit-subject2").find("option").remove();
                         if(data.data[i].bidSubjectViews){
                             for(var i2=0;i2<data.data[i].bidSubjectViews.length;i2++){
                                 $("#edit-subject2").append(returnOption(data.data[i].bidSubjectViews[i2].bidSubjectId,data.data[i].bidSubjectViews[i2].name,data.data[i].bidSubjectViews[i2].pid));
                             }
+                            break;
                         }
                     }
                 }

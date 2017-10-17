@@ -4,14 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/public/script/get-data.js" line="352" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3214c933-7703-4e5f-a042-5db476d40368" name="Default" comment="">
+    <list default="true" id="3214c933-7703-4e5f-a042-5db476d40368" name="Default" comment="gov 修改">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/gov.js" afterPath="$PROJECT_DIR$/public/admin/script/gov.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/index.js" afterPath="$PROJECT_DIR$/public/admin/script/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/main.js" afterPath="$PROJECT_DIR$/public/admin/script/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/public-func.js" afterPath="$PROJECT_DIR$/public/admin/script/public-func.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/gov.ejs" afterPath="$PROJECT_DIR$/views/admin/gov.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/index.ejs" afterPath="$PROJECT_DIR$/views/admin/index.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,27 +21,29 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.50039214">
+    <splitter split-orientation="horizontal" split-proportion="0.44195688">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="gov.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="gov.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/admin/script/gov.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="530">
-                  <caret line="437" column="180" lean-forward="false" selection-start-line="437" selection-start-column="180" selection-end-line="437" selection-end-column="180" />
+                <state relative-caret-position="782">
+                  <caret line="204" column="25" lean-forward="true" selection-start-line="204" selection-start-column="25" selection-end-line="204" selection-end-column="25" />
                   <folding>
-                    <marker date="1508143866050" expanded="true" signature="3922:3928" ph=" " />
+                    <marker date="1508208991017" expanded="true" signature="3921:3927" ph=" " />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.ejs" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/views/admin/index.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="219">
-                  <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-                  <folding />
+                <state relative-caret-position="127">
+                  <caret line="72" column="43" lean-forward="true" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
+                  <folding>
+                    <element signature="e#2861#2887#0#HTML" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -77,8 +75,8 @@
           <file leaf-file-name="gov.ejs" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/views/admin/gov.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+                <state relative-caret-position="124">
+                  <caret line="86" column="12" lean-forward="false" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
                   <folding>
                     <element signature="e#936#942#0#HTML" expanded="true" />
                   </folding>
@@ -89,8 +87,8 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="161">
-                  <caret line="593" column="15" lean-forward="false" selection-start-line="593" selection-start-column="4" selection-end-line="593" selection-end-column="15" />
+                <state relative-caret-position="253">
+                  <caret line="597" column="8" lean-forward="true" selection-start-line="597" selection-start-column="8" selection-end-line="597" selection-end-column="8" />
                   <folding>
                     <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
                   </folding>
@@ -123,7 +121,6 @@
       <find>window</find>
       <find>a</find>
       <find>class=&quot;top&quot;</find>
-      <find>url</find>
       <find>header</find>
       <find>aja</find>
       <find>headers</find>
@@ -137,7 +134,11 @@
       <find>login</find>
       <find>getCityIndex</find>
       <find>getSubjectList</find>
+      <find>置顶</find>
       <find>getCityList</find>
+      <find>news</find>
+      <find>url</find>
+      <find>verify</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -173,10 +174,10 @@
         <option value="$PROJECT_DIR$/public/script/get-data.js" />
         <option value="$PROJECT_DIR$/public/admin/script/main.js" />
         <option value="$PROJECT_DIR$/views/admin/index.ejs" />
-        <option value="$PROJECT_DIR$/public/admin/script/gov.js" />
         <option value="$PROJECT_DIR$/public/admin/script/index.js" />
         <option value="$PROJECT_DIR$/public/admin/script/public-func.js" />
         <option value="$PROJECT_DIR$/views/admin/gov.ejs" />
+        <option value="$PROJECT_DIR$/public/admin/script/gov.js" />
       </list>
     </option>
   </component>
@@ -442,7 +443,7 @@
       <workItem from="1507510076680" duration="33129000" />
       <workItem from="1507622637436" duration="25231000" />
       <workItem from="1507769786353" duration="35739000" />
-      <workItem from="1508114849105" duration="20734000" />
+      <workItem from="1508114849105" duration="29048000" />
     </task>
     <task id="LOCAL-00001" summary="角色管理添加function">
       <created>1505465567244</created>
@@ -542,17 +543,24 @@
       <option name="project" value="LOCAL" />
       <updated>1507885213409</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="gov 修改">
+      <created>1508144241109</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1508144241109</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="369336000" />
+    <option name="totallyTimeSpent" value="377650000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="58" y="4" width="1384" height="852" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.047085203" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09865471" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2387597" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -587,7 +595,8 @@
     <MESSAGE value="头条信息管理 完善" />
     <MESSAGE value="栏目管理功能添加 修改index 的 bug" />
     <MESSAGE value="index 修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="index 修改" />
+    <MESSAGE value="gov 修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="gov 修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -943,41 +952,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/gov.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="437" column="180" lean-forward="false" selection-start-line="437" selection-start-column="180" selection-end-line="437" selection-end-column="180" />
-          <folding>
-            <marker date="1508143866050" expanded="true" signature="3922:3928" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/admin/script/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-161">
           <caret line="2" column="55" lean-forward="false" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="593" column="15" lean-forward="false" selection-start-line="593" selection-start-column="4" selection-end-line="593" selection-end-column="15" />
-          <folding>
-            <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/gov.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
-          <folding>
-            <element signature="e#936#942#0#HTML" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -991,9 +970,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="127">
+          <caret line="72" column="43" lean-forward="true" selection-start-line="72" selection-start-column="43" selection-end-line="72" selection-end-column="43" />
+          <folding>
+            <element signature="e#2861#2887#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="597" column="8" lean-forward="true" selection-start-line="597" selection-start-column="8" selection-end-line="597" selection-end-column="8" />
+          <folding>
+            <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/gov.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="204" column="25" lean-forward="true" selection-start-line="204" selection-start-column="25" selection-end-line="204" selection-end-column="25" />
+          <folding>
+            <marker date="1508208991017" expanded="true" signature="3921:3927" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/gov.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="86" column="12" lean-forward="false" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+          <folding>
+            <element signature="e#936#942#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
