@@ -28,6 +28,7 @@ if(sessionStorage.userId){
 	sessionStorage.userId=0;
 }
 var newsBaseUrl="http://192.168.20.61:8000/news-service";
+var bidBaseUrl="http://192.168.20.61:8000/bid-service";
 // var a={"phone":"18705837429","vercodeOperation":"REGISTER"}
 // $.ajax({
 // 	url:'http://192.168.20.61:8000/user-service/user/vercode/send',
@@ -737,4 +738,297 @@ function sorting(){
         	$.alert("排序失败，请重试！");
 		}
 	})
+}
+
+//get gov channel
+function getBidChannel(){
+    $.ajax({
+        url: bidBaseUrl + "/user/bid/subject/list",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers:{"authorization":sessionStorage.authorization},
+        dataType: 'json',
+        success: function (data) {
+            if(data.success){
+                $("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").find("a").remove();
+
+                for(var i=0;i<data.data.length;i++){
+					$("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide external"></a>');
+					$("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").find("a").last().text(data.data[i].name);
+					$("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").find("a").last().attr("onclick","getBid(this,"+data.data[i].bidSubjectId+")");
+                }
+                $("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").find("a").first().addClass("active");
+                $("#goverment .content .tabs .buttons-row").find("a").remove();
+                if(data.data[0].bidSubjectViews.length>0){
+                	for(var i=0;i<data.data[0].bidSubjectViews.length;i++){
+                        $("#goverment .content .tabs .buttons-row").append("<a class='tab-link button'>"+data.data[0].bidSubjectViews[i].name+"</a>");
+                        $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[0].bidSubjectViews[i].bidSubjectId+")");
+					}
+                    $("#goverment .content .tabs .buttons-row").find("a").first().addClass("active");
+					getBidByTab($("#goverment .content .tabs .buttons-row").find("a").first(),data.data[0].bidSubjectViews[0].bidSubjectId)
+				}
+				else{
+                	getBid($("#goverment").eq(0).find("#swiper-gov").find(".buttons-tab").find("a"),data.data.bidSubjectId);
+				}
+            }
+        },
+        error: function (error) {
+
+        }
+    })
+}
+
+//get bid data ;
+function getBid(thiz,id){
+	$("#goverment .content #swiper-gov .buttons-tab").find(".active").removeClass("active");
+	$(thiz).addClass("active");
+    $.ajax({
+        url: bidBaseUrl + "/user/bid/subject/list",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        dataType: 'json',
+        success: function (data) {
+        	if(data.success){
+        		for(var i=0;i<data.data.length;i++){
+        			if(data.data[i].bidSubjectId==id){
+                        $("#goverment .content .tabs .buttons-row").find("a").remove();
+                        if(data.data[i].bidSubjectViews.length>0){
+                            for(var i2=0;i2<data.data[i].bidSubjectViews.length;i2++){
+                                $("#goverment .content .tabs .buttons-row").append("<a class='tab-link button'>"+data.data[i].bidSubjectViews[i2].name+"</a>");
+                                $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[i].bidSubjectViews[i2].bidSubjectId+")");
+                            }
+                            var a={"condition":{"subjectId":data.data[i].bidSubjectViews[0].bidSubjectId},"pageNum":0,"pageSize":0};
+                            getBidList(JSON.stringify(a));
+                            $("#goverment .content .tabs .buttons-row").find("a").first().addClass("active");
+							break;
+                        }else{
+                            var a={"condition":{"subjectId":data.data[i].bidSubjectId},"pageNum":0,"pageSize":0};
+                            getBidList(JSON.stringify(a));
+						}
+					}
+				}
+			}
+			else{
+        		$.alert(data.errorMsg);
+			}
+        },
+		error:function (error){
+
+		}
+    })
+}
+
+function getBidByTab(thiz,id){
+    $("#goverment .content .tabs .buttons-row").find(".active").removeClass("active");
+    $(thiz).addClass("active");
+    var a={condition:{"subjectId":id},pageNum:0,pageSize:0};
+    getBidList(JSON.stringify(a));
+}
+function getBidList(data){
+	if(!data) {
+        data =JSON.stringify({"pageNum": 0, "pageSize": 0}) ;
+    }
+    $.ajax({
+        url: bidBaseUrl + "/user/bid/subject/page",
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data:data,
+        dataType: 'json',
+        success: function (data) {
+            if(data.success){
+            	var ele=$("#goverment .content .list-block ul");
+            	ele.find("li").remove();
+                for(var i=0;i<data.data.list.length;i++){
+					ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
+					ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
+					ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+                }
+            }
+            else{
+                $.alert(data.errorMsg);
+            }
+        },
+        error:function (error) {
+
+        }
+    })
+
+}
+getBidChannel();
+
+function getBidDetail(id){
+	$.ajax({
+        url: bidBaseUrl + "/user/bid/get?bidId="+id,
+        type: 'post',
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data:id,
+        dataType: 'json',
+        success: function (data) {
+			if(data.success){
+				$.router.load("#gov-detail");
+                $("#gov-detail").attr("data-bidId",data.data.bidId);
+                $("#gov-detail").find("header").find("h1").text(data.data.title);
+                $("#gov-detail").find(".content").find(".detail-title").text(data.data.title);
+                $("#gov-detail").find(".content").find(".info span").eq(0).text(data.data.author);
+                $("#gov-detail").find(".content").find(".info span").eq(1).text(data.data.vtime);
+                $("#gov-detail").find(".content").find(".info span").eq(2).text(data.data.clicks+"人浏览");
+                $("#gov-detail .content").find(".detail-content").html(data.data.content);
+                $.ajax({
+                    url: bidBaseUrl + "/user/bid/favor/check?bidId="+id,
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    crossDomain: true,
+                    headers: {"authorization": sessionStorage.authorization},
+                    data:id,
+                    dataType: 'json',
+                    success: function (data) {
+						if(data.success){
+							if(data.data){
+								$("#gov-detail header .fa").removeClass("fa-start-o").addClass("fa-start").attr("onclick","favorGov(false)");
+							}
+							else{
+                                $("#gov-detail header .fa").removeClass("fa-start-o").addClass("fa-start").attr("onclick","favorGov(true)");
+							}
+						}else{
+							$.alert(data.errorMsg);
+						}
+					},
+					error:function (error) {
+
+                    }
+				})
+			}
+			else{
+				$.alert(data.errorMsg);
+			}
+		},
+		error:function (error) {
+			$.alert("获取招标资讯失败，请重试！");
+        }
+	})
+}
+
+function favorGov(Yn){
+    if(sessionStorage.authorization){
+        var a={"favorYn":Yn,"bidId": ($("#gov-detail").attr("data-bidId")/1)};
+        $.ajax({
+            url:bidBaseUrl+"/user/bid/favor/set?bidId="+($("#gov-detail").attr("data-bidId")/1)+"&favorYn="+Yn,
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            crossDomain: true,
+            headers: {"authorization": sessionStorage.authorization},
+            data: JSON.stringify(a),
+            dataType: 'json',
+            success: function (data) {
+                if(data.success){
+                	if(Yn){
+                		$.alert("收藏成功！");
+                        $("#gov-detail header .fa").removeClass("fa-star-o").addClass("fa-star").attr("onclick","favorGov(false)");
+					}
+					else{
+                		$.alert("取消收藏成功！");
+                        $("#gov-detail header .fa").removeClass("fa-star").addClass("fa-star-o").attr("onclick","favorGov(true)");
+					}
+                }
+                else{
+                    $.alert(data.errorMsg);
+                }
+            },
+            error:function(error){
+                $.alert("收藏失败，请重试！")
+            }
+        })
+    }
+    else{
+        if(confirm("还未登录，是否立即登录收藏？")){
+            $.router.load("#login");
+        }
+    }
+}
+
+function getFavorGov() {
+	if(sessionStorage.authorization){
+		var a={"pageNum":0,"pageSize":0};
+		$({
+            url:bidBaseUrl+"/user/bid/favor/page",
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            crossDomain: true,
+            headers: {"authorization": sessionStorage.authorization},
+            data: JSON.stringify(a),
+            dataType: 'json',
+            success: function (data) {
+				if(data.success){
+					$("#user #user-tab2").find("ul").remove();
+					if(data.data.list.length>0){
+                        $("#user #user-tab2 .list-block").append("<ul></ul>");
+                        var ele=$("#user #user-tab2 .list-block ul");
+                        for(var i=0;i<data.data.list.length;i++){
+                            ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
+                            ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
+                            ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+                        }
+					}
+					else{
+
+					}
+				}
+				else{
+
+				}
+			},
+			error:function (error) {
+
+            }
+		})
+	}else{
+
+	}
+}
+
+function getFavorNews(){
+    if(sessionStorage.authorization){
+        var a={"pageNum":0,"pageSize":0};
+        $({
+            url:newsBaseUrl+"/user/news/favor/page",
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            crossDomain: true,
+            headers: {"authorization": sessionStorage.authorization},
+            data: JSON.stringify(a),
+            dataType: 'json',
+            success: function (data) {
+                if(data.success){
+                    $("#user #user-tab1").find("ul").remove();
+                    if(data.data.list.length>0){
+                        $("#user #user-tab1 .list-block").append("<ul></ul>");
+                        var ele=$("#user #user-tab1 .list-block ul");
+                        for(var i=0;i<data.data.list.length;i++){
+                            ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
+                            ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
+                            ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+                        }
+                    }
+                    else{
+
+                    }
+                }
+                else{
+
+                }
+            },
+            error:function (error) {
+
+            }
+        })
+    }else{
+
+    }
 }

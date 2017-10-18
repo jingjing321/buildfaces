@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/public/script/get-data.js" line="352" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/public/script/get-data.js" line="353" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3214c933-7703-4e5f-a042-5db476d40368" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/gov-column.js" afterPath="$PROJECT_DIR$/public/admin/script/gov-column.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/gov-column.ejs" afterPath="$PROJECT_DIR$/views/admin/gov-column.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/script/get-data.js" afterPath="$PROJECT_DIR$/public/script/get-data.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,10 +21,20 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.55386084">
+    <splitter split-orientation="horizontal" split-proportion="0.38181818">
       <split-first>
         <leaf>
-          <file leaf-file-name="column.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.ejs" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/views/index.ejs">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="41">
+                  <caret line="453" column="39" lean-forward="true" selection-start-line="453" selection-start-column="39" selection-end-line="453" selection-end-column="39" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="column.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/admin/script/column.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="342">
@@ -47,18 +57,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="253">
-                  <caret line="597" column="8" lean-forward="true" selection-start-line="597" selection-start-column="8" selection-end-line="597" selection-end-column="8" />
-                  <folding>
-                    <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -73,14 +71,16 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="gov-column.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/gov-column.js">
+          <file leaf-file-name="get-data.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="46">
-                  <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+                <state relative-caret-position="175">
+                  <caret line="960" column="25" lean-forward="true" selection-start-line="960" selection-start-column="25" selection-end-line="960" selection-end-column="25" />
                   <folding>
-                    <marker date="1508210157028" expanded="true" signature="2586:2592" ph=" " />
-                    <marker date="1508210157028" expanded="true" signature="2592:2598" ph=" " />
+                    <marker date="1508317950727" expanded="true" signature="10077:10089" ph="..." />
+                    <marker date="1508317950727" expanded="true" signature="11163:11169" ph=" " />
+                    <marker date="1508317950727" expanded="true" signature="16465:16471" ph=" " />
+                    <marker date="1508317950727" expanded="true" signature="19206:19218" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -99,8 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>column.formatter</find>
-      <find>formatter</find>
       <find>formatHandle</find>
       <find>getdata</find>
       <find>msg.errorMsg</find>
@@ -124,10 +122,12 @@
       <find>getCityIndex</find>
       <find>getSubjectList</find>
       <find>置顶</find>
-      <find>getCityList</find>
       <find>url</find>
       <find>verify</find>
       <find>bid</find>
+      <find>getCityList</find>
+      <find>detail</find>
+      <find>favor</find>
       <find>news</find>
     </findStrings>
   </component>
@@ -160,8 +160,6 @@
         <option value="$PROJECT_DIR$/public/css/main.css" />
         <option value="$PROJECT_DIR$/public/admin/script/login.js" />
         <option value="$PROJECT_DIR$/public/script/index.js" />
-        <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/public/script/get-data.js" />
         <option value="$PROJECT_DIR$/public/admin/script/main.js" />
         <option value="$PROJECT_DIR$/views/admin/index.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/index.js" />
@@ -170,6 +168,8 @@
         <option value="$PROJECT_DIR$/public/admin/script/gov.js" />
         <option value="$PROJECT_DIR$/views/admin/gov-column.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/gov-column.js" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
+        <option value="$PROJECT_DIR$/public/script/get-data.js" />
       </list>
     </option>
   </component>
@@ -185,9 +185,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="27" />
-    <option name="y" value="15" />
-    <option name="width" value="1384" />
+    <option name="x" value="180" />
+    <option name="y" value="18" />
+    <option name="width" value="1256" />
     <option name="height" value="816" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -243,61 +243,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="script" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buildface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buildface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -435,7 +399,7 @@
       <workItem from="1507510076680" duration="33129000" />
       <workItem from="1507622637436" duration="25231000" />
       <workItem from="1507769786353" duration="35739000" />
-      <workItem from="1508114849105" duration="31677000" />
+      <workItem from="1508114849105" duration="60760000" />
     </task>
     <task id="LOCAL-00001" summary="角色管理添加function">
       <created>1505465567244</created>
@@ -549,24 +513,31 @@
       <option name="project" value="LOCAL" />
       <updated>1508209086917</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="gov-column function修改">
+      <created>1508220606109</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1508220606110</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="380279000" />
+    <option name="totallyTimeSpent" value="409362000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="27" y="15" width="1384" height="816" extended-state="0" />
+    <frame x="180" y="18" width="1256" height="816" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21599402" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2387597" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27258804" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14548239" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -596,7 +567,8 @@
     <MESSAGE value="index 修改" />
     <MESSAGE value="gov 修改" />
     <MESSAGE value="gov function修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="gov function修改" />
+    <MESSAGE value="gov-column function修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="gov-column function修改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -872,27 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1970">
-          <caret line="51" column="18" lean-forward="false" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="739" column="1" lean-forward="true" selection-start-line="739" selection-start-column="1" selection-end-line="739" selection-end-column="1" />
-          <folding>
-            <marker date="1507884852111" expanded="true" signature="10021:10033" ph="..." />
-            <marker date="1507884852111" expanded="true" signature="11107:11113" ph=" " />
-            <marker date="1507884852111" expanded="true" signature="16409:16415" ph=" " />
-            <marker date="1507884852111" expanded="true" signature="19150:19162" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
@@ -943,16 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="597" column="8" lean-forward="true" selection-start-line="597" selection-start-column="8" selection-end-line="597" selection-end-column="8" />
-          <folding>
-            <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/admin/script/gov.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -973,11 +914,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/gov-column.ejs">
+    <entry file="file://$PROJECT_DIR$/public/admin/script/column.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="44" column="38" lean-forward="true" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
-          <folding />
+        <state relative-caret-position="342">
+          <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+          <folding>
+            <marker date="1507533619321" expanded="true" signature="2600:2606" ph=" " />
+            <marker date="1507533619321" expanded="true" signature="2606:2612" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/gov-column.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="40" column="20" lean-forward="true" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+          <folding>
+            <marker date="1508210157028" expanded="true" signature="2586:2592" ph=" " />
+            <marker date="1508210157028" expanded="true" signature="2592:2598" ph=" " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -989,24 +944,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/gov-column.js">
+    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="32" column="44" lean-forward="true" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+        <state relative-caret-position="13662">
+          <caret line="597" column="8" lean-forward="true" selection-start-line="597" selection-start-column="8" selection-end-line="597" selection-end-column="8" />
           <folding>
-            <marker date="1508210157028" expanded="true" signature="2586:2592" ph=" " />
-            <marker date="1508210157028" expanded="true" signature="2592:2598" ph=" " />
+            <marker date="1508144089478" expanded="true" signature="7631:7637" ph=" " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/column.js">
+    <entry file="file://$PROJECT_DIR$/views/admin/gov-column.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        <state relative-caret-position="345">
+          <caret line="44" column="38" lean-forward="true" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="453" column="39" lean-forward="true" selection-start-line="453" selection-start-column="39" selection-end-line="453" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="960" column="25" lean-forward="true" selection-start-line="960" selection-start-column="25" selection-end-line="960" selection-end-column="25" />
           <folding>
-            <marker date="1507533619321" expanded="true" signature="2600:2606" ph=" " />
-            <marker date="1507533619321" expanded="true" signature="2606:2612" ph=" " />
+            <marker date="1508317950727" expanded="true" signature="10077:10089" ph="..." />
+            <marker date="1508317950727" expanded="true" signature="11163:11169" ph=" " />
+            <marker date="1508317950727" expanded="true" signature="16465:16471" ph=" " />
+            <marker date="1508317950727" expanded="true" signature="19206:19218" ph="..." />
           </folding>
         </state>
       </provider>
