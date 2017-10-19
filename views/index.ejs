@@ -28,15 +28,15 @@
   				<a class="button button-link button-nav pull-right" href="#login">登录</a>
 			</header>
 			<nav class="bar bar-tab">
-				<a class="tab-item active" href="#index">
+				<a class="tab-item active" href="" onclick="turnTab(1)">
 					<span class="fa fa-home"></span>
 					<span class="tab-label">筑脸头条</span>
 				</a>
-				<a class="tab-item" href="#goverment">
+				<a class="tab-item" href="#" onclick="turnTab(2)">
 					<span class="fa fa-legal"></span>
 					<span class="tab-label">政府招标</span>
 				</a>
-				<a class="tab-item" href="#user">
+				<a class="tab-item" href="" onclick="turnTab(3)">
 					<span class="fa fa-user"></span>
 					<span class="tab-label">会员中心</span>
 				</a>
@@ -339,15 +339,15 @@
   				<!--<a class="button button-link button-nav pull-right" href="#login">登录</a>-->
 			</header>
 			<nav class="bar bar-tab">
-				<a class="tab-item" href="#index">
+				<a class="tab-item" href="" onclick="turnTab(1)">
 					<span class="fa fa-home"></span>
 					<span class="tab-label">筑脸头条</span>
 				</a>
-				<a class="tab-item active" href="#goverment">
+				<a class="tab-item active" href="" onclick="turnTab(2)">
 					<span class="fa fa-legal"></span>
 					<span class="tab-label">政府招标</span>
 				</a>
-				<a class="tab-item" href="#user">
+				<a class="tab-item" href="" onclick="turnTab(3)">
 					<span class="fa fa-user"></span>
 					<span class="tab-label">会员中心</span>
 				</a>
@@ -431,73 +431,80 @@
   				<a class="button button-link button-nav pull-right" href="#login">登录</a>
 			</header>
 			<nav class="bar bar-tab">
-				<a class="tab-item" href="#index">
+				<a class="tab-item" href="" onclick="turnTab(1)">
 					<span class="fa fa-home"></span>
 					<span class="tab-label">筑脸头条</span>
 				</a>
-				<a class="tab-item" href="#goverment">
+				<a class="tab-item" href="" onclick="turnTab(2)">
 					<span class="fa fa-legal"></span>
 					<span class="tab-label">政府招标</span>
 				</a>
-				<a class="tab-item active" href="#user">
+				<a class="tab-item active" href="" onclick="turnTab(3)">
 					<span class="fa fa-user"></span>
 					<span class="tab-label">会员中心</span>
 				</a>
 			</nav>
 			<div class="content">
-				<div class="buttons-tab">
-					<a href="#user-tab1" class="tab-link active button">头条</a>
-					<a class="tab-link button" href="#user-tab2">政府招标</a>
+				<div class="nobody" style="text-align:center;margin-top:5%">
+					还未登录，是否立即登录查看收藏？
+					<a href="" class="button button-fill" onclick="goLogin()" style="margin-top: 5%">立即登录</a>
 				</div>
-				<div class="">
-				    <div class="tabs">
-				      	<div id="user-tab1" class="tab active">
-				        	<div class="content-block index">
-				          		<div class="list-block media-list">
-									<ul>
-										<li>
-											<a class="item-link item-content" href="#index-detail">
-												<div class="item-inner">
-													<div class="item-title-row">
-														<div class="item-title">中国建的这些桥，让世界侧目</div>
+				<div class="has">
+					<div class="buttons-tab">
+						<a href="#user-tab1" class="tab-link active button">头条</a>
+						<a class="tab-link button" href="#user-tab2">政府招标</a>
+					</div>
+					<div class="">
+						<div class="tabs">
+							<div id="user-tab1" class="tab active">
+								<div class="content-block index">
+									<div class="list-block media-list">
+										<ul>
+											<li>
+												<a class="item-link item-content" href="#index-detail">
+													<div class="item-inner">
+														<div class="item-title-row">
+															<div class="item-title">中国建的这些桥，让世界侧目</div>
+														</div>
+														<div class="item-content-row">
+															<div class="types">亿建联</div>
+															<div class="time">08-30</div>
+															<div class="clearfix"></div>
+														</div>
 													</div>
-													<div class="item-content-row">
-														<div class="types">亿建联</div>
-														<div class="time">08-30</div>
-														<div class="clearfix"></div>
-													</div>
-												</div>
-												<div class="item-media"><img src="img/11.jpg" style='width: 5rem;'></div>
-											</a>
-										</li>
-									</ul>
+													<div class="item-media"><img src="img/11.jpg" style='width: 5rem;'></div>
+												</a>
+											</li>
+										</ul>
+									</div>
 								</div>
-				        	</div>
-				      	</div>
-				      	<div id="user-tab2" class="tab">
-				        	<div class="content-block goverment">
-				          		<div class="list-block media-list">
-									<ul>
-										<li>
-											<a class="item-link item-content" href="#index-detail">
-												<div class="item-inner">
-													<div class="item-title-row">
-														<div class="item-title">中国建的这些桥，让世界侧目</div>
+							</div>
+							<div id="user-tab2" class="tab">
+								<div class="content-block goverment">
+									<div class="list-block media-list">
+										<ul>
+											<li>
+												<a class="item-link item-content" href="#index-detail">
+													<div class="item-inner">
+														<div class="item-title-row">
+															<div class="item-title">中国建的这些桥，让世界侧目</div>
+														</div>
+														<div class="item-content-row">
+															<div class="types">亿建联</div>
+															<div class="time">08-30</div>
+															<div class="clearfix"></div>
+														</div>
 													</div>
-													<div class="item-content-row">
-														<div class="types">亿建联</div>
-														<div class="time">08-30</div>
-														<div class="clearfix"></div>
-													</div>
-												</div>
-											</a>
-										</li>
-									</ul>
+												</a>
+											</li>
+										</ul>
+									</div>
 								</div>
-				        	</div>
-				      	</div>
-				    </div>
+							</div>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
      </div>

@@ -19,7 +19,7 @@ $.ajax({
             }
         }
     }
-})
+});
 
 if(sessionStorage.authorization){
 	sessionStorage.authorization="";
@@ -45,6 +45,20 @@ var bidBaseUrl="http://192.168.20.61:8000/bid-service";
 // 	}
 // })
 var baseUrl="http://192.168.20.61:8000/user-service";
+
+function turnTab(num){
+	if(num==1){
+		$.router.load("#index");
+	}
+	else if(num==2){
+		$.router.load("#goverment");
+	}
+	else {
+		$.router.load("#user");
+	}
+
+}
+
 function getvercode(){
 	var button=$("#register a.button").eq(0);
 	button.addClass("disabled");
@@ -977,11 +991,12 @@ function getFavorGov() {
                         }
 					}
 					else{
-
+                        $("#user #user-tab2 .list-block").html("<div></div>")
 					}
 				}
 				else{
-
+					$.alert(data.errorMsg);
+					$.router.back();
 				}
 			},
 			error:function (error) {
@@ -1009,11 +1024,14 @@ function getFavorNews(){
                     $("#user #user-tab1").find("ul").remove();
                     if(data.data.list.length>0){
                         $("#user #user-tab1 .list-block").append("<ul></ul>");
-                        var ele=$("#user #user-tab1 .list-block ul");
+                    	var ele=$("#user #user-tab1 .list-block ul");
+                        ele.find("li").remove();
                         for(var i=0;i<data.data.list.length;i++){
-                            ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
-                            ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
-                            ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+                            ele.append("<li></li>");
+                            ele.find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[0].newsId+')"></a>');
+                            ele.find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
+                            ele.find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+                            ele.find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
                         }
                     }
                     else{
