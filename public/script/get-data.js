@@ -1,5 +1,5 @@
 //地理位置获取
-$(".page").eq(0).find("header").find("button").eq(0).html("<a href='#selectCity' onclick='getCity()'>"+remote_ip_info.city+"</a>");
+$(".page").find("header").find(".address").html("<a href='#selectCity' onclick='getCity()'>"+remote_ip_info.city+"</a>");
 
 $.ajax({
     url:"http://192.168.20.61:8000/manager-service/user/basic/city/list",
@@ -13,7 +13,7 @@ $.ajax({
         if(data.success){
             for(var i=0;i<data.data.length;i++){
                 if(remote_ip_info.city==data.data[i].name){
-                    $(".page").eq(0).find("header").find("button").attr("data-cityId",data.data[i].cityId);
+                    $(".page header .address").attr("data-cityId",data.data[i].cityId);
                     break;
                 }
             }
@@ -49,12 +49,16 @@ var baseUrl="http://192.168.20.61:8000/user-service";
 function turnTab(num){
 	if(num==1){
 		$.router.load("#index");
+		getChannel();
+		getNews();
 	}
 	else if(num==2){
 		$.router.load("#goverment");
+		getBidChannel();
 	}
 	else {
 		$.router.load("#user");
+		getUserData();
 	}
 
 }
@@ -111,6 +115,40 @@ function getvercode(){
 			button.removeClass("disabled");
 		}
 	})
+}
+
+function getvercode_password(){
+    var button=$("#changePassword a.button").eq(0);
+    button.addClass("disabled");
+    var phone=$("#changePassword .list-block input").eq(0).val();
+    if(!(/^1[34578]\d{9}$/.test(phone))){
+        $.toast("手机号码有误，请重填");
+        button.removeClass("disabled");
+        return;
+    };
+    var a={"phone":phone,"vercodeOperation": "PASSWORD_CHANGE"};
+    $.ajax({
+        url:baseUrl+'/user/vercode/send',
+        type:'post',
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        data:JSON.stringify(a),
+        dataType:'json',
+        success:function(info){
+            if(!info.success){
+                $.toast("验证码获取失败，请重试！");
+                button.removeClass("disabled");
+            }
+            else{
+                $.toast("已发送验证码，请查收！")
+                setTimeout('$("#changePassword a.button").eq(0).removeClass("disabled")',30000);
+            }
+        },
+        error:function(error,Msgerror){
+            $.toast("验证码获取失败，请重试！");
+            button.removeClass("disabled");
+        }
+    })
 }
 
 function register(thiz){
@@ -176,6 +214,7 @@ function register(thiz){
 						if(info.success){
 							if($.alert("注册成功！")){
 								$("#register .content a.button").eq(1).removeClass("disabled");
+								$("#login a.login").attr("data-index",'true');
 								$.router.load("#login");
 							}
 						}
@@ -202,9 +241,9 @@ function register(thiz){
 }
 
 function changePassword() {
-    var phone=$("#changePassword .content input").eq(1).val();
-    var vercode=$("#changePassword .content input").eq(2).val();
-    var password=$("#changePassword .content input").eq(3).val();
+    var phone=$("#changePassword .content input").eq(0).val();
+    var vercode=$("#changePassword .content input").eq(1).val();
+    var password=$("#changePassword .content input").eq(2).val();
     if(phone==""){
         $.toast("请填写手机号码！");
         return;
@@ -258,10 +297,21 @@ function login(){
 			if(info.success){
 				$.alert("登录成功！");
 				sessionStorage.userName=$("#login .content input").eq(0).val();
-				$(".page").eq(0).find("header>a").text($("#login .content input").eq(0).val()).addClass("userAction")[0].href="#"
+				$(".page header .user").text($("#login .content input").eq(0).val()).addClass("userAction").attr("onclick","")[0].href="#";
 				sessionStorage.authorization=request.getResponseHeader("authorization");
-				$.router.back();
+				// $.router.back();
+				if($("#login a.login").attr("data-num")){
+					turnTab($("#login a.login").attr("data-num"));
+				}
+				else{
+					if($("#login a.login").attr("data-index")){
+						turnTab(1);
+					}
+					else{
+						$.router.back();
+					}
 
+				}
 			}
 			else{
 				$.alert(info.errorMsg);
@@ -275,6 +325,18 @@ function login(){
 					
 }
 
+function toLogin()
+{
+    //以下为按钮点击事件的逻辑。注意这里要重新打开窗口
+    //否则后面跳转到QQ登录，授权页面时会直接缩小当前浏览器的窗口，而不是打开新窗口
+    var A=window.open("https://graph.qq.com/oauth/index.php","TencentLogin",
+        "width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+}
+
+function goLogin(num){
+	$.router.load("#login");
+	$("#login a.login").attr("data-num",num);
+}
 
 //获取频道
 function getChannel(){
@@ -290,6 +352,7 @@ function getChannel(){
 			if(data.success){
 				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").remove();
 				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide active external" onclick="getNews(this)">推荐</a>');
+
                 $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide external" onclick="getNews(this,\'LOCAL\','+$(".page").eq(0).find("header").find("button").attr("data-cityId")+')">本地</a>');
 
 				for(var i=0;i<data.data.length;i++){
@@ -335,7 +398,13 @@ function getNews(thiz,channelType,channelId){
                     $(".page").eq(0).find(".tabs").find("ul").append("<li></li>");
                     $(".page").eq(0).find(".tabs").find("ul").find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[0].newsId+')"></a>');
                     $(".page").eq(0).find(".tabs").find('ul').find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
-					$(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+                    if(data.data.list[i].newsTopYn){
+                        $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="sui-label">置顶</div> &nbsp;<div class="types">'+(data.data.list[i].author==undefined?"":data.data.list[i].author)+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+					}
+					else{
+                        $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+					}
+
 					$(".page").eq(0).find(".tabs").find("ul").find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
 
 				}
@@ -563,6 +632,8 @@ function favor(newsId){
 
 function searchNews(){
 	if($(".page #search").val()){
+		$("#index .content .buttons-tab .active").removeClass("active");
+        $.showIndicator();
 		var a={"keyword":$(".page #search").val(),"pageSize":0,"pageNum":0};
 		$.ajax({
 			url:newsBaseUrl+"/user/news/search/page",
@@ -581,28 +652,32 @@ function searchNews(){
                         $(".page").eq(0).find(".tabs").find('ul').find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
                         $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
                         $(".page").eq(0).find(".tabs").find("ul").find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
-
                     }
 				}
+                $.hideIndicator();
 			},
 			error:function (error) {
-
+                $.showIndicator()
             }
 		})
 	}
 	else{
-		getNews()
-		var a=$(".page").eq(0).find("#swiper-index").find("a.active").attr("onclick");
-		a=a.split("(")[1];
-		a=a.split(",")
-		if(a.length>1){
-			a[2]=a[2].split(")")[0];
-			getNews('$(".page").eq(0).find("#swiper-index").find("a.active")',a[1],a[2]);
+		if($("#index .content .buttons-tab a").hasClass("active")){
+            var a=$(".page").eq(0).find("#swiper-index").find("a.active").attr("onclick");
+            a=a.split("(")[1];
+            a=a.split(",");
+            if(a.length>1){
+            	a[2]=a[2].split(")")[0];
+            	getNews('$(".page").eq(0).find("#swiper-index").find("a.active")',a[1],a[2]);
+            }
+            else{
+            	getNews('$(".page").eq(0).find("#swiper-index").find("a.active")')
+            }
 		}
 		else{
-			getNews('$(".page").eq(0).find("#swiper-index").find("a.active")')
+            $("#index .content .buttons-tab a").eq(0).addClass("active");
+            getNews();
 		}
-
 	}
 }
 
@@ -683,8 +758,8 @@ function getCity(){
 
 function sitCity(name,id){
 	$.router.back();
-	$("#index header .pull-left").html("<a href='#selectCity' onclick='getCity()'>"+name+"</a>");
-	$("#index header .pull-left").attr("data-cityId",id);
+	$(".page header .address").html("<a href='#selectCity' onclick='getCity()'>"+name+"</a>");
+	$(".page header .address").attr("data-cityId",id);
 }
 
 function sort(){
@@ -860,7 +935,12 @@ function getBidList(data){
                 for(var i=0;i<data.data.list.length;i++){
 					ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
 					ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
-					ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+					if(data.data.list[i].bidTopSubjectView){
+                        ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='sui-label'>置顶</div> &nbsp;<div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>");
+					}
+					else{
+                        ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>");
+					}
                 }
             }
             else{
@@ -873,7 +953,6 @@ function getBidList(data){
     })
 
 }
-getBidChannel();
 
 function getBidDetail(id){
 	$.ajax({
@@ -966,9 +1045,54 @@ function favorGov(Yn){
         }
     }
 }
+ function searchGov(){
+     if($("#goverment .search").val()){
+         $("#goverment .content .buttons-tab .active").removeClass("active");
+         $.showIndicator();
+         var a={"keyword":$("#goverment .search").val(),"pageSize":0,"pageNum":0};
+         $.ajax({
+             url:bidBaseUrl+"/user/bid/search/page",
+             type: 'post',
+             contentType: "application/json;charset=utf-8",
+             crossDomain: true,
+             headers: {"authorization": sessionStorage.authorization},
+             data: JSON.stringify(a),
+             dataType: 'json',
+             success: function (data) {
+                 if(data.success){
+                     $("#goverment .content .tabs .buttons-row").find("a").remove();
+                     $("#goverment .tabs .list-block").find("li").remove();
+                     var ele=$("#goverment .content .list-block ul");
+                     for(var i=0;i<data.data.list.length;i++){
+                         ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
+                         ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
+                         ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>")
+                     }
 
+                 }
+                 $.hideIndicator();
+             },
+             error:function (error) {
+                 $.showIndicator()
+             }
+         })
+     }
+     else{
+         if($("#goverment .content .buttons-tab a").hasClass("active")){
+
+         }
+         else{
+             $("#goverment .content .buttons-tab a").eq(0).addClass("active");
+         }
+         $("#goverment .content .buttons-tab a.active").trigger("click");
+     }
+ }
 function getFavorGov() {
+ 	$("#user .content .buttons-tab a").eq(0).removeClass("active");
+    $("#user .content .buttons-tab a").eq(1).addClass("active");
 	if(sessionStorage.authorization){
+        $("#user .content .nobody").css("display","none");
+        $("#user .content .tabs").css("display","");
 		var a={"pageNum":0,"pageSize":0};
 		$({
             url:bidBaseUrl+"/user/bid/favor/page",
@@ -982,6 +1106,8 @@ function getFavorGov() {
 				if(data.success){
 					$("#user #user-tab2").find("ul").remove();
 					if(data.data.list.length>0){
+						$("#user .content .nobody").css("display","none");
+						$("#user .content .tabs").css("display","");
                         $("#user #user-tab2 .list-block").append("<ul></ul>");
                         var ele=$("#user #user-tab2 .list-block ul");
                         for(var i=0;i<data.data.list.length;i++){
@@ -991,7 +1117,10 @@ function getFavorGov() {
                         }
 					}
 					else{
-                        $("#user #user-tab2 .list-block").html("<div></div>")
+                        $("#user .content .nobody").css("display","");
+                        $("#user .content .tabs").css("display","none");
+                        $("#user .content .nobody p").text("没有收藏记录，快去收藏吧！");
+                        $("#user .content .nobody a").css("display","none");
 					}
 				}
 				else{
@@ -1004,12 +1133,19 @@ function getFavorGov() {
             }
 		})
 	}else{
-
+        $("#user .content .nobody").css("display","");
+        $("#user .content .tabs").css("display","none");
+        $("#user .content .nobody p").text("用户还未登录，是否立即登录查看收藏？");
+        $("#user .content .nobody a").css("display","");
 	}
 }
 
 function getFavorNews(){
+    $("#user .content .buttons-tab a").eq(1).removeClass("active");
+    $("#user .content .buttons-tab a").eq(0).addClass("active");
     if(sessionStorage.authorization){
+        $("#user .content .nobody").css("display","none");
+        $("#user .content .tabs").css("display","");
         var a={"pageNum":0,"pageSize":0};
         $({
             url:newsBaseUrl+"/user/news/favor/page",
@@ -1023,6 +1159,8 @@ function getFavorNews(){
                 if(data.success){
                     $("#user #user-tab1").find("ul").remove();
                     if(data.data.list.length>0){
+                        $("#user .content .nobody").css("display","none");
+                        $("#user .content .tabs").css("display","");
                         $("#user #user-tab1 .list-block").append("<ul></ul>");
                     	var ele=$("#user #user-tab1 .list-block ul");
                         ele.find("li").remove();
@@ -1035,18 +1173,35 @@ function getFavorNews(){
                         }
                     }
                     else{
-
+                        $("#user .content .nobody").css("display","");
+                        $("#user .content .tabs").css("display","none");
+                        $("#user .content .nobody p").text("没有收藏记录，快去收藏吧！");
+                        $("#user .content .nobody a").css("display","none");
                     }
                 }
                 else{
-
+					$.alert(data.errorMsg);
+					$.router.back();
                 }
             },
             error:function (error) {
-
+				$.alert("数据获取错误！");
+				$.router.back();
             }
         })
     }else{
-
+        $("#user .content .nobody").css("display","");
+        $("#user .content .tabs").css("display","none");
+        $("#user .content .nobody p").text("用户还未登录，是否立即登录查看收藏？");
+        $("#user .content .nobody a").css("display","");
     }
+}
+
+function getUserData(){
+	if($("#user .content .buttons-tab .active").attr("data-type")=="1"){
+		getFavorNews();
+	}
+	else{
+		getFavorGov();
+	}
 }

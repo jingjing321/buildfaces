@@ -229,3 +229,8 @@ nav.bar {
     float: right;
     margin-right: 7.5%;
 }
+#index .sui-label,#goverment .sui-label{
+    float: left;
+    background-color: #ff5720;
+    color: white;
+}
