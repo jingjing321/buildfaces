@@ -1210,3 +1210,19 @@ function getUserData(){
 		getFavorGov();
 	}
 }
+
+//无限滚动
+
+var loading=false;
+var maxItems=100;
+var itemsPerLoad=20;
+function addItems(number,lastIndex){
+	var html='';
+	for(var i=lastIndex+1;i<=lastIndex+number;i++){
+		html+='<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
+
+	}
+	$('.infinite-scroll-bottom .list-container').append(html);
+}
+addItems(itemsPerLoad,0);
+var lastIndex=20;
