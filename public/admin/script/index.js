@@ -630,10 +630,10 @@ function edit(row){
                     $("#edit-sourceSite").val(row.sourceSite);
                     $("#edit-keywords").val(row.keywords);
                     CKEDITOR.instances.editor.setData(row.content);
-                    $("#edit-modal .btn-primary").attr("onclick","edit_sit("+row.newsId+")");
+                    $("#edit-modal .btn-primary").last().attr("onclick","edit_sit("+row.newsId+")");
                 }
                 else{
-                    $("#edit-modal .btn-primary").attr("onclick","edit_sit()");
+                    $("#edit-modal .btn-primary").last().attr("onclick","edit_sit()");
                 }
                 $("#edit-modal").modal("show");
             }

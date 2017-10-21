@@ -40,7 +40,6 @@ if($("#fileupload").length != 0) {
             url: $('#fileupload').fileupload('option', 'url'),
             headers: {"authorization": sessionStorage.authorization},
             dataType: 'json',
-            context: $('#fileupload')[0]
         }).done(function (result) {
                 $(this).fileupload('option', 'done')
                     .call(this, null, {result: result});

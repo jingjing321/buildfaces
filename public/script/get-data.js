@@ -362,6 +362,7 @@ function getChannel(){
                         $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().attr("onclick","getNews(this,'"+data.data[i].channelType+"',"+data.data[i].channelId+")");
 					}
 				}
+                $.router.load("#index");
 			}
         },
         error: function (error) {
@@ -499,7 +500,7 @@ function getcomment(newsId){
                         ele.find("#comments_list").append('<li class="comments"></li>');
                         ele.find("#comments_list li").last().append('<div class="com_top"><span class="photo"><img src="'+data.data.list[i].userView.photo+'"></span><span class="name">'+data.data.list[i].userView.userName+'</span></div>');
                         ele.find("#comments_list li").last().append('<div class="com_content">'+data.data.list[i].content+'</div>');
-                        ele.find("#comments_list li").last().append('<div class="com_bottom"><span class="time">'+data.data.list[i].ctime+'</span><span class="useful" onclick="checkUser('+data.data.list[i].commentId+','+data.data.list[i].userView.userName+')">回复</span></div>')
+                        ele.find("#comments_list li").last().append('<div class="com_bottom"><span class="time">'+data.data.list[i].ctime+'</span><span class="useful" onclick="checkUser('+data.data.list[i].commentId+',\''+data.data.list[i].userView.userName+'\')">回复</span></div>')
 					}
 
 				}
@@ -700,7 +701,10 @@ $(document).on('click','.userAction', function () {
             onClick: function() {
 				sessionStorage.userName="";
 				sessionStorage.authorization="";
-				$(".page").eq(0).find("header a").text("登录").removeClass("userAction")[0].href="#login";
+				$(".page").find("header .user").text("登录").removeClass("userAction");
+				for(var i=0;i<$(".page").find("header .user").length;i++){
+                    $(".page").find("header .user").eq(i).attr("onclick","goLogin("+(i+1)+")");
+				}
 				$.alert("成功退出登录！");
             }
         }
@@ -760,6 +764,7 @@ function sitCity(name,id){
 	$.router.back();
 	$(".page header .address").html("<a href='#selectCity' onclick='getCity()'>"+name+"</a>");
 	$(".page header .address").attr("data-cityId",id);
+    $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").eq(1).attr("onclick",'getNews(this,\'LOCAL\','+id+')');
 }
 
 function sort(){
@@ -984,10 +989,10 @@ function getBidDetail(id){
                     success: function (data) {
 						if(data.success){
 							if(data.data){
-								$("#gov-detail header .fa").removeClass("fa-start-o").addClass("fa-start").attr("onclick","favorGov(false)");
+								$("#gov-detail header .fa").removeClass("fa-star-o").addClass("fa-star").attr("onclick","favorGov(false)");
 							}
 							else{
-                                $("#gov-detail header .fa").removeClass("fa-start-o").addClass("fa-start").attr("onclick","favorGov(true)");
+                                $("#gov-detail header .fa").removeClass("fa-star").addClass("fa-star-o").attr("onclick","favorGov(true)");
 							}
 						}else{
 							$.alert(data.errorMsg);
@@ -1094,7 +1099,7 @@ function getFavorGov() {
         $("#user .content .nobody").css("display","none");
         $("#user .content .tabs").css("display","");
 		var a={"pageNum":0,"pageSize":0};
-		$({
+		$.ajax({
             url:bidBaseUrl+"/user/bid/favor/page",
             type: 'post',
             contentType: "application/json;charset=utf-8",
@@ -1104,12 +1109,12 @@ function getFavorGov() {
             dataType: 'json',
             success: function (data) {
 				if(data.success){
-					$("#user #user-tab2").find("ul").remove();
+					$("#user #user-tab1").find("ul").remove();
 					if(data.data.list.length>0){
 						$("#user .content .nobody").css("display","none");
 						$("#user .content .tabs").css("display","");
-                        $("#user #user-tab2 .list-block").append("<ul></ul>");
-                        var ele=$("#user #user-tab2 .list-block ul");
+                        $("#user #user-tab1 .list-block").append("<ul></ul>");
+                        var ele=$("#user #user-tab1 .list-block ul");
                         for(var i=0;i<data.data.list.length;i++){
                             ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
                             ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
@@ -1147,7 +1152,7 @@ function getFavorNews(){
         $("#user .content .nobody").css("display","none");
         $("#user .content .tabs").css("display","");
         var a={"pageNum":0,"pageSize":0};
-        $({
+        $.ajax({
             url:newsBaseUrl+"/user/news/favor/page",
             type: 'post',
             contentType: "application/json;charset=utf-8",
@@ -1168,7 +1173,7 @@ function getFavorNews(){
                             ele.append("<li></li>");
                             ele.find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[0].newsId+')"></a>');
                             ele.find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
-                            ele.find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
+                            ele.find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+(data.data.list[i].author==undefined?"":data.data.list[i].author)+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
                             ele.find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
                         }
                     }
