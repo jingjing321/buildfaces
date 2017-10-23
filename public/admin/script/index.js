@@ -84,6 +84,21 @@ function getData(type,data){
 
     }
     else if($(".link.active").attr("data-type")){
+        var type=$(".link.active").attr("data-type");
+        if(type=="newsRecommend"||type=="newsRecommendSubject"||type=="newsRecommendPic"){
+            $(".table-block table").css("display","none");
+            $(".table-block #news-recommend-list").css("display","");
+
+        }
+        else if(type=="newsTop"||type=="newsTopSubject"){
+            $(".table-block table").css("display","none");
+            $(".table-block #news-top-list").css("display","");
+        }
+        else{
+            $(".table-block table").css("display","none");
+            $(".table-block #news-list").css("display","");
+        }
+
         if(data.condition){
             data.condition[$(".link.active").attr("data-type")]="";
         }
@@ -171,10 +186,132 @@ function getData(type,data){
                             //     return "推送"
                             // }}
                         ]]
-                    })
+                    });
+                    $("#news-recommend-list").bootstrapTable({
+                        idField:'newsId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'',checkbox:true,align:'center'},
+                            {field:'title',title:'标题',align:"center"},
+                            {field:"author",title:"发布者",align:'center'},
+                            {field:'siteName',title:"站点",aign:'center'},
+                            {field:'newsSubjectName',title:'所属栏目',align:'center'},
+                            {field:'clicks',title:'点击数',align:'center'},
+                            {field:'ctime',title:"发布日期",align:'center'},
+                            {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                }
+                                else{
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                }
+                            }},
+                            {field:'newsRecommendPicView',title:"推荐",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.newsRecommendPicView){
+                                    btn+="<a href='#' onclick='recommend_table("+row.newsId+",\"pic\",false)'>图说推荐</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='recommend_table("+row.newsId+",\"pic\",true)'>图说未推荐</a>"
+                                }
+                                if(row.newsRecommendSubjectView){
+                                    btn+="<br><a href='#' onclick='recommend_table("+row.newsId+",\"subject\",false)'>栏目推荐</a>"
+                                }
+                                else{
+                                    btn+="<br><a href='#' onclick='recommend_table("+row.newsId+",\"subject\",true)'>栏目未推荐</a>"
+                                }
+                                if(row.newsRecommendView){
+                                    btn+="<br><a href='#' onclick='recommend_table("+row.newsId+",\"news\",false)'>头条推荐</a>"
+                                }
+                                else{
+                                    btn+="<br><a href='#' onclick='recommend_table("+row.newsId+",\"news\",true)'>头条未推荐</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:'newsRecommendView',title:"推荐时间",align:'center',formatter:function(value,row,index){
+                                var content=""
+                                if(row.newsRecommendPicView){
+                                    content+=row.newsRecommendPicView.ctime;
+                                }
+                                else{
+                                    content+="&nbsp;"
+                                }
+                                if(row.newsRecommendSubjectView){
+                                    content+="<br/>"+row.newsRecommendSubjectView.ctime;
+                                }
+                                else{
+                                    content+="<br/> &nbsp;"
+                                }
+                                if(row.newsRecommendView){
+                                    content+="<br/>"+row.newsRecommendView;
+                                }
+                                else{
+                                    content+="<br/> &nbsp;"
+                                }
+                                return content;
+                            }}
+                        ]]
+                    });
+                    $("#news-top-list").bootstrapTable({
+                        idField:'newsId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'',checkbox:true,align:'center'},
+                            {field:'title',title:'标题',align:"center"},
+                            {field:"author",title:"发布者",align:'center'},
+                            {field:'siteName',title:"站点",aign:'center'},
+                            {field:'newsSubjectName',title:'所属栏目',align:'center'},
+                            {field:'clicks',title:'点击数',align:'center'},
+                            {field:'ctime',title:"发布日期",align:'center'},
+                            {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                }
+                                else{
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                }
+                            }},
+                            {field:'newsTopSubjectView',title:"置顶",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.newsTopSubjectView){
+                                    btn+="<a href='#' onclick='top_table("+row.newsId+",\"subject\",1)'>栏目置顶</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='top_table("+row.newsId+",\"subject\",0)'>栏目未置顶</a>"
+                                }
+                                if(row.newsTopView){
+                                    btn+="<br><a href='#' onclick='top_table("+row.newsId+",\"news\",1)'>头条置顶</a>"
+                                }
+                                else{
+                                    btn+="<br><a href='#' onclick='top_table("+row.newsId+",\"news\",0)'>头条未置顶</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:'newsTopView',title:'置顶时间',align:'center',formatter:function(value,row,index){
+                                var content="";
+                                if(row.newsTopSubjectView){
+                                    content=row.newsTopSubjectView.ctime+"-"+row.newsTopSubjectView.ctime;
+                                }
+                                else{
+                                    content+="&nbsp;";
+                                }
+                                if(row.newsTopView){
+                                    content+="<br/>"+row.newsTopView.ctime+"-"+row.newsTopView.ctime;
+                                }
+                                else{
+                                    content+="<br/> &nbsp;"
+                                }
+                                return content;
+                            }}
+                        ]]
+                    });
                 }
                 else{
                     $("#news-list").bootstrapTable("load",a);
+                    $("#news-recommend-list").bootstrapTable("load",a);
+                    $("#news-top-list").bootstrapTable("load",a);
                 }
             }
 
@@ -605,6 +742,7 @@ function edit(row){
                 for(var i=0;i<data.data.length;i++) {
                     $("#edit-subject").append(returnOption(data.data[i].newsSubjectId, data.data[i].name));
                     if(i==0){
+                        $("#edit-subject2").find("option").remove();
                         if(data.data[i].newsSubjectViews){
                             for(var i2=0;i2<data.data[i].newsSubjectViews.length;i2++){
                                 $("#edit-subject2").append(returnOption(data.data[i].newsSubjectViews[i2].newsSubjectId,data.data[i].newsSubjectViews[i2].name,data.data[i].newsSubjectViews[i2].pid));
@@ -616,7 +754,7 @@ function edit(row){
                     $("#edit-subject2").val(row.newsSubjectId);
                     for(var i=0;i<$("#edit-subject2").find("option").length;i++){
                         if($("#edit-subject2").find("option").eq(i).selected){
-                            $("$edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
+                            $("#edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
                             break;
                         }
                     }
@@ -626,6 +764,8 @@ function edit(row){
                             $("#edit-province").val($("#edit-city").find("option").eq(i).attr("data-pid"));
                         }
                     }
+                    $("#imgUpload").attr("data-path",row.images);
+                    $("#xmTanImg")[0].src=row.images;
                     $("#edit-title").val(row.title);
                     $("#edit-sourceSite").val(row.sourceSite);
                     $("#edit-keywords").val(row.keywords);
@@ -643,8 +783,19 @@ function edit(row){
 function edit_sit(id){
     var url="/platform/news/add";
     var a={};
-    a.siteId=$("#edit-city").val();
-    a.newsSubjectId=$("#edit-subject2").val();
+    if($("#edit-city").val()){
+        a.siteId=$("#edit-city").val();
+    }
+    else{
+        a.siteId=$("#edit-province").val();
+    }
+    if($("#edit-subject2").val()){
+        a.newsSubjectId=$("#edit-subject2").val();
+    }
+    else{
+        a.newsSubjectId=$("#edit-subject").val();
+    }
+
     if($("#edit-title").val()){
         a.title=$("#edit-title").val();
     }
@@ -668,6 +819,9 @@ function edit_sit(id){
     if(id){
         a.newsId=id;
         url="/platform/news/edit"
+    }
+    if($("#imgUpload").attr("data-path")){
+        a.images=$("#imgUpload").attr("data-path");
     }
     $.ajax({
         url:newsBaseUrl+url,
@@ -710,7 +864,8 @@ function getSubjectIndex(){
         success:function(data){
             if(data.success){
                 for(var i=0;i<data.data.length;i++){
-                    if(data.data.newsSubjectId==$("#edit-subject").val()){
+                    if(data.data[i].newsSubjectId==$("#edit-subject").val()){
+                        $("#edit-subject2").find("option").remove();
                         if(data.data[i].newsSubjectViews){
                             for(var i2=0;i2<data.data[i].newsSubjectViews.length;i2++){
                                 $("#edit-subject2").append(returnOption(data.data[i].newsSubjectViews[i2].newsSubjectId,data.data[i].newsSubjectViews[i2].name,data.data[i].newsSubjectViews[i2].pid));
@@ -723,8 +878,64 @@ function getSubjectIndex(){
     })
 }
 
-function type(thiz){
+function turn_type(thiz){
     $(".link").removeClass("active");
     $(thiz).addClass("active");
+    if($(thiz).attr("data-type"))
     getData()
+}
+
+function submitBtn() {
+    var form = $("form#fileupload");
+    var options  = {
+        url:basicBaseUrl+'/platform/upload/image/upload',
+        type:'post',
+        headers:{"authorization":sessionStorage.authorization},
+        success:function(data)
+        {
+            if(data.success){
+                if(data.success){
+                    alert("图片上传成功！");
+                    $("#imgUpload").attr("data-path",data.data);
+                }
+                else{
+                    alert(data.data.errorMsg);
+                }
+            }
+        }
+    };
+    form.ajaxSubmit(options);
+    //$("#fileForm").submit();
+}
+
+function xmTanUploadImg(obj) {
+    var file = obj.files[0];
+
+    console.log(obj);console.log(file);
+    console.log("file.size = " + file.size);  //file.size 单位为byte
+
+    var reader = new FileReader();
+
+    //读取文件过程方法
+    reader.onloadstart = function (e) {
+        console.log("开始读取....");
+    }
+    reader.onprogress = function (e) {
+        console.log("正在读取中....");
+    }
+    reader.onabort = function (e) {
+        console.log("中断读取....");
+    }
+    reader.onerror = function (e) {
+        console.log("读取异常....");
+    }
+    reader.onload = function (e) {
+        console.log("成功读取....");
+
+        var img = document.getElementById("xmTanImg");
+        img.src = e.target.result;
+        //或者 img.src = this.result;  //e.target == this
+    }
+
+    reader.readAsDataURL(file)
 }

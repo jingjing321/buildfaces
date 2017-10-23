@@ -58,6 +58,8 @@
 				<br> <br>
 				<div class="span12 table-block">
 					<table id="news-list"></table>
+					<table id="news-recommend-list" style="display: none;"></table>
+					<table id="news-top-list" style="display: none;"></table>
 				</div>
 			</div>
 		</div>
@@ -131,15 +133,16 @@
 			</div>
 			<div class="modal-body">
 
-				<span>选择栏目: </span><select name="" id="edit-subject" onselect="getSubjectIndex()"></select> &nbsp;&nbsp; <select name="" id="edit-subject2"></select> <br> <br>
-				<span>所属站点：</span><select name="" id="edit-province" onselect="getCityIndex(1)"></select> &nbsp;&nbsp; <select name="" id="edit-city"></select> <br> <br>
+				<span>选择栏目: </span><select name="" id="edit-subject" onchange="getSubjectIndex()"></select> &nbsp;&nbsp; <select name="" id="edit-subject2"></select> <br> <br>
+				<span>所属站点：</span><select name="" id="edit-province" onchange="getCityIndex(1)"></select> &nbsp;&nbsp; <select name="" id="edit-city"></select> <br> <br>
 				<span>标题：</span> <input type="text" id="edit-title"> <br> <br>
 				<span>缩略图：</span>
 				<div class='box-content'>
 					<form action='http://192.168.20.61:8000/news-service/platform/news/image/upload' enctype='multipart/form-data' id='fileupload' method='POST' />
-						<input type="file">
-						<input type="submit" value="上传">
+						<img id="xmTanImg"/> <br>
+						<input type="file" name="file" onchange="xmTanUploadImg(this)">
 					</form>
+					<button class="btn btn-primary" id="imgUpload" onclick="submitBtn()">上传图片</button>
 				</div><br> <br>
 				<span>内容：</span><div id="editor" style="display: inline-block"></div>
 				<br> <br>
@@ -228,6 +231,7 @@
                 <!--</script>-->
 <script src='script/fileupload/tmpl.min.js' type='text/javascript'></script>
 <script src='script/fileupload/load-image.min.js' type='text/javascript'></script>
+<script src="script/jquery.form.js"></script>
 <!--<script src='script/fileupload/canvas-to-blob.min.js' type='text/javascript'></script>-->
 <!--<script src='script/fileupload/jquery.iframe-transport.min.js' type='text/javascript'></script>-->
 <!--<script src='script/fileupload/jquery.fileupload.min.js' type='text/javascript'></script>-->
