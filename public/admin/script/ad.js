@@ -1,28 +1,4 @@
-$("#ad-list").bootstrapTable({
-    // url:"",
-    idField:'id',
-    pagination:true,
-    data:[
-        {1:111,2:222,3:333,4:444,5:5555,6:6666,7:7777,8:8888},
-        {1:111,2:222,3:333,4:444,5:5555,6:6666,7:7777,8:8888},
-        {1:111,2:222,3:333,4:444,5:5555,6:6666,7:7777,8:8888},
-        {1:111,2:222,3:333,4:444,5:5555,6:6666,7:7777,8:8888}
-    ],
-    columns:[[
-        {field:'1',title:'广告位置',align:"center"},
-        {field:"2",title:"价格",align:'center'},
-        {field:'3',title:'当前广告',align:'center',formatter:function(value,row,index){
-            return "<img src='../images/logo_bs.png'>"
-        }},
-        {field:'4',title:'链接地址',align:'center'},
-        {field:'5',title:"到期时间",align:'center'},
-        {field:"6",title:'已预订时间',align:'center'},
-        {field:'7',title:"点击数",align:'center'},
-        {field:'8',title:"操作",align:'center',formatter:function(value,row,index){
-            return "<a href='#' data-toggle='modal' data-target='#ad-detail-modal'>查看详情</a> &nbsp; 购买"
-        }}
-    ]]
-});
+
 $("#ad-detail-list").bootstrapTable({
     // url:"",
     idField:'id',
@@ -45,4 +21,73 @@ $("#ad-detail-list").bootstrapTable({
             return value+"元"
         }}
     ]]
-})
+});
+getData();
+function getData(type,data){
+    if(!data){
+        data={pageNum:0,pageSize:0};
+    }
+    $.ajax({
+        url: adBaseUrl + "/platform/ad/placement/page",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (data) {
+            if(data.success){
+                var a=[];
+                a=data.data.list;
+                if(type=="load"||!type){
+                    $("#ad-list").bootstrapTable({
+                        // url:"",
+                        idField:'adPlacementId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'adPlacementName',title:'广告位置',align:"center"},
+                            {field:"adPlacementPriceViews",title:"价格",align:'center',formatter:function (value, row, index) {
+                                var content="";
+                                for(var i=0;i<value.length;i++){
+                                    content+=value[i].price+"/"+value[i].adPlacementPriceUnitView.unit+"&nbsp;&nbsp;";
+                                }
+                                return content;
+                            }},
+                            {field:'imageDefault',title:'当前广告',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<img src='"+value+"'>";
+                                }
+                                else{
+                                    return "无图片";
+                                }
+
+                            }},
+                            {field:'linkDefault',title:'链接地址',align:'center'},
+                            // {field:'5',title:"到期时间",align:'center'},
+                            // {field:"6",title:'已预订时间',align:'center'},
+                            {field:'clicks',title:"点击数",align:'center'},
+                            {field:'',title:"操作",align:'center',formatter:function(value,row,index){
+                                return "<a href='#' onclick='detail("+row.adPlacementId+")'>查看详情</a> &nbsp; <a href='#' onclick='buy("+row.adPlacementId+")'>购买</a>";
+                            }}
+                        ]]
+                    });
+                }
+                else{
+                    $("#ad-list").bootstrapTable("load",a)
+                }
+
+            }
+            else{
+                alert(data.errorMsg);
+            }
+        },
+        error:function (error){
+            alert("获取数据失败，请重试！");
+        }
+    })
+}
+
+function detail(id){
+
+}
