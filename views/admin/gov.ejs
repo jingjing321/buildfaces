@@ -13,10 +13,10 @@
 				</div>
 
 				<div class='span12'>
-				    <a href="#" class="link active">未审核信息</a>
-				    <a href="#" class="link">全部信息</a>
-				    <a href="#" class="link ">推荐信息</a>
-				    <a href="#" class="link ">置顶信息</a>
+					<a href="#" class="link active" onclick="turn_type(this)">全部信息</a>
+				    <a href="#" class="link" data-type="verify" onclick="turn_type(this)">未审核信息</a>
+				    <a href="#" class="link " data-type="bidRecommendSubject" onclick="turn_type(this)">推荐信息</a>
+				    <a href="#" class="link " data-type="bidTopSubject" onclick="turn_type(this)">置顶信息</a>
 				</div>
 				<br><br>
 
@@ -51,6 +51,8 @@
 				<br> <br>
 				<div class="span12 table-block">
 					<table id="gov-list"></table>
+					<table id="gov-recommend-list"></table>
+					<table id="gov-top-list"></table>
 				</div>
 			</div>
 		</div>

@@ -9,16 +9,27 @@ function getData(type,data){
         data={"pageNum":0,"pageSize":0};
     }
     if($(".link.active").attr("data-type")=="verify"){
+        $(".table-block .bootstrap-table").css("display","none");
+        $(".table-block .bootstrap-table").eq(0).css("display","");
         if(data.condition){
-            data.condition[$(".link.active").attr("data-type")]=true;
+            data.condition[$(".link.active").attr("data-type")]=false;
         }
         else{
             data.condition={};
-            data.condition[$(".link.active").attr("data-type")]=true;
+            data.condition[$(".link.active").attr("data-type")]=false;
         }
 
     }
     else if($(".link.active").attr("data-type")){
+        var type=$(".link.active").attr("data-type");
+        if(type=="bidRecommendSubject"){
+            $(".table-block .bootstrap-table").css("display","none");
+            $(".table-block .bootstrap-table").eq(1).css("display","");
+        }
+        else{
+            $(".table-block .bootstrap-table").css("display","none");
+            $(".table-block .bootstrap-table").eq(2).css("display","");
+        }
         if(data.condition){
             data.condition[$(".link.active").attr("data-type")]="";
         }
@@ -26,6 +37,10 @@ function getData(type,data){
             data.condition={};
             data.condition[$(".link.active").attr("data-type")]="";
         }
+    }
+    else{
+        $(".table-block .bootstrap-table").css("display","none");
+        $(".table-block .bootstrap-table").eq(0).css("display","");
     }
 
     $.ajax({
@@ -40,7 +55,7 @@ function getData(type,data){
             if(data.success){
                 var a=[];
                 a=data.data.list;
-                if(type=="load"){
+                if(type=="load"||!type){
                     $("#gov-list").bootstrapTable({
                         idField:'bidId',
                         pagination:true,
@@ -88,10 +103,98 @@ function getData(type,data){
                             //     return "推送"
                             // }}
                         ]]
-                    })
+                    });
+                    $("#gov-recommend-list").bootstrapTable({
+                        idField:'bidId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'',checkbox:true,align:'center'},
+                            {field:'title',title:'标题',align:"center"},
+                            {field:"author",title:"发布者",align:'center'},
+                            {field:'siteName',title:"站点",aign:'center'},
+                            {field:'bidSubjectName',title:'所属栏目',align:'center'},
+                            {field:'clicks',title:'点击数',align:'center'},
+                            {field:'ctime',title:"发布日期",align:'center'},
+                            {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                }
+                                else{
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                }
+                            }},
+                            {field:'bidRecommendSubjectView',title:"推荐",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.bidRecommendSubjectView){
+                                    btn+="<a href='#' onclick='recommend(false,"+row.bidId+")'>推荐</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='recommend(true,"+row.bidId+")'>未推荐</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:"bidRecommendSubjectView",title:"推荐时间",align:"center",formatter:function(value,row,index){
+                                var content="";
+                                if(row.bidRecommendSubjectView){
+                                    content=row.bidRecommendSubjectView.ctime;
+                                }
+                                return content;
+                            }}
+                            // {field:'',title:'推送',align:'center',formatter:function(value,row,index){
+                            //     return "推送"
+                            // }}
+                        ]]
+                    });
+                    $("#gov-top-list").bootstrapTable({
+                        idField:'bidId',
+                        pagination:true,
+                        data:a,
+                        columns:[[
+                            {field:'',checkbox:true,align:'center'},
+                            {field:'title',title:'标题',align:"center"},
+                            {field:"author",title:"发布者",align:'center'},
+                            {field:'siteName',title:"站点",aign:'center'},
+                            {field:'bidSubjectName',title:'所属栏目',align:'center'},
+                            {field:'clicks',title:'点击数',align:'center'},
+                            {field:'ctime',title:"发布日期",align:'center'},
+                            {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
+                                if(value){
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                }
+                                else{
+                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                }
+                            }},
+                            {field:'bidTopSubjectView',title:"置顶",align:'center',formatter:function(value,row,index){
+                                var btn="";
+                                if(row.bidTopSubjectView){
+                                    btn+="<a href='#' onclick='toTop(false,"+row.bidId+")'>栏目置顶</a>"
+                                }
+                                else{
+                                    btn+="<a href='#' onclick='toTop(true,"+row.bidId+")'>栏目未置顶</a>"
+                                }
+                                return btn;
+                            }},
+                            {field:"bidTopSubjectView",title:"置顶时间",align:"center",formatter:function(value,row,index){
+                                var content="";
+                                if(row.bidTopSubjectView){
+                                    content=row.bidTopSubjectView.ctime+"-"+row.bidTopSubjectView.expiry;
+                                }
+                                return content;
+                            }}
+                            // {field:'',title:'推送',align:'center',formatter:function(value,row,index){
+                            //     return "推送"
+                            // }}
+                        ]]
+                    });
+                    $(".table-block .bootstrap-table").css("display","none");
+                    $(".table-block .bootstrap-table").eq(0).css("display","");
                 }
                 else{
                     $("#gov-list").bootstrapTable("load",a);
+                    $("#gov-recommend-list").bootstrapTable("load",a);
+                    $("#gov-top-list").bootstrapTable("load",a);
                 }
             }
 
@@ -456,4 +559,10 @@ function getSubjectModal(){
             }
         }
     })
+}
+
+function turn_type(thiz){
+    $(".link").removeClass("active");
+    $(thiz).addClass("active");
+    getData()
 }

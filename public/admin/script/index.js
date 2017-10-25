@@ -74,29 +74,31 @@ function getData(type,data){
         data={pageNum:0,pageSize:0}
     }
     if($(".link.active").attr("data-type")=="verify"){
+        $(".table-block .bootstrap-table").css("display","none");
+        $(".table-block .bootstrap-table").eq(0).css("display","");
         if(data.condition){
-            data.condition[$(".link.active").attr("data-type")]=true;
+            data.condition[$(".link.active").attr("data-type")]=false;
         }
         else{
             data.condition={};
-            data.condition[$(".link.active").attr("data-type")]=true;
+            data.condition[$(".link.active").attr("data-type")]=false;
         }
 
     }
     else if($(".link.active").attr("data-type")){
         var type=$(".link.active").attr("data-type");
         if(type=="newsRecommend"||type=="newsRecommendSubject"||type=="newsRecommendPic"){
-            $(".table-block table").css("display","none");
-            $(".table-block #news-recommend-list").css("display","");
+            $(".table-block .bootstrap-table").css("display","none");
+            $(".table-block .bootstrap-table").eq(1).css("display","");
 
         }
         else if(type=="newsTop"||type=="newsTopSubject"){
-            $(".table-block table").css("display","none");
-            $(".table-block #news-top-list").css("display","");
+            $(".table-block .bootstrap-table").css("display","none");
+            $(".table-block .bootstrap-table").eq(2).css("display","");
         }
         else{
-            $(".table-block table").css("display","none");
-            $(".table-block #news-list").css("display","");
+            $(".table-block .bootstrap-table").css("display","none");
+            $(".table-block .bootstrap-table").eq(0).css("display","");
         }
 
         if(data.condition){
@@ -107,7 +109,10 @@ function getData(type,data){
             data.condition[$(".link.active").attr("data-type")]="";
         }
     }
-
+    else {
+        $(".table-block .bootstrap-table").css("display","none");
+        $(".table-block .bootstrap-table").eq(0).css("display","");
+    }
     $.ajax({
         url:newsBaseUrl+"/platform/news/page",
         type:"post",
@@ -120,7 +125,7 @@ function getData(type,data){
             if(data.success){
                 var a=[];
                 a=data.data.list;
-                if(type=="load"){
+                if(type=="load"||!type){
                     $("#news-list").bootstrapTable({
                         idField:'newsId',
                         pagination:true,
@@ -244,7 +249,7 @@ function getData(type,data){
                                     content+="<br/> &nbsp;"
                                 }
                                 if(row.newsRecommendView){
-                                    content+="<br/>"+row.newsRecommendView;
+                                    content+="<br/>"+row.newsRecommendView.ctime;
                                 }
                                 else{
                                     content+="<br/> &nbsp;"
@@ -307,6 +312,8 @@ function getData(type,data){
                             }}
                         ]]
                     });
+                    $(".table-block .bootstrap-table").css("display","none");
+                    $(".table-block .bootstrap-table").eq(0).css("display","");
                 }
                 else{
                     $("#news-list").bootstrapTable("load",a);
@@ -881,7 +888,6 @@ function getSubjectIndex(){
 function turn_type(thiz){
     $(".link").removeClass("active");
     $(thiz).addClass("active");
-    if($(thiz).attr("data-type"))
     getData()
 }
 
