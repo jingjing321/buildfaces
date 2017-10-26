@@ -1,3 +1,6 @@
+
+
+getData();
 function getData(type,data){
     if(!data){
         data={pageNum:0,pageSize:0};
@@ -40,7 +43,7 @@ function getData(type,data){
                             }},
                             {field:'linkDefault',title:'链接地址',align:'center'},
                             {field:'',title:"操作",align:'center',formatter:function(value,row,index){
-                                return "<a href='#' onclick='edit("+row+")'>编辑</a> &nbsp; <a href='#' onclick='changePrice("+row+")'>修改价格</a>";
+                                return "<a href='#' onclick='edit("+JSON.stringify(row)+")'>编辑</a> &nbsp; <a href='#' onclick='changePrice("+JSON.stringify(row)+")'>修改价格</a>";
                             }}
                         ]]
                     });
@@ -62,6 +65,6 @@ function getData(type,data){
 
 function edit(row){
     $("#ad-edit-modal .modal-body span").eq(0).text(row.platform+"--"+row.position);
-    $("#ad-edit-modal .modal-body input").eq(0).val(row.linkDefault);
+    $("#ad-edit-modal .modal-body input").eq(1).val(row.linkDefault);
     $("#ad-edit-modal").modal("show");
 }

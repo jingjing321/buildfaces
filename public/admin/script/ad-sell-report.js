@@ -1,3 +1,54 @@
+getCity();
+function getCity(){
+    $.ajax({
+        url:baseUrl+"/user/basic/city/list",
+        type:"post",
+        async:false,
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        dataType:'json',
+        success:function(data){
+            if(data.success){
+                $("#siteId").find("option").remove();
+                $("#siteId").append(returnOption("","全部"));
+                for(var i=0;i<data.data.length;i++){
+                    $("#siteId").append(returnOption(data.data[i].cityId,data.data[i].name));
+
+                }
+            }
+        },
+        error:function(error){
+
+        }
+    })
+}
+getManager();
+function getManager(){
+    $.ajax({
+        url:baseUrl+"/platform/manager/list",
+        type:"post",
+        async:false,
+        contentType:"application/json;charset=utf-8",
+        crossDomain:true,
+        headers:{"authorization":sessionStorage.authorization},
+        dataType:'json',
+        success:function(data){
+            if(data.success){
+                $("#managerId").find("option").remove();
+                $("#managerId").append(returnOption("","全部"));
+                for(var i=0;i<data.data.length;i++){
+                    $("#managerId").append(returnOption(data.data[i].managerId,data.data[i].accountName));
+
+                }
+            }
+        },
+        error:function(error){
+
+        }
+    })
+}
+
 getData();
 function getData(type,data){
     if(!data){
@@ -30,7 +81,7 @@ function getData(type,data){
                             {field:'managerId',title:'管理员账号',align:'center'},
                             {field:'amount',title:"销售总额",align:'center'},
                             {field:'',title:"详情",align:'center',formatter:function(value,row,index){
-                                return "<a href='#' onclick='getDetail("+row+")'>详情记录</a>"
+                                return "<a href='#' onclick='getDetail("+JSON.stringify(row)+")'>详情记录</a>"
                             }}
                         ]]
                     });
@@ -93,3 +144,20 @@ $("#sell-detail-list").bootstrapTable({
         {field:'totalPrice',title:"金额",align:'center'}
     ]]
 });
+
+function search() {
+    var data={condition:{},pageSize:0,pageNum:0};
+    if($("#siteId").val()){
+        data.condition.siteId=$("#siteId").val();
+    }
+    if($("#managerId").val()){
+        data.condition.managerId=$("#managerId").val();
+    }
+    if($("#year").val()){
+        data.condition.year=$("#year").val();
+    }
+    if($("#month").val()){
+        data.condition.month=$("#month").val();
+    }
+    getData("refresh",data);
+}
