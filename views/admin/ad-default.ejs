@@ -32,7 +32,7 @@
 		</div>
 	</div>
 </section>
-<div class="modal fade" id="ad-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="ad-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -44,8 +44,14 @@
         	<b>您选择的广告位：</b><span>PC端——首页幻灯片广告位1</span>
         </div>
         <div class="margin">
-        	<img id="preview" class="img-upload"> 
-	        	<b>请上传广告图片：</b> <a href="#" class="a-upload"> <input type="file" name="" onchange="imgPreview(this)" class="file_input">上传文件 </a><span class="gray">(广告尺寸：800*600)</span>
+            <span>缩略图：</span>
+            <div class='box-content'>
+                <form action='http://192.168.20.61:8000/news-service/platform/news/image/upload' enctype='multipart/form-data' id='fileupload' method='POST' />
+                <img id="xmTanImg"/> <br>
+                <input type="file" name="file" onchange="xmTanUploadImg(this)">
+                </form>
+                <button class="btn btn-primary" id="imgUpload" onclick="submitBtn()">上传图片</button>
+            </div><br> <br>
         </div>
         <div class="margin">
         	<b>广告链接地址：</b> <input type="url" name="">
@@ -58,7 +64,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="ad-price-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="ad-price-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,7 +76,8 @@
         	<b>您选择的广告位：</b><span>PC端——首页幻灯片广告位1</span>
         </div>
         <div class="margin">
-        	<b>设置价格：</b><input type="number" name=""> /周 &nbsp; <input type="number" name=""> /月 &nbsp; <input type="number" name=""> /年
+        	<b>设置价格：</b><br>
+            <input type="number" name=""> /周 &nbsp; <br> <br><input type="number" name=""> /月 &nbsp; <br> <br><input type="number" name=""> /年
         </div>
         
       </div>
@@ -81,5 +88,6 @@
     </div>
   </div>
 </div>
+<script src="script/jquery.form.js"></script>
 <script type="text/javascript" src="script/ad-default.js"></script>
 <%- include("inc/footer.ejs");%>
