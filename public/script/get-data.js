@@ -329,7 +329,7 @@ function toLogin()
 {
     //以下为按钮点击事件的逻辑。注意这里要重新打开窗口
     //否则后面跳转到QQ登录，授权页面时会直接缩小当前浏览器的窗口，而不是打开新窗口
-    var A=window.open("https://graph.qq.com/oauth/index.php","TencentLogin",
+    var A=window.open("/oauth/index.php","TencentLogin",
         "width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1");
 }
 
@@ -397,7 +397,7 @@ function getNews(thiz,channelType,channelId){
 				$(".page").eq(0).find(".tabs").find("ul").find("li").remove();
 				for(var i=0;i<data.data.list.length;i++){
                     $(".page").eq(0).find(".tabs").find("ul").append("<li></li>");
-                    $(".page").eq(0).find(".tabs").find("ul").find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[0].newsId+')"></a>');
+                    $(".page").eq(0).find(".tabs").find("ul").find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[i].newsId+')"></a>');
                     $(".page").eq(0).find(".tabs").find('ul').find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
                     if(data.data.list[i].newsTopYn){
                         $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="sui-label">置顶</div> &nbsp;<div class="types">'+(data.data.list[i].author==undefined?"":data.data.list[i].author)+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
@@ -1226,3 +1226,19 @@ function addItems(number,lastIndex){
 }
 addItems(itemsPerLoad,0);
 var lastIndex=20;
+$(document).on("infinite",".infinite-scroll-bottom",function(){
+	if(loading) return ;
+
+	loading=true;
+	setTimeout(function(){
+		loading=fales;
+		if(lastIndex>=maxItems){
+			$.detachInfiniteScroll($('.infinite-scroll'));
+			$('.infinite-scroll-preloader').remove();
+			return ;
+		}
+		addItems(itemsPerLoad,lastIndex);
+		lastIndex=$(".list-container li").length;
+		$.refreshScroller();
+	},1000);
+});
