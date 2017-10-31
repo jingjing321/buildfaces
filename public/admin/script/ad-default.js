@@ -1,5 +1,3 @@
-
-
 getData();
 function getData(type,data){
     if(!data){
@@ -205,7 +203,7 @@ function price_sit(id){
         if(input.eq(i).val()){
             var a={};
             a.adPlacementPriceView={"adPlacementPriceUnitId":input.eq(i).attr("data-id"),"days":input.eq(i).attr("data-days"),"unit":input.eq(i).attr("data-unit")};
-            a.price=input.eq(i).val();
+            a.price=input.eq(i).val()/1;
             data.adPlacementPriceViews.push(a);
         }
     }
@@ -231,4 +229,83 @@ function price_sit(id){
             alert("修改失败，请重试！");
         }
     })
+}
+
+function changeSelect(id){
+    var data;
+    if(id=="page"){
+        data={"platform":$("#platform").val()};
+    }
+    else if(id=="position"){
+        data={"platform":$("#platform").val(),"page":$("#page").val()};
+    }
+    $.ajax({
+        url:adBaseUrl+"/platform/ad/placement/selector/"+id+"/list",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (data) {
+            if(data.success){
+                $("#"+id).find("option").remove();
+                $("#"+id).append(returnOption(" ","全部"));
+                for(var i=0;i<data.data.length;i++){
+                    $("#"+id).append(returnOption(data.data[i],data.data[i]));
+                }
+            }
+            else{
+                $("#"+id).find("option").remove();
+                $("#"+id).append(returnOption(" ","全部"));
+            }
+        },
+        error:function (error) {
+            $("#"+id).find("option").remove();
+            $("#"+id).append(returnOption(" ","全部"));
+        }
+    })
+}
+
+$.ajax({
+    url:adBaseUrl+"/platform/ad/placement/selector/platform/list",
+    type: "post",
+    contentType: "application/json;charset=utf-8",
+    crossDomain: true,
+    headers: {"authorization": sessionStorage.authorization},
+    dataType: "json",
+    success: function (data) {
+        if(data.success){
+            $("#platform").find("option").remove();
+            $("#platform").append(returnOption(" ","全部"));
+            for(var i=0;i<data.data.length;i++){
+                $("#platform").append(returnOption(data.data[i],data.data[i]));
+            }
+            $("#page").find("option").remove();
+            $("#page").append(returnOption("","全部"));
+            $("#position").find("option").remove();
+            $("#position").append(returnOption("","全部"));
+        }
+        else{
+            $("#platform").find("option").remove();
+            $("#platform").append(returnOption(" ","全部"));
+            $("#page").find("option").remove();
+            $("#page").append(returnOption("","全部"));
+            $("#position").find("option").remove();
+            $("#position").append(returnOption("","全部"));
+        }
+    },
+    error:function (error) {
+        $("#"+id).find("option").remove();
+        $("#"+id).append(returnOption(" ","全部"));
+        $("#page").find("option").remove();
+        $("#page").append(returnOption("","全部"));
+        $("#position").find("option").remove();
+        $("#position").append(returnOption("","全部"));
+    }
+});
+
+function search(){
+    var data={"condition":{"platform":$("#platform").val(),"page":$("#page").val(),"position":$("#position").val()},"pageNum":0,"pageSize":0};
+    getData("refresh",data);
 }

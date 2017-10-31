@@ -68,7 +68,7 @@ function getData(type,data){
                             // {field:"6",title:'已预订时间',align:'center'},
                             {field:'clicks',title:"点击数",align:'center'},
                             {field:'',title:"操作",align:'center',formatter:function(value,row,index){
-                                return "<a href='#' onclick='detail("+row.adPlacementId+")'>查看详情</a> &nbsp; <a href='#' onclick='buy("+row.adPlacementId+")'>购买</a>";
+                                return "<a href='#' onclick='detail("+row.adPlacementId+")'>查看详情</a> &nbsp; <a href='/admin/ad-buy?adPlacementId="+row.adPlacementId+"&platform="+encodeURI(encodeURI(row.platform))+"&page="+encodeURI(encodeURI(row.page))+"&position="+encodeURI(encodeURI(row.position))+"&siteId="+row.siteId+"'>购买</a>";
                             }}
                         ]]
                     });
@@ -91,3 +91,85 @@ function getData(type,data){
 function detail(id){
 
 }
+
+getlist("province","#province");
+$("#province").append("<option value='' selected='true'>全部</option>");
+function changeSelect(id){
+    var data;
+    if(id=="page"){
+        data={"platform":$("#platform").val()};
+    }
+    else if(id=="position"){
+        data={"platform":$("#platform").val(),"page":$("#page").val()};
+    }
+    $.ajax({
+        url:adBaseUrl+"/platform/ad/placement/selector/"+id+"/list",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        crossDomain: true,
+        headers: {"authorization": sessionStorage.authorization},
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (data) {
+            if(data.success){
+                $("#"+id).find("option").remove();
+                $("#"+id).append(returnOption(" ","全部"));
+                for(var i=0;i<data.data.length;i++){
+                    $("#"+id).append(returnOption(data.data[i],data.data[i]));
+                }
+            }
+            else{
+                $("#"+id).find("option").remove();
+                $("#"+id).append(returnOption(" ","全部"));
+            }
+        },
+        error:function (error) {
+            $("#"+id).find("option").remove();
+            $("#"+id).append(returnOption(" ","全部"));
+        }
+    })
+}
+
+$.ajax({
+    url:adBaseUrl+"/platform/ad/placement/selector/platform/list",
+    type: "post",
+    contentType: "application/json;charset=utf-8",
+    crossDomain: true,
+    headers: {"authorization": sessionStorage.authorization},
+    dataType: "json",
+    success: function (data) {
+        if(data.success){
+            $("#platform").find("option").remove();
+            $("#platform").append(returnOption(" ","全部"));
+            for(var i=0;i<data.data.length;i++){
+                $("#platform").append(returnOption(data.data[i],data.data[i]));
+            }
+            $("#page").find("option").remove();
+            $("#page").append(returnOption("","全部"));
+            $("#position").find("option").remove();
+            $("#position").append(returnOption("","全部"));
+        }
+        else{
+            $("#platform").find("option").remove();
+            $("#platform").append(returnOption(" ","全部"));
+            $("#page").find("option").remove();
+            $("#page").append(returnOption("","全部"));
+            $("#position").find("option").remove();
+            $("#position").append(returnOption("","全部"));
+        }
+    },
+    error:function (error) {
+        $("#"+id).find("option").remove();
+        $("#"+id).append(returnOption(" ","全部"));
+        $("#page").find("option").remove();
+        $("#page").append(returnOption("","全部"));
+        $("#position").find("option").remove();
+        $("#position").append(returnOption("","全部"));
+    }
+});
+
+function search(){
+    var data={"condition":{"platform":$("#platform").val(),"page":$("#page").val(),"position":$("#position").val()},"pageNum":0,"pageSize":0};
+    getData("refresh",data);
+}
+

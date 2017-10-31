@@ -36,7 +36,7 @@ function getlist(url,$el){
 
 /*
 * list获取city
-* num=1,添加全部的option；
+* num!=1,添加全部的option；
 * else 没有全部的option
 * */
 function getCityList(num){

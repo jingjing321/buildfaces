@@ -14,30 +14,23 @@
 
 				<div class="span12">
 					<span>站点：</span> 
-					<select>
-						<option value="浙江省">浙江</option>
-						<option value="浙江省">江苏</option>
-						<option value="浙江省">福建</option>
+					<select name="province" id="province" onclick="getCityList()">
 					</select>
-					<select>
-						<option value="浙江省">杭州</option>
-						<option value="浙江省">嘉兴</option>
+					<select name="city" id="city">
+						<option value="">全部</option>
 					</select>
 					&nbsp;&nbsp;&nbsp;
 					<span>选择广告位：</span>
-					<select>
-						<option value="pc">PC端</option>
-						<option value="phone">手机端</option>
+					<select name="platform" id="platform" onclick="changeSelect('page')">
+						<option value="">全部</option>
 					</select>
-					<select>
-						<option value="pc">首页</option>
-						<option value="phone">建品会首页</option>
+					<select name="page" id="page" onclick="changeSelect('position')">
+						<option value="">全部</option>
 					</select>
-					<select>
-						<option value="pc">横幅</option>
-						<option value="phone">幻灯片广告位</option>
+					<select name="position" id="position">
+						<option value="">全部</option>
 					</select>
-					<button class="btn">搜索</button>
+					<button class="btn" onclick="search()">搜索</button>
 				</div>
 				<br> <br>
 				<div class="span12 table-block">

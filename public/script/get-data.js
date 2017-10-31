@@ -267,6 +267,7 @@ function changePassword() {
         success:function(info){
 			if(info.success){
 				$.alert("密码修改成功！");
+				$.router.back();
 			}
 			else{
 				$.alert(info.errorMsg);
@@ -285,7 +286,7 @@ function changePassword() {
 function login(){
 	var userName=$("#login .content input").eq(0).val();
 	var password=$("#login .content input").eq(1).val();
-	var a={"password":password,"userName":userName};
+	var a={"password":password,"loginName":userName};
 	$.ajax({
 		url:baseUrl+"/user/login",
 		type:'post',
@@ -434,37 +435,53 @@ function turn(newsId) {
                 $("#index-detail").find(".content").find(".info span").eq(1).text(data.data.vtime);
                 $("#index-detail").find(".content").find(".info span").eq(2).text(data.data.clicks+"人浏览");
 				$("#index-detail .content").find(".detail-content").html(data.data.content);
-				$("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart-o" onclick="like('+data.data.newsId+')"></i>&nbsp;'+data.data.likes);
-				$("#index-detail .detail-bar .fa-star-o").attr("onclick","favor("+data.data.newsId+")");
-				if(sessionStorage.authorization){
+                $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart-o" onclick="like('+newsId+',true)"></i>&nbsp;'+data.data.likes);
+                $("#index-detail .detail-bar .fa").removeClass(".fa-star").addClass("fa-star-o").attr("onclick","favor("+newsId+",true)");
+                if(sessionStorage.authorization){
 					$.ajax({
                         url:newsBaseUrl+"/user/news/like/check",
                         type: 'post',
                         contentType: "application/json;charset=utf-8",
                         crossDomain: true,
-                        header:{"authorization":sessionStorage.authorization},
+                        headers:{"authorization":sessionStorage.authorization},
                         data: JSON.stringify(newsId),
                         dataType: 'json',
                         success:function (data) {
-							if(data.success){
-                                $("#index-detail .content").find(".comment .like").css("color","#f6383a");
+							if(data.success) {
+                                if (data.data) {
+                                    $("#index-detail .content").find(".comment .like .fa").removeClass("fa-heart-o").addClass("fa-heart").attr("onclick","like("+newsId+",false)");
+                                }
+                                else{
+                                    $("#index-detail .content").find(".comment .like .fa").removeClass("fa-heart").addClass("fa-heart-o").attr("onclick","like("+newsId+",true)");
+                                }
 							}
+							else{
+                                $("#index-detail .content").find(".comment .like .fa").removeClass("fa-heart-o").addClass("fa-heart").attr("onclick","like("+newsId+",false)");
+                            }
 						},
 						error:function(error){
 
 						}
-					})
+					});
                     $.ajax({
                         url:newsBaseUrl+"/user/news/favor/check",
                         type: 'post',
                         contentType: "application/json;charset=utf-8",
                         crossDomain: true,
-                        header:{"authorization":sessionStorage.authorization},
+                        headers: {"authorization": sessionStorage.authorization},
                         data: JSON.stringify(newsId),
                         dataType: 'json',
                         success:function (data) {
                             if(data.success){
-                                $("#index-detail .detail-bar .fa-star-o").css("color","#ff9200");
+                                if(data.data){
+                                    $("#index-detail .detail-bar .fa").removeClass("fa-star-o").addClass("fa-star").attr("onclick","favor("+newsId+",false)");
+                                }
+                                else{
+                                    $("#index-detail .detail-bar .fa").removeClass("fa-star").addClass("fa-star-o").attr("onclick","favor("+newsId+",true)");
+                                }
+                            }
+                            else{
+                                $("#index-detail .detail-bar .fa").removeClass(".fa-star").addClass("fa-star-o").attr("onclick","favor("+newsId+",true)");
                             }
                         },
                         error:function(error){
@@ -567,11 +584,11 @@ function sit_comment(){
 	}
 }
 
-function like(newsId){
+function like(newsId,action){
     if(sessionStorage.authorization){
-    	var a={"likeYn":true,"newsId":newsId};
+    	var a={"likeYn":action,"newsId":newsId};
         $.ajax({
-            url: newsBaseUrl + "/user/news/comment/add",
+            url: newsBaseUrl + "/user/news/like/set",
             type: 'post',
             contentType: "application/json;charset=utf-8",
             crossDomain: true,
@@ -580,28 +597,37 @@ function like(newsId){
             dataType: 'json',
             success: function (data) {
             	if(data.success){
-                    $("#index-detail .content").find(".comment .like").css("color","#f6383a");
-                    $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart-o" onclick=""></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1+1));
+            	    if(action){
+                        $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart" onclick="like('+newsId+',false)"></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1+1));
+                    }
+                    else{
+                        $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart" onclick="like('+newsId+',true)"></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1+1));
+                    }
 				}
 				else{
             		$.alert(data.errorMsg);
 				}
 			},
 			error:function (error) {
-				$.alert("点赞失败，请重试！");
+                if(action){
+                    $.alert("点赞失败，请重试！");
+                }
+				else{
+                    $.alert("取消点赞失败，请重试！");
+                }
             }
 		})
     }
     else{
-        if(confirm("还未登录，是否立即登录评论？")){
+        if(confirm("还未登录，是否立即登录点赞？")){
             $.router.load("#login");
         }
     }
 }
 
-function favor(newsId){
+function favor(newsId,action){
     if(sessionStorage.authorization){
-        var a={"favorYn":true,"newsId":newsId};
+        var a={"favorYn":action,"newsId":newsId};
         $.ajax({
             url:newsBaseUrl+"/user/news/favor/set",
             type: 'post',
@@ -612,14 +638,24 @@ function favor(newsId){
             dataType: 'json',
             success: function (data) {
 				if(data.success){
-					$("#index-detail .detail-bar .fa-star-o").css("color","#ff9200");
+				    if(action){
+                        $("#index-detail .detail-bar .fa").removeClass("fa-star-o").addClass("fa-star").attr("onclick","favor("+newsId+",false)");
+                    }
+					else{
+                        $("#index-detail .detail-bar .fa").removeClass("fa-star").addClass("fa-star-o").attr("onclick","favor("+newsId+",true)");
+                    }
 				}
 				else{
 					$.alert(data.errorMsg);
 				}
             },
             error:function(error){
-                $.alert("收藏失败，请重试！")
+                if(action){
+                    $.alert("收藏失败，请重试！")
+                }
+                else{
+                    $.alert("取消收藏失败，请重试！");
+                }
             }
         })
     }
@@ -1210,35 +1246,59 @@ function getUserData(){
 		getFavorGov();
 	}
 }
-
-//无限滚动
-
-var loading=false;
-var maxItems=100;
-var itemsPerLoad=20;
-function addItems(number,lastIndex){
-	var html='';
-	for(var i=lastIndex+1;i<=lastIndex+number;i++){
-		html+='<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
-
-	}
-	$('.infinite-scroll-bottom .list-container').append(html);
-}
-addItems(itemsPerLoad,0);
-var lastIndex=20;
-$(document).on("infinite",".infinite-scroll-bottom",function(){
-	if(loading) return ;
-
-	loading=true;
-	setTimeout(function(){
-		loading=fales;
-		if(lastIndex>=maxItems){
-			$.detachInfiniteScroll($('.infinite-scroll'));
-			$('.infinite-scroll-preloader').remove();
-			return ;
-		}
-		addItems(itemsPerLoad,lastIndex);
-		lastIndex=$(".list-container li").length;
-		$.refreshScroller();
-	},1000);
-});
+//下拉刷新；
+//加载flag
+// var loading = false;
+// // 最多可加载的条目
+// var maxItems = 100;
+//
+// // 每次加载添加多少条目
+// var itemsPerLoad = 20;
+//
+// function addItems(number, lastIndex) {
+//     // 生成新条目的HTML
+//     var html = '';
+//     for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
+//         html += '<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
+//     }
+//     // 添加新条目
+//     $('.infinite-scroll-bottom .list-container').append(html);
+//
+// }
+// //预先加载20条
+// addItems(itemsPerLoad, 0);
+//
+// // 上次加载的序号
+//
+// var lastIndex = 20;
+//
+// // 注册'infinite'事件处理函数
+// $(document).on('infinite', function () {
+//     // 如果正在加载，则退出
+//     if (loading) return;
+//
+//     // 设置flag
+//     loading = true;
+//
+//     // 模拟1s的加载过程
+//     setTimeout(function() {
+//         // 重置加载flag
+//         loading = false;
+//
+//         if (lastIndex >= maxItems) {
+//             // 加载完毕，则注销无限加载事件，以防不必要的加载
+//             $.detachInfiniteScroll($('.infinite-scroll'));
+//             // 删除加载提示符
+//             $('.infinite-scroll-preloader').remove();
+//             return;
+//         }
+//
+//         // 添加新条目
+//         addItems(itemsPerLoad, lastIndex);
+//         // 更新最后加载的序号
+//         lastIndex = $('.list-container li').length;
+//         //容器发生改变,如果是js滚动，需要刷新滚动
+//         $.refreshScroller();
+//     }, 1000);
+// });
+// $.init();
