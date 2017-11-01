@@ -297,9 +297,24 @@ function login(){
 		success:function(info,textStatus,request){
 			if(info.success){
 				$.alert("登录成功！");
-				sessionStorage.userName=$("#login .content input").eq(0).val();
-				$(".page header .user").text($("#login .content input").eq(0).val()).addClass("userAction").attr("onclick","")[0].href="#";
-				sessionStorage.authorization=request.getResponseHeader("authorization");
+                sessionStorage.authorization=request.getResponseHeader("authorization");
+				$.ajax({
+                    url:baseUrl+"/user/selfInfo/get",
+                    type:'post',
+                    contentType:"application/json;charset=utf-8",
+                    crossDomain:true,
+                    headers:{authorization:request.getResponseHeader("authorization")},
+                    dataType:'json',
+                    success:function(info,textStatus,request){
+                    	if(info.success){
+                            sessionStorage.userName=info.data.userName;
+                            $(".page header .user").text(info.data.userName).addClass("userAction").attr("onclick","")[0].href="#";
+						}
+					},
+					error:function(error){
+
+					}
+				});
 				// $.router.back();
 				if($("#login a.login").attr("data-num")){
 					turnTab($("#login a.login").attr("data-num"));
@@ -601,7 +616,7 @@ function like(newsId,action){
                         $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart" onclick="like('+newsId+',false)"></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1+1));
                     }
                     else{
-                        $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart" onclick="like('+newsId+',true)"></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1+1));
+                        $("#index-detail .content").find(".comment .like").html('<i class="fa fa-heart-o" onclick="like('+newsId+',true)"></i>&nbsp;'+($("#index-detail .content").find(".comment .like").text()/1-1));
                     }
 				}
 				else{
@@ -1063,11 +1078,9 @@ function favorGov(Yn){
             success: function (data) {
                 if(data.success){
                 	if(Yn){
-                		$.alert("收藏成功！");
                         $("#gov-detail header .fa").removeClass("fa-star-o").addClass("fa-star").attr("onclick","favorGov(false)");
 					}
 					else{
-                		$.alert("取消收藏成功！");
                         $("#gov-detail header .fa").removeClass("fa-star").addClass("fa-star-o").attr("onclick","favorGov(true)");
 					}
                 }

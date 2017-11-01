@@ -47,7 +47,7 @@ function getData(type,data){
                     });
                 }
                 else{
-                    $("#ad-list").bootstrapTable("load",a)
+                    $("#ad-default-list").bootstrapTable("load",a)
                 }
 
             }
@@ -202,7 +202,7 @@ function price_sit(id){
     for(var i=0;i<input.length;i++){
         if(input.eq(i).val()){
             var a={};
-            a.adPlacementPriceView={"adPlacementPriceUnitId":input.eq(i).attr("data-id"),"days":input.eq(i).attr("data-days"),"unit":input.eq(i).attr("data-unit")};
+            a.adPlacementPriceUnitView={"adPlacementPriceUnitId":input.eq(i).attr("data-id")};
             a.price=input.eq(i).val()/1;
             data.adPlacementPriceViews.push(a);
         }

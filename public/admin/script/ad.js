@@ -68,7 +68,7 @@ function getData(type,data){
                             // {field:"6",title:'已预订时间',align:'center'},
                             {field:'clicks',title:"点击数",align:'center'},
                             {field:'',title:"操作",align:'center',formatter:function(value,row,index){
-                                return "<a href='#' onclick='detail("+row.adPlacementId+")'>查看详情</a> &nbsp; <a href='/admin/ad-buy?adPlacementId="+row.adPlacementId+"&platform="+encodeURI(encodeURI(row.platform))+"&page="+encodeURI(encodeURI(row.page))+"&position="+encodeURI(encodeURI(row.position))+"&siteId="+row.siteId+"'>购买</a>";
+                                return "<a href='#' onclick='detail("+row.adPlacementId+")'>查看详情</a> &nbsp; <a href='/admin/ad-buy?adPlacementId="+row.adPlacementId+"&platform="+encodeURI(encodeURI(row.platform))+"&page="+encodeURI(encodeURI(row.page))+"&position="+encodeURI(encodeURI(row.position))+"&siteId="+row.siteId+"&adPlacementPriceViews="+encodeURI(encodeURI(JSON.stringify(row.adPlacementPriceViews)))+"'>购买</a>";
                             }}
                         ]]
                     });

@@ -7,15 +7,22 @@ function GetQueryString(name)
     return null;
 }
 
+$(".adInfo").text(decodeURI(GetQueryString("siteId")+"--"+GetQueryString("platform")+"端--"+GetQueryString("page")+GetQueryString("position")));
+var adPlacementPriceViews=JSON.parse(decodeURI(GetQueryString("adPlacementPriceViews")));
+$(".adPrice").html("");
+for(var i=0;i<adPlacementPriceViews.length;i++){
+    $(".adPrice").append('<input type="radio" name="time" data-adPlacementPriceUnitId="'+adPlacementPriceViews[i].adPlacementPriceUnitView.adPlacementPriceUnitId+'"> 1'+adPlacementPriceViews[i].adPlacementPriceUnitView.unit+'(￥'+adPlacementPriceViews[i].price+') &nbsp;&nbsp;');
+}
+
 $.ajax({
     url: adBaseUrl + "/platform/ad/dateOccupied/list",
     type: "post",
     contentType: "application/json;charset=utf-8",
     crossDomain: true,
     headers: {"authorization": sessionStorage.authorization},
-    data: JSON.stringify({"adPlacementId":GetQueryString("adPlacementId"),"siteId":GetQueryString("siteId")}),
+    data: JSON.stringify({"adPlacementId":GetQueryString("adPlacementId"),"siteId":1}),
     dataType: "json",
-    success: function (data) {
+    success: function (data){
         if(data.success){
 
         }

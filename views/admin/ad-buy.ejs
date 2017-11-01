@@ -10,14 +10,17 @@
 				</div>
 
 				<div class="span12">
-					<span>您选择的广告位：</span><span>绍兴站——PC端——首页幻灯片广告位</span> <br> <br>
+					<span>您选择的广告位：</span><span class="adInfo">绍兴站——PC端——首页幻灯片广告位</span> <br> <br>
 					<span>选择购买时间段：</span>
-					<input type="radio" name="time">1周（￥1000）
-					<input type="radio" name="time">1月（￥3000）
-					<input type="radio" name="time">1年（#30000）
+					<div class="adPrice">
+						<input type="radio" name="time">1周（￥1000）
+						<input type="radio" name="time">1月（￥3000）
+						<input type="radio" name="time">1年（￥30000）
+					</div>
+
 					<br> <br>
 					<span>请选择开始时间：</span>
-					<input type="date" name="">
+					<input type="date" name="" class="calendar">
 					<br> <br>
 					<img id="preview" class="img-upload">
 					<span >请上传广告图片：</span> <a href="#" class="a-upload"> <input type="file" name="" onchange="imgPreview(this)" class="file_input">上传文件 </a><span class="gray">(广告尺寸：800*600)</span>

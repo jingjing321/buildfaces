@@ -132,7 +132,9 @@ function getData(type,data){
                         data:a,
                         columns:[[
                             {field:'',checkbox:true,align:'center'},
-                            {field:'title',title:'标题',align:"center"},
+                            {field:'title',title:'标题',align:"center",formatter:function (value, row, index) {
+                                return value.length>20?(value.substring(0,20)+"..."):value;
+                            }},
                             {field:"author",title:"发布者",align:'center'},
                             {field:'siteName',title:"站点",aign:'center'},
                             {field:'newsSubjectName',title:'所属栏目',align:'center'},
@@ -140,10 +142,10 @@ function getData(type,data){
                             {field:'ctime',title:"发布日期",align:'center'},
                             {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
                                 if(value){
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>已审核</a>"
                                 }
                                 else{
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>未审核</a>"
                                 }
                             }},
                             {field:'newsRecommendPicView',title:"推荐",align:'center',formatter:function(value,row,index){
@@ -185,7 +187,7 @@ function getData(type,data){
                                 return btn;
                             }},
                             {field:'newsId',title:'编辑/删除',align:'center',formatter:function(value,row,index){
-                                return "<a href='#' onclick='edit("+JSON.stringify(row)+")'>编辑</a> &nbsp; <a href='#' onclick='del("+row.newsId+")'>删除</a>"
+                                return "<a href='#' onclick='edit("+row.newsId+")'>编辑</a> &nbsp; <a href='#' onclick='del("+row.newsId+")'>删除</a>"
                             }}
                             // {field:'',title:'推送',align:'center',formatter:function(value,row,index){
                             //     return "推送"
@@ -198,7 +200,9 @@ function getData(type,data){
                         data:a,
                         columns:[[
                             {field:'',checkbox:true,align:'center'},
-                            {field:'title',title:'标题',align:"center"},
+                            {field:'title',title:'标题',align:"center",formatter:function (value, row, index) {
+                                return value.length>20?(value.substring(0,20)+"..."):value;
+                            }},
                             {field:"author",title:"发布者",align:'center'},
                             {field:'siteName',title:"站点",aign:'center'},
                             {field:'newsSubjectName',title:'所属栏目',align:'center'},
@@ -206,10 +210,10 @@ function getData(type,data){
                             {field:'ctime',title:"发布日期",align:'center'},
                             {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
                                 if(value){
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>已审核</a>"
                                 }
                                 else{
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>未审核</a>"
                                 }
                             }},
                             {field:'newsRecommendPicView',title:"推荐",align:'center',formatter:function(value,row,index){
@@ -264,7 +268,9 @@ function getData(type,data){
                         data:a,
                         columns:[[
                             {field:'',checkbox:true,align:'center'},
-                            {field:'title',title:'标题',align:"center"},
+                            {field:'title',title:'标题',align:"center",formatter:function (value, row, index) {
+                                return value.length>20?(value.substring(0,20)+"..."):value;
+                            }},
                             {field:"author",title:"发布者",align:'center'},
                             {field:'siteName',title:"站点",aign:'center'},
                             {field:'newsSubjectName',title:'所属栏目',align:'center'},
@@ -272,10 +278,10 @@ function getData(type,data){
                             {field:'ctime',title:"发布日期",align:'center'},
                             {field:"verify",title:'审核状态',align:'center',formatter:function(value,row,index){
                                 if(value){
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>已审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>已审核</a>"
                                 }
                                 else{
-                                    return "<a href='#' onclick='verify("+JSON.stringify(row)+")'>未审核</a>"
+                                    return "<a href='#' onclick='verify("+row.newsId+","+row.verify+")'>未审核</a>"
                                 }
                             }},
                             {field:'newsTopSubjectView',title:"置顶",align:'center',formatter:function(value,row,index){
@@ -325,14 +331,15 @@ function getData(type,data){
         }
     })
 }
-function verify(row){
-    if(row==undefined){
-        var row=$("#news-list").bootstrapTable("getSelections");
+function verify(newsId,verify){
+    var row;
+    if(newsId==undefined){
+        row=$("#news-list").bootstrapTable("getSelections");
         if(row.length!=1){
             alert("请选择一条新闻");
         }
         else {
-            row=row[0];
+            row={newsId:newsId,verify:verify};
         }
     }
     if(row.verify){
@@ -732,7 +739,7 @@ function search(){
 
 }
 
-function edit(row){
+function edit(newsId){
     $("#edit-modal").find("input").val("");
     getlist("province","#edit-province");
     getCityList(1);
@@ -757,27 +764,48 @@ function edit(row){
                         }
                     }
                 }
-                if(row){
-                    $("#edit-subject2").val(row.newsSubjectId);
-                    for(var i=0;i<$("#edit-subject2").find("option").length;i++){
-                        if($("#edit-subject2").find("option").eq(i).selected){
-                            $("#edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
-                            break;
+                if(newsId){
+                    $.ajax({
+                        url:newsBaseUrl+"/platform/news/get",
+                        type: "post",
+                        contentType: "application/json;charset=utf-8",
+                        crossDomain: true,
+                        headers: {"authorization": sessionStorage.authorization},
+                        data:newsId.toString(),
+                        dataType: 'json',
+                        success:function(data){
+                            if(data.success){
+                                var row=data.data;
+                                $("#edit-subject2").val(row.newsSubjectId);
+                                for(var i=0;i<$("#edit-subject2").find("option").length;i++){
+                                    if($("#edit-subject2").find("option").eq(i).selected){
+                                        $("#edit-subject").val($("#edit-subject2").find("option").eq(i).attr("data-pid"));
+                                        break;
+                                    }
+                                }
+                                $("#edit-city").val(row.siteId);
+                                for(var i=0;i<$("#edit-city").find("option").length;i++){
+                                    if($("#edit-city").find("option").selected){
+                                        $("#edit-province").val($("#edit-city").find("option").eq(i).attr("data-pid"));
+                                    }
+                                }
+                                $("#imgUpload").attr("data-path",row.images);
+                                $("#xmTanImg")[0].src=row.images;
+                                $("#edit-title").val(row.title);
+                                $("#edit-sourceSite").val(row.sourceSite);
+                                $("#edit-keywords").val(row.keywords);
+                                CKEDITOR.instances.editor.setData(row.content);
+                                $("#edit-modal .btn-primary").last().attr("onclick","edit_sit("+row.newsId+")");
+                            }
+                            else{
+                                alert(data.errorMsg)
+                            }
+                        },
+                        error:function (error) {
+                            alert("数据获取失败，请重试！")
                         }
-                    }
-                    $("#edit-city").val(row.siteId);
-                    for(var i=0;i<$("#edit-city").find("option").length;i++){
-                        if($("#edit-city").find("option").selected){
-                            $("#edit-province").val($("#edit-city").find("option").eq(i).attr("data-pid"));
-                        }
-                    }
-                    $("#imgUpload").attr("data-path",row.images);
-                    $("#xmTanImg")[0].src=row.images;
-                    $("#edit-title").val(row.title);
-                    $("#edit-sourceSite").val(row.sourceSite);
-                    $("#edit-keywords").val(row.keywords);
-                    CKEDITOR.instances.editor.setData(row.content);
-                    $("#edit-modal .btn-primary").last().attr("onclick","edit_sit("+row.newsId+")");
+                    });
+
                 }
                 else{
                     $("#edit-modal .btn-primary").last().attr("onclick","edit_sit()");
