@@ -1,4 +1,5 @@
 <%- include("inc/header.ejs");%>
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 <section id='content'>
 	<div class='container-fluid'>
 		<div class='row-fluid' id='content-wrapper'>
@@ -20,14 +21,27 @@
 
 					<br> <br>
 					<span>请选择开始时间：</span>
-					<input type="date" name="" class="calendar">
-					<br> <br>
-					<img id="preview" class="img-upload">
-					<span >请上传广告图片：</span> <a href="#" class="a-upload"> <input type="file" name="" onchange="imgPreview(this)" class="file_input">上传文件 </a><span class="gray">(广告尺寸：800*600)</span>
+					<div class="form-group">
+						<!--<label for="dtp_input2" class="col-md-2 control-label">Date Picking</label>-->
+						<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+							<input class="form-control" size="16" type="text" value="" readonly>
+							<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+							<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						</div>
+						<input type="hidden" id="dtp_input2" value="" /><br/>
+					</div>
+					<span>广告图片：</span>
+					<div class='box-content'>
+						<form action='http://192.168.20.61:8000/news-service/platform/news/image/upload' enctype='multipart/form-data' id='fileupload' method='POST' />
+						<img id="xmTanImg"/> <br>
+						<input type="file" name="file" onchange="xmTanUploadImg(this)">
+						</form>
+						<button class="btn btn-primary" id="imgUpload" onclick="submitBtn()">上传图片</button>
+					</div>
 					<br> <br>
 					<span>广告链接地址：</span> <input type="url" name="">
 					<br> <br>
-					<button class="btn"  data-toggle='modal' data-target='#ad-pay-modal'>确认提交，去支付</button>
+					<button class="btn" onclick="submit()">确认提交，去支付</button>
 				</div>
 			</div>
 		</div>
@@ -41,7 +55,7 @@
         <h2 class="modal-title" id="myModalLabel">购买广告</h2>
       </div>
       <div class="modal-body">
-        <b>您选择的广告位:</b> <span>PC——首页幻灯片广告位1</span>
+        <b>您选择的广告位:</b> <div class="adInfo" style="display: inline-block;"></div>
         <br> <br>
         <b>您需要支付：</b> <span class="red">￥1000</span>
         <br> <br>
@@ -55,5 +69,8 @@
   </div>
 </div>
 
+<script src="script/jquery.form.js"></script>
+<script src="script/bootstrap-datetimepicker.min.js"></script>
+<script src="script/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="script/ad-buy.js"></script>
 <%- include("inc/footer.ejs");%>

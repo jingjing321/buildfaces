@@ -4,12 +4,10 @@
     <list default="true" id="3214c933-7703-4e5f-a042-5db476d40368" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/ad-buy.js" afterPath="$PROJECT_DIR$/public/admin/script/ad-buy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/ad-default.js" afterPath="$PROJECT_DIR$/public/admin/script/ad-default.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/ad.js" afterPath="$PROJECT_DIR$/public/admin/script/ad.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/gov.js" afterPath="$PROJECT_DIR$/public/admin/script/gov.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/admin/script/index.js" afterPath="$PROJECT_DIR$/public/admin/script/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/main.css" afterPath="$PROJECT_DIR$/public/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/script/get-data.js" afterPath="$PROJECT_DIR$/public/script/get-data.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/ad-buy.ejs" afterPath="$PROJECT_DIR$/views/admin/ad-buy.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,37 +21,36 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.74285716">
+    <splitter split-orientation="horizontal" split-proportion="0.12656903">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="ad.ejs" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/views/admin/ad.ejs">
+          <file leaf-file-name="ad-buy.ejs" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/views/admin/ad-buy.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="127">
-                  <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ad-buy.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/ad-buy.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="17" column="54" lean-forward="true" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+                <state relative-caret-position="93">
+                  <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
                   <folding>
-                    <marker date="1509524279401" expanded="true" signature="785:791" ph=" " />
-                    <marker date="1509524279401" expanded="true" signature="791:797" ph=" " />
+                    <element signature="e#2468#2498#0#HTML" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="public-func.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/public-func.js">
+          <file leaf-file-name="ad.ejs" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/views/admin/ad.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-189">
-                  <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+                <state relative-caret-position="230">
+                  <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ad-default.ejs" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/views/admin/ad-default.ejs">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="743">
+                  <caret line="61" column="8" lean-forward="true" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -62,29 +59,28 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="ad.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/ad.js">
+        <leaf>
+          <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/views/index.ejs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="56" column="11" lean-forward="true" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
+                <state relative-caret-position="330">
+                  <caret line="52" column="12" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="52" selection-end-column="12" />
                   <folding>
-                    <marker date="1509515928714" expanded="true" signature="3223:3229" ph=" " />
+                    <marker date="1509613674276" expanded="false" signature="3125:3137" ph="..." />
+                    <marker date="1509613674276" expanded="false" signature="17174:17186" ph="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
+          <file leaf-file-name="ad-buy.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/admin/script/ad-buy.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="334">
-                  <caret line="203" column="91" lean-forward="false" selection-start-line="203" selection-start-column="31" selection-end-line="203" selection-end-column="91" />
+                <state relative-caret-position="230">
+                  <caret line="165" column="65" lean-forward="true" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
                   <folding>
-                    <marker date="1509519366574" expanded="true" signature="8765:8771" ph=" " />
-                    <marker date="1509519366574" expanded="true" signature="12733:12739" ph=" " />
-                    <marker date="1509519366574" expanded="true" signature="13040:13046" ph=" " />
-                    <marker date="1509519366574" expanded="true" signature="16406:16412" ph=" " />
+                    <marker date="1509700115459" expanded="true" signature="785:791" ph=" " />
+                    <marker date="1509700115459" expanded="true" signature="791:797" ph=" " />
                   </folding>
                 </state>
               </provider>
@@ -104,7 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>url</find>
       <find>bid</find>
       <find>news</find>
       <find>tab-item</find>
@@ -134,6 +129,7 @@
       <find>like</find>
       <find>verify</find>
       <find>edit</find>
+      <find>getBidList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,7 +159,6 @@
         <option value="$PROJECT_DIR$/public/script/index.js" />
         <option value="$PROJECT_DIR$/views/admin/gov-column.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/gov-column.js" />
-        <option value="$PROJECT_DIR$/public/css/main.css" />
         <option value="$PROJECT_DIR$/public/css/test.json" />
         <option value="$PROJECT_DIR$/routes/admin.js" />
         <option value="$PROJECT_DIR$/public/admin/script/fileupload/jquery.fileupload.min.js" />
@@ -177,13 +172,14 @@
         <option value="$PROJECT_DIR$/views/admin/ad-default.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/public-func.js" />
         <option value="$PROJECT_DIR$/views/admin/ad.ejs" />
-        <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/public/script/get-data.js" />
         <option value="$PROJECT_DIR$/public/admin/script/ad-default.js" />
         <option value="$PROJECT_DIR$/public/admin/script/ad.js" />
-        <option value="$PROJECT_DIR$/views/admin/ad-buy.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/index.js" />
         <option value="$PROJECT_DIR$/public/admin/script/gov.js" />
+        <option value="$PROJECT_DIR$/public/css/main.css" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
+        <option value="$PROJECT_DIR$/public/script/get-data.js" />
+        <option value="$PROJECT_DIR$/views/admin/ad-buy.ejs" />
         <option value="$PROJECT_DIR$/public/admin/script/ad-buy.js" />
       </list>
     </option>
@@ -200,10 +196,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="79" />
-    <option name="y" value="19" />
-    <option name="width" value="1352" />
-    <option name="height" value="829" />
+    <option name="x" value="411" />
+    <option name="y" value="62" />
+    <option name="width" value="1002" />
+    <option name="height" value="651" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -457,7 +453,7 @@
       <workItem from="1507769786353" duration="35739000" />
       <workItem from="1508114849105" duration="101893000" />
       <workItem from="1508720378480" duration="63919000" />
-      <workItem from="1509324790961" duration="46388000" />
+      <workItem from="1509324790961" duration="80465000" />
     </task>
     <task id="LOCAL-00001" summary="角色管理添加function">
       <created>1505465567244</created>
@@ -662,24 +658,31 @@
       <option name="project" value="LOCAL" />
       <updated>1509441080927</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="修改">
+      <created>1509526850920</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1509526850920</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="560802000" />
+    <option name="totallyTimeSpent" value="594879000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="79" y="19" width="1352" height="829" extended-state="0" />
+    <frame x="411" y="62" width="1002" height="651" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30321592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2387597" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14414415" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22745901" sideWeight="0.496875" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -721,13 +724,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/admin/script/user-character.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6923">
-          <caret line="301" column="33" lean-forward="false" selection-start-line="301" selection-start-column="33" selection-end-line="301" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/user-manage.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
@@ -899,14 +895,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/test.json" />
-    <entry file="file://$PROJECT_DIR$/public/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="231" column="40" lean-forward="true" selection-start-line="231" selection-start-column="40" selection-end-line="231" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -1011,95 +999,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="1114" column="39" lean-forward="true" selection-start-line="1114" selection-start-column="39" selection-end-line="1114" selection-end-column="39" />
-          <folding>
-            <marker date="1509499018091" expanded="true" signature="12414:12420" ph=" " />
-            <marker date="1509499018091" expanded="true" signature="13045:13057" ph="..." />
-            <marker date="1509499018091" expanded="true" signature="14138:14144" ph=" " />
-            <marker date="1509499018091" expanded="true" signature="20689:20695" ph=" " />
-            <marker date="1509499018091" expanded="true" signature="20953:20959" ph=" " />
-            <marker date="1509499018091" expanded="true" signature="24384:24396" ph="..." />
-            <marker date="1509499018091" expanded="true" signature="35723:35729" ph=" " />
-            <marker date="1509499018091" expanded="true" signature="46285:46297" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/ad-default.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/public-func.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="258" column="29" lean-forward="true" selection-start-line="258" selection-start-column="29" selection-end-line="258" selection-end-column="29" />
-          <folding>
-            <marker date="1509440891724" expanded="false" signature="3077:3089" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/ad-default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="84" column="1" lean-forward="true" selection-start-line="84" selection-start-column="1" selection-end-line="84" selection-end-column="1" />
-          <folding>
-            <marker date="1509505869152" expanded="true" signature="2065:2071" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/ad-buy.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="233" column="0" lean-forward="false" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="45" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/ad.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="56" column="11" lean-forward="true" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
-          <folding>
-            <marker date="1509515928714" expanded="true" signature="3223:3229" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="203" column="91" lean-forward="false" selection-start-line="203" selection-start-column="31" selection-end-line="203" selection-end-column="91" />
-          <folding>
-            <marker date="1509519366574" expanded="true" signature="8765:8771" ph=" " />
-            <marker date="1509519366574" expanded="true" signature="12733:12739" ph=" " />
-            <marker date="1509519366574" expanded="true" signature="13040:13046" ph=" " />
-            <marker date="1509519366574" expanded="true" signature="16406:16412" ph=" " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1113,21 +1017,125 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="191" column="48" lean-forward="true" selection-start-line="191" selection-start-column="48" selection-end-line="191" selection-end-column="48" />
+          <folding>
+            <marker date="1509519366574" expanded="true" signature="8765:8771" ph=" " />
+            <marker date="1509519366574" expanded="true" signature="12733:12739" ph=" " />
+            <marker date="1509519366574" expanded="true" signature="13040:13046" ph=" " />
+            <marker date="1509519366574" expanded="true" signature="16406:16412" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/ad.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="56" column="11" lean-forward="true" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
+          <folding>
+            <marker date="1509515928714" expanded="true" signature="3223:3229" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/inc/footer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="52" column="12" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="52" selection-end-column="12" />
+          <folding>
+            <marker date="1509613674276" expanded="false" signature="3125:3137" ph="..." />
+            <marker date="1509613674276" expanded="false" signature="17174:17186" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/ad.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="24" column="20" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        <state relative-caret-position="230">
+          <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/public-func.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-189">
+          <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="232" column="16" lean-forward="true" selection-start-line="232" selection-start-column="16" selection-end-line="232" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/script/get-data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="1066" column="57" lean-forward="false" selection-start-line="1066" selection-start-column="57" selection-end-line="1066" selection-end-column="57" />
+          <folding>
+            <marker date="1509673524364" expanded="true" signature="13617:13623" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="14361:14373" ph="..." />
+            <marker date="1509673524364" expanded="true" signature="16321:16327" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="22872:22878" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="23136:23142" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="26567:26579" ph="..." />
+            <marker date="1509673524364" expanded="true" signature="38678:38684" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="40450:40456" ph=" " />
+            <marker date="1509673524364" expanded="true" signature="51657:51669" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin/script/ad-default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="116" column="1" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="116" selection-end-column="1" />
+          <folding>
+            <marker date="1509505869152" expanded="true" signature="2065:2071" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/ad-default.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="743">
+          <caret line="61" column="8" lean-forward="true" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/ad-buy.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#2468#2498#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/admin/script/ad-buy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="17" column="54" lean-forward="true" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
+        <state relative-caret-position="230">
+          <caret line="165" column="65" lean-forward="true" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
           <folding>
-            <marker date="1509524279401" expanded="true" signature="785:791" ph=" " />
-            <marker date="1509524279401" expanded="true" signature="791:797" ph=" " />
+            <marker date="1509700115459" expanded="true" signature="785:791" ph=" " />
+            <marker date="1509700115459" expanded="true" signature="791:797" ph=" " />
           </folding>
         </state>
       </provider>

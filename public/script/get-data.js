@@ -1,9 +1,12 @@
+$('.infinite-scroll-preloader').css("display","none");
+
 //地理位置获取
 $(".page").find("header").find(".address").html("<a href='#selectCity' onclick='getCity()'>"+remote_ip_info.city+"</a>");
 
 $.ajax({
     url:"http://192.168.20.61:8000/manager-service/user/basic/city/list",
     type: 'post',
+    async:false,
     contentType: "application/json;charset=utf-8",
     crossDomain: true,
     headers:{"authorization":sessionStorage.authorization},
@@ -367,15 +370,17 @@ function getChannel(){
         success: function (data) {
 			if(data.success){
 				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").remove();
-				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide active external" onclick="getNews(this)">推荐</a>');
+				$(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide active external" onclick="getNews(this,1)">推荐</a>');
+                $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().attr("data-channelType","RECOMMEND");
 
-                $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide external" onclick="getNews(this,\'LOCAL\','+$(".page").eq(0).find("header").find("button").attr("data-cityId")+')">本地</a>');
+                $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide external" onclick="getNews(this,1,\'LOCAL\','+$(".page").eq(0).find("header").find("button").attr("data-cityId")+')">本地</a>');
+                $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().attr("data-channelType","LOCAL").attr("data-channel",$(".page").eq(0).find("header").find("button").attr("data-cityId"));
 
 				for(var i=0;i<data.data.length;i++){
 					if(data.data[i].channelType=="SUBJECT"){
                         $(".page").eq(0).find("#swiper-index").find(".buttons-tab").append('<a href="" class="tab-link button swiper-slide external"></a>');
                         $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().text(data.data[i].channelName);
-                        $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().attr("onclick","getNews(this,'"+data.data[i].channelType+"',"+data.data[i].channelId+")");
+                        $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").last().attr("onclick","getNews(this,1,'"+data.data[i].channelType+"',"+data.data[i].channelId+")").attr("data-channelType",data.data[i].channelType).attr("data-channel",data.data[i].channelId);
 					}
 				}
                 $.router.load("#index");
@@ -387,20 +392,30 @@ function getChannel(){
     })
 }
 getChannel();
-getNews();
-function getNews(thiz,channelType,channelId){
-	var a={condition:{"channelType":"RECOMMEND"},pageNum:0,pageSize:0};
-	if(channelType){
-		a.condition.channelType=channelType;
-	}
-	if(channelId){
-		a.condition.channelId=channelId
-	}
-	if(thiz){
+
+//无限滚动；
+//加载flag
+var loading = false;
+// 最多可加载的页数
+var maxPage = 1;
+// 上次加载的页码
+var lastIndex = 1;
+
+var infiniteNum=0;
+function getNews(thiz,pageNum,channelType,channelId){
+	pageNum=pageNum?pageNum:1;
+    var a={condition:{"channelType":"RECOMMEND"},pageNum:pageNum,pageSize:20};
+    if(channelType){
+        a.condition.channelType=channelType;
+    }
+    if(channelId){
+        a.condition.channelId=channelId
+    }
+    if(thiz){
         $(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a").removeClass("active");
         $(thiz).addClass("active");
-	}
-	$.ajax({
+    }
+    $.ajax({
         url: newsBaseUrl + "/user/news/channel/page",
         type: 'post',
         contentType: "application/json;charset=utf-8",
@@ -408,31 +423,71 @@ function getNews(thiz,channelType,channelId){
         headers:{"authorization":sessionStorage.authorization},
         data: JSON.stringify(a),
         dataType: 'json',
-		success:function(data){
-			if(data.success){
-				$(".page").eq(0).find(".tabs").find("ul").find("li").remove();
-				for(var i=0;i<data.data.list.length;i++){
+        success:function(data){
+            if(data.success){
+            	if(pageNum==1){
+                    $(".page").eq(0).find(".tabs").find("ul").find("li").remove();
+                    if(infiniteNum>0){
+                        $.attachInfiniteScroll($('.infinite-scroll'));
+					}
+                    infiniteNum=1;
+                    $('.infinite-scroll-preloader').css("display","");
+				}
+				if(data.data.total==0){
+                    $('.infinite-scroll-preloader').css("display","none");
+				}
+                maxPage=data.data.pages;
+                lastIndex=data.data.pageNum+1;
+                for(var i=0;i<data.data.list.length;i++){
                     $(".page").eq(0).find(".tabs").find("ul").append("<li></li>");
                     $(".page").eq(0).find(".tabs").find("ul").find("li").last().append('<a class="item-link item-content" href="#index-detail" onclick="turn('+data.data.list[i].newsId+')"></a>');
                     $(".page").eq(0).find(".tabs").find('ul').find('a').last().append('<div class="item-inner"><div class="item-title-row"><div class="item-title">'+data.data.list[i].title+'</div></div></div>');
                     if(data.data.list[i].newsTopYn){
                         $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="sui-label">置顶</div> &nbsp;<div class="types">'+(data.data.list[i].author==undefined?"":data.data.list[i].author)+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
-					}
-					else{
+                    }
+                    else{
                         $(".page").eq(0).find(".tabs").find("ul").find(".item-inner").last().append('<div class="item-content-row"><div class="types">'+data.data.list[i].author+'</div><div class="time">'+data.data.list[i].ctime+'</div><div class="clearfix"></div></div>');
-					}
+                    }
+                    if(data.data.list[i].images){
+                        $(".page").eq(0).find(".tabs").find("ul").find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>');
+                    }
 
-					$(".page").eq(0).find(".tabs").find("ul").find('a').last().append('<div class="item-media"><img src="'+data.data.list[i].images+'" style="width: 5rem;"></div>')
+                }
+                loading=false;
+            }
+        },
+        error:function(error){
+            loading=false;
+        }
+    })
+};
+// 注册'infinite'事件处理函数
 
-				}
-			}
-		},
-		error:function(error){
+$(document).on('infinite', function(){
 
-		}
-	})
-}
+    // 如果正在加载，则退出
+    if (loading) return;
 
+    // 重置加载flag
+    loading = true;
+
+    if (lastIndex >maxPage) {
+        // 加载完毕，则注销无限加载事件，以防不必要的加载
+        $.detachInfiniteScroll($('.infinite-scroll'));
+        // 删除加载提示符
+        $('.infinite-scroll-preloader').css("display","none");
+        return;
+    }
+    var ele_a=$(".page").eq(0).find("#swiper-index").find(".buttons-tab").find("a.active");
+    // 添加新条目
+    getNews(ele_a,lastIndex,ele_a.attr("data-channelType"),ele_a.attr("data-channel"));
+
+    //容器发生改变,如果是js滚动，需要刷新滚动
+    $.refreshScroller();
+});
+
+getNews();
+// $(document).on('infinite', infiniteFun());
 function turn(newsId) {
 	$.ajax({
 		url:newsBaseUrl+"/user/news/get",
@@ -444,7 +499,7 @@ function turn(newsId) {
 		success:function (data) {
 			if(data.success){
 				$("#index-detail").attr("data-newsId",data.data.newsId);
-				$("#index-detail").find("header").find("h1").text(data.data.title);
+				$("#index-detail").find("header").find("h1").text((data.data.title.length>20?(data.data.title.substring(0,18)+"..."):data.data.title));
 				$("#index-detail").find(".content").find(".detail-title").text(data.data.title);
 				$("#index-detail").find(".content").find(".info span").eq(0).text(data.data.author);
                 $("#index-detail").find(".content").find(".info span").eq(1).text(data.data.vtime);
@@ -908,7 +963,7 @@ function getBidChannel(){
                 if(data.data[0].bidSubjectViews.length>0){
                 	for(var i=0;i<data.data[0].bidSubjectViews.length;i++){
                         $("#goverment .content .tabs .buttons-row").append("<a class='tab-link button'>"+data.data[0].bidSubjectViews[i].name+"</a>");
-                        $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[0].bidSubjectViews[i].bidSubjectId+")");
+                        $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[0].bidSubjectViews[i].bidSubjectId+")").attr("data-pidSubjectId",data.data[0].bidSubjectId);
 					}
                     $("#goverment .content .tabs .buttons-row").find("a").first().addClass("active");
 					getBidByTab($("#goverment .content .tabs .buttons-row").find("a").first(),data.data[0].bidSubjectViews[0].bidSubjectId)
@@ -943,15 +998,15 @@ function getBid(thiz,id){
                         if(data.data[i].bidSubjectViews.length>0){
                             for(var i2=0;i2<data.data[i].bidSubjectViews.length;i2++){
                                 $("#goverment .content .tabs .buttons-row").append("<a class='tab-link button'>"+data.data[i].bidSubjectViews[i2].name+"</a>");
-                                $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[i].bidSubjectViews[i2].bidSubjectId+")");
+                                $("#goverment .content .tabs .buttons-row").find("a").last().attr("onclick","getBidByTab(this,"+data.data[i].bidSubjectViews[i2].bidSubjectId+")").attr("data-pidSubjectId",data.data[i].bidSubjectId);
                             }
                             var a={"condition":{"subjectId":data.data[i].bidSubjectViews[0].bidSubjectId},"pageNum":0,"pageSize":0};
-                            getBidList(JSON.stringify(a));
+                            getBidList(1,JSON.stringify(a),data.data[i].bidSubjectId);
                             $("#goverment .content .tabs .buttons-row").find("a").first().addClass("active");
 							break;
                         }else{
                             var a={"condition":{"subjectId":data.data[i].bidSubjectId},"pageNum":0,"pageSize":0};
-                            getBidList(JSON.stringify(a));
+                            getBidList(1,JSON.stringify(a),data.data[i].bidSubjectViews);
 						}
 					}
 				}
@@ -970,11 +1025,12 @@ function getBidByTab(thiz,id){
     $("#goverment .content .tabs .buttons-row").find(".active").removeClass("active");
     $(thiz).addClass("active");
     var a={condition:{"subjectId":id},pageNum:0,pageSize:0};
-    getBidList(JSON.stringify(a));
+    getBidList(1,JSON.stringify(a),$(thiz).attr("data-pidSubjectId"));
 }
-function getBidList(data){
+function getBidList(pageNum,data,pidSubjectId){
+    $.showPreloader();
 	if(!data) {
-        data =JSON.stringify({"pageNum": 0, "pageSize": 0}) ;
+        data =JSON.stringify({"pageNum": pageNum, "pageSize": 0}) ;
     }
     $.ajax({
         url: bidBaseUrl + "/user/bid/subject/page",
@@ -987,7 +1043,23 @@ function getBidList(data){
         success: function (data) {
             if(data.success){
             	var ele=$("#goverment .content .list-block ul");
-            	ele.find("li").remove();
+            	if(pageNum==1){
+                    ele.find("li").remove();
+                    if(data.data.total>20){
+                        if(infiniteNum>0){
+                            $.attachInfiniteScroll($('.infinite-scroll'));
+                        }
+                        infiniteNum=1;
+                        $('.infinite-scroll-preloader').css("display","");
+					}
+					else{
+                        $('.infinite-scroll-preloader').css("display","none");
+					}
+
+				}
+
+				lastIndex=data.data.pageNum+1;
+            	maxPage=data.data.pages;
                 for(var i=0;i<data.data.list.length;i++){
 					ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
 					ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
@@ -998,13 +1070,50 @@ function getBidList(data){
                         ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>");
 					}
                 }
+                $.hidePreloader();
+                // $.ajax({
+                 //    url: bidBaseUrl + "/user/bid/subject/page",
+                 //    type: 'post',
+                 //    contentType: "application/json;charset=utf-8",
+                 //    crossDomain: true,
+                 //    headers: {"authorization": sessionStorage.authorization},
+                 //    data:JSON.stringify({condition:{subjectId:pidSubjectId},pageNum:0,pageSize:0}),
+                 //    dataType: 'json',
+                 //    success: function (data) {
+                 //    	if(data.success){
+                 //            for(var i=0;i<data.data.list.length;i++){
+                 //                ele.append("<li><a class='item-link item-content' onclick='getBidDetail("+data.data.list[i].bidId+")'><div class='item-inner'></div></a></li>")
+                 //                ele.find("li .item-inner").last().append("<div class='item-title-row'><div class='item-title'>"+data.data.list[i].title+"</div></div></div>");
+                 //                if(data.data.list[i].bidTopSubjectView){
+                 //                    ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='sui-label'>置顶</div> &nbsp;<div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>");
+                 //                }
+                 //                else{
+                 //                    ele.find("li .item-inner").last().append("<div class='item-content-row'><div class='types'>"+(data.data.list[i].sourceSite==undefined?"":data.data.list[i].sourceSite)+"</div><div class='time'>"+data.data.list[i].ctime+"</div><div class='clearfix'></div></div>");
+                 //                }
+                 //            }
+                 //            $.hidePreloader();
+				// 		}
+				// 		else{
+                 //            $.hidePreloader();
+                 //    		alert(data.errorMsg);
+                //
+				// 		}
+				// 	},
+				// 	error:function(error){
+                 //        $.hidePreloader();
+                 //    	alert("数据获取失败，请重试！");
+				// 	}
+				// })
             }
             else{
+                $.hidePreloader();
                 $.alert(data.errorMsg);
+
             }
         },
         error:function (error) {
-
+            $.hidePreloader();
+            alert("数据获取失败，请重试！");
         }
     })
 
@@ -1023,7 +1132,7 @@ function getBidDetail(id){
 			if(data.success){
 				$.router.load("#gov-detail");
                 $("#gov-detail").attr("data-bidId",data.data.bidId);
-                $("#gov-detail").find("header").find("h1").text(data.data.title);
+                $("#gov-detail").find("header").find("h1").text((data.data.title.length>18?(data.data.title.substring(0,16)+"..."):data.data.title));
                 $("#gov-detail").find(".content").find(".detail-title").text(data.data.title);
                 $("#gov-detail").find(".content").find(".info span").eq(0).text(data.data.author);
                 $("#gov-detail").find(".content").find(".info span").eq(1).text(data.data.vtime);
@@ -1259,59 +1368,4 @@ function getUserData(){
 		getFavorGov();
 	}
 }
-//下拉刷新；
-//加载flag
-// var loading = false;
-// // 最多可加载的条目
-// var maxItems = 100;
-//
-// // 每次加载添加多少条目
-// var itemsPerLoad = 20;
-//
-// function addItems(number, lastIndex) {
-//     // 生成新条目的HTML
-//     var html = '';
-//     for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-//         html += '<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
-//     }
-//     // 添加新条目
-//     $('.infinite-scroll-bottom .list-container').append(html);
-//
-// }
-// //预先加载20条
-// addItems(itemsPerLoad, 0);
-//
-// // 上次加载的序号
-//
-// var lastIndex = 20;
-//
-// // 注册'infinite'事件处理函数
-// $(document).on('infinite', function () {
-//     // 如果正在加载，则退出
-//     if (loading) return;
-//
-//     // 设置flag
-//     loading = true;
-//
-//     // 模拟1s的加载过程
-//     setTimeout(function() {
-//         // 重置加载flag
-//         loading = false;
-//
-//         if (lastIndex >= maxItems) {
-//             // 加载完毕，则注销无限加载事件，以防不必要的加载
-//             $.detachInfiniteScroll($('.infinite-scroll'));
-//             // 删除加载提示符
-//             $('.infinite-scroll-preloader').remove();
-//             return;
-//         }
-//
-//         // 添加新条目
-//         addItems(itemsPerLoad, lastIndex);
-//         // 更新最后加载的序号
-//         lastIndex = $('.list-container li').length;
-//         //容器发生改变,如果是js滚动，需要刷新滚动
-//         $.refreshScroller();
-//     }, 1000);
-// });
-// $.init();
+

@@ -234,3 +234,6 @@ nav.bar {
     background-color: #ff5720;
     color: white;
 }
+.detail-content img{
+    width:100%;
+}
